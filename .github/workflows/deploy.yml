@@ -16,8 +16,14 @@ jobs:
   build-and-deploy:
     runs-on: ubuntu-latest
     steps:
-      - name: Checkout
+      - name: Checkout cks-website
         uses: actions/checkout@v4
+
+      - name: Checkout cks-studio
+        uses: actions/checkout@v4
+        with:
+          repository: Deus-corp/cks-studio
+          path: cks-studio
 
       - name: Setup Node
         uses: actions/setup-node@v4
@@ -25,10 +31,21 @@ jobs:
           node-version: 22
           cache: npm
 
-      - name: Install dependencies
+      - name: Install website dependencies
         run: npm ci
 
-      - name: Build site
+      - name: Build cks-studio demo
+        working-directory: cks-studio
+        run: |
+          npm ci
+          npx vite build --base=/cks-website/demo/
+
+      - name: Copy demo into public/
+        run: |
+          mkdir -p public/demo
+          cp -r cks-studio/dist/* public/demo/
+
+      - name: Build website
         run: npm run build
 
       - name: Deploy to gh-pages
