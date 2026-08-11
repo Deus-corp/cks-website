@@ -1,7 +1,181 @@
-/* Custom overrides for the CKS documentation site. */
+/* ==========================================================================
+   CKS Documentation — design system
+   --------------------------------------------------------------------------
+   Subject: a canonical, immutable, provenance-signed knowledge layer.
+   The identity leans on that directly — an "amber seal" accent (a wax-seal /
+   verification mark, not a decorative gradient) on a graphite ground, with
+   the same type pairing cks-studio already ships (JetBrains Mono +
+   Manrope), so the docs site and the interactive demo read as one product
+   instead of two skins bolted together.
+   ========================================================================== */
+
+@import url('https://fontsource.org/fonts/manrope/font?vf=true') layer(base);
 
 :root {
-	--sl-color-accent-low: #211048;
-	--sl-color-accent: #8b5cf6;
-	--sl-color-accent-high: #d7c3ff;
+	/* -- Palette --------------------------------------------------------- */
+	/* Ink: the canonical ground. Seal: the verification / provenance mark.
+	   Slate: structure & rules. All derived from the CKS "signed, stable
+	   knowledge" idea rather than a generic purple-on-white default. */
+	--cks-ink: #0b0e14;
+	--cks-ink-raised: #12161f;
+	--cks-seal: #e8a33d;
+	--cks-seal-dim: #a66f1f;
+	--cks-slate: #7c8798;
+
+	--sl-color-accent-low: #2b2109;
+	--sl-color-accent: var(--cks-seal);
+	--sl-color-accent-high: #f6d9a3;
+
+	--sl-font: 'Manrope', system-ui, sans-serif;
+	--sl-font-mono: 'JetBrains Mono', ui-monospace, 'SFMono-Regular', Menlo, monospace;
+}
+
+:root[data-theme='dark'] {
+	--sl-color-bg: var(--cks-ink);
+	--sl-color-bg-nav: var(--cks-ink);
+	--sl-color-bg-sidebar: var(--cks-ink);
+	--sl-color-black: var(--cks-ink);
+	--sl-color-gray-6: var(--cks-ink-raised);
+	--sl-color-gray-5: #1b212c;
+	--sl-color-hairline: #232a37;
+	--sl-color-hairline-light: #232a37;
+}
+
+/* -- Typography ------------------------------------------------------------ */
+
+h1,
+h2,
+h3,
+h4 {
+	font-weight: 800;
+	letter-spacing: -0.01em;
+}
+
+code,
+pre,
+kbd {
+	font-family: var(--sl-font-mono);
+}
+
+/* Inline code gets the seal treatment: quiet, but unmistakably "verified
+   token" rather than a plain gray pill. */
+.sl-markdown-content :not(pre) > code {
+	background: color-mix(in srgb, var(--cks-seal) 12%, transparent);
+	color: var(--cks-seal);
+	border: 1px solid color-mix(in srgb, var(--cks-seal) 25%, transparent);
+	border-radius: 4px;
+	padding: 0.1em 0.4em;
+}
+
+/* Code blocks (used constantly here for ASCII architecture diagrams and
+   spec examples) get a slightly raised, bordered panel instead of the
+   default flat block, so they read as artifacts, not paragraphs. */
+.sl-markdown-content pre {
+	background: var(--cks-ink-raised) !important;
+	border: 1px solid var(--sl-color-hairline);
+	border-left: 3px solid var(--cks-seal-dim);
+	border-radius: 6px;
+}
+
+/* -- Links ------------------------------------------------------------- */
+
+.sl-markdown-content a:not(:where(.card, .not-content *)) {
+	text-decoration-color: color-mix(in srgb, var(--cks-seal) 45%, transparent);
+	text-underline-offset: 3px;
+	transition: text-decoration-color 0.15s ease, color 0.15s ease;
+}
+
+.sl-markdown-content a:not(:where(.card, .not-content *)):hover {
+	text-decoration-color: var(--cks-seal);
+}
+
+/* -- Sidebar ------------------------------------------------------------ */
+
+/* Top-level group labels (Case Studies, Components, cks-core, ...) become
+   quiet monospace eyebrows with tracking — the same voice as an ADR
+   number or a CLI flag, which is the actual register of this project. */
+starlight-sidebar-group-toggle,
+.sidebar-content > ul > li > .group-label {
+	font-family: var(--sl-font-mono);
+	font-size: 0.72rem;
+	letter-spacing: 0.06em;
+	text-transform: uppercase;
+	color: var(--cks-slate);
+}
+
+.sidebar-content a[aria-current='page'] {
+	color: var(--cks-seal-dim);
+	background: color-mix(in srgb, var(--cks-seal) 10%, transparent);
+	font-weight: 600;
+}
+
+/* -- Tables -------------------------------------------------------------- */
+/* This site leans heavily on tables (project index, capability matrices,
+   version numbers) — give them clearer rules and a mono column for
+   version/status cells so they scan like a changelog, not prose. */
+
+.sl-markdown-content table {
+	border: 1px solid var(--sl-color-hairline);
+	border-radius: 6px;
+	overflow: hidden;
+}
+
+.sl-markdown-content th {
+	background: var(--cks-ink-raised);
+	font-family: var(--sl-font-mono);
+	font-size: 0.78rem;
+	letter-spacing: 0.04em;
+	text-transform: uppercase;
+	color: var(--cks-slate);
+}
+
+.sl-markdown-content td:last-child,
+.sl-markdown-content th:last-child {
+	font-family: var(--sl-font-mono);
+	font-size: 0.85em;
+}
+
+/* -- Demo CTA ------------------------------------------------------------- */
+/* Shared class for the "Open Demo" button used on the Demo page, styled
+   as a seal/stamp rather than a generic filled button. */
+
+.cks-cta {
+	display: inline-flex;
+	align-items: center;
+	gap: 0.5rem;
+	padding: 0.65rem 1.3rem;
+	border-radius: 999px;
+	background: var(--cks-seal);
+	color: var(--cks-ink);
+	font-weight: 700;
+	font-family: var(--sl-font-mono);
+	font-size: 0.85rem;
+	letter-spacing: 0.02em;
+	text-decoration: none;
+	transition: transform 0.15s ease, box-shadow 0.15s ease;
+}
+
+.cks-cta:hover {
+	transform: translateY(-1px);
+	box-shadow: 0 6px 20px color-mix(in srgb, var(--cks-seal) 35%, transparent);
+}
+
+.cks-demo-frame {
+	border: 1px solid var(--sl-color-hairline);
+	border-radius: 10px;
+	margin-top: 1.5rem;
+	overflow: hidden;
+}
+
+.cks-demo-frame iframe {
+	display: block;
+	border: none;
+	width: 100%;
+	height: 800px;
+}
+
+@media (prefers-reduced-motion: reduce) {
+	.cks-cta {
+		transition: none;
+	}
 }

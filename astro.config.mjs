@@ -33,9 +33,18 @@ export default defineConfig({
 				{
 					label: 'Components',
 					items: [
-						{ label: 'cks-core', link: '/cks-core/' },
-						{ label: 'cks-runtime', link: '/cks-runtime/' },
-						{ label: 'cks-mcp', link: '/cks-mcp/' },
+						{
+							label: 'cks-core',
+							items: [{ autogenerate: { directory: 'cks-core' } }],
+						},
+						{
+							label: 'cks-runtime',
+							items: [{ autogenerate: { directory: 'cks-runtime' } }],
+						},
+						{
+							label: 'cks-mcp',
+							items: [{ autogenerate: { directory: 'cks-mcp' } }],
+						},
 						{
 							label: 'cks-studio',
 							items: [{ autogenerate: { directory: 'cks-studio' } }],
