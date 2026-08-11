@@ -29,7 +29,11 @@ export default defineConfig({
 				{
 					label: 'Case Studies',
 					collapsed: true,
-					items: [{ autogenerate: { directory: 'case-studies' } }],
+					items: [
+						{
+							autogenerate: { directory: 'case-studies', collapsed: true },
+						},
+					],
 				},
 				{
 					label: 'Components',
@@ -38,22 +42,38 @@ export default defineConfig({
 						{
 							label: 'cks-core',
 							collapsed: true,
-							items: [{ autogenerate: { directory: 'cks-core' } }],
+							items: [
+								{
+									autogenerate: { directory: 'cks-core', collapsed: true },
+								},
+							],
 						},
 						{
 							label: 'cks-runtime',
 							collapsed: true,
-							items: [{ autogenerate: { directory: 'cks-runtime' } }],
+							items: [
+								{
+									autogenerate: { directory: 'cks-runtime', collapsed: true },
+								},
+							],
 						},
 						{
 							label: 'cks-mcp',
 							collapsed: true,
-							items: [{ autogenerate: { directory: 'cks-mcp' } }],
+							items: [
+								{
+									autogenerate: { directory: 'cks-mcp', collapsed: true },
+								},
+							],
 						},
 						{
 							label: 'cks-studio',
 							collapsed: true,
-							items: [{ autogenerate: { directory: 'cks-studio' } }],
+							items: [
+								{
+									autogenerate: { directory: 'cks-studio', collapsed: true },
+								},
+							],
 						},
 					],
 				},
