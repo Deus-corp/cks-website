@@ -44,6 +44,8 @@ jobs:
         run: |
           mkdir -p public/demo
           cp -r cks-studio/dist/* public/demo/
+          # Remove files that conflict with Starlight or are not needed in the demo
+          rm -f public/demo/index.html public/demo/manifest.webmanifest
 
       - name: Build website
         run: npm run build
