@@ -1,1 +1,0 @@
-if('serviceWorker' in navigator) {window.addEventListener('load', () => {navigator.serviceWorker.register('/cks-website/demo/sw.js', { scope: '/cks-website/demo/' })})}
