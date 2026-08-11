@@ -1,3 +1,8 @@
+---
+title: "ADR-011: `ai_chat` Tool"
+description: "ADR-011: `ai_chat` Tool"
+---
+
 # ADR-011: `ai_chat` Tool
 
 **Status:** Proposed

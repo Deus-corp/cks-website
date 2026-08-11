@@ -1,3 +1,8 @@
+---
+title: "Case Study: Automatic CRDT Fork Resolution with Fork Agent"
+description: "Case Study: Automatic CRDT Fork Resolution with Fork Agent"
+---
+
 # Case Study: Automatic CRDT Fork Resolution with Fork Agent
 
 **Problem:** When two replicas of cks-mcp concurrently modify the same

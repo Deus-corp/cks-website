@@ -1,3 +1,8 @@
+---
+title: "ADR-002"
+description: "ADR-002"
+---
+
 # ADR-002
 
 # Provenance via HMAC Signing

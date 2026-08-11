@@ -1,3 +1,8 @@
+---
+title: "Canonical Knowledge Structure (CKS)"
+description: "Canonical Knowledge Structure (CKS)"
+---
+
 # Canonical Knowledge Structure (CKS)
 
 > **A universal, representation-independent semantic foundation for knowledge.**

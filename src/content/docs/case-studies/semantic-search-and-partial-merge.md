@@ -1,3 +1,8 @@
+---
+title: "Case Study: Semantic Search and Partial Merge"
+description: "Case Study: Semantic Search and Partial Merge"
+---
+
 # Case Study: Semantic Search and Partial Merge
 
 **Problem:** Managing a knowledge graph with multiple contributors leads to

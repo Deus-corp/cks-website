@@ -1,3 +1,8 @@
+---
+title: "Case Study: Ontology Validation and Graph Visualization"
+description: "Case Study: Ontology Validation and Graph Visualization"
+---
+
 # Case Study: Ontology Validation and Graph Visualization
 
 **Problem:** A knowledge graph about astronomy can silently accept nonsensical

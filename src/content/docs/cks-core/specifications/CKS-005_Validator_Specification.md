@@ -1,3 +1,8 @@
+---
+title: "Part I — Normative Validator Model"
+description: "Part I — Normative Validator Model"
+---
+
 # Part I — Normative Validator Model
 
 # Introduction

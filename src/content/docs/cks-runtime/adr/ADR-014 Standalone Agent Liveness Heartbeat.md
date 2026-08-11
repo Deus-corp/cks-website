@@ -1,3 +1,8 @@
+---
+title: "ADR-014: Standalone Agent Liveness Heartbeat"
+description: "ADR-014: Standalone Agent Liveness Heartbeat"
+---
+
 # ADR-014: Standalone Agent Liveness Heartbeat
 
 **Status:** Proposed

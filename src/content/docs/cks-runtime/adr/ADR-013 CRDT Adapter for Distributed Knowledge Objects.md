@@ -1,3 +1,8 @@
+---
+title: "ADR-013"
+description: "ADR-013"
+---
+
 # ADR-013
 
 # CRDT Adapter for Distributed Knowledge Objects: G-Set + Merkle Tree (Stage 1)

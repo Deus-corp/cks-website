@@ -1,3 +1,8 @@
+---
+title: "Case Studies"
+description: "Case Studies"
+---
+
 # Case Studies
 
 Real-world scenarios that demonstrate how CKS prevents hallucinations,

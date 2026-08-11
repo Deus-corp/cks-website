@@ -1,3 +1,7 @@
+---
+title: "ADR-009"
+description: "ADR-009"
+---
 # ADR-009: Sweeper Control Tools (`start_agent` / `stop_agent`)
 
 **Status:** Proposed

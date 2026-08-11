@@ -1,3 +1,8 @@
+---
+title: "Examples"
+description: "Examples"
+---
+
 # Examples
 
 The CKS reference implementation includes a **Reference Corpus** of

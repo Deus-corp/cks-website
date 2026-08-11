@@ -1,3 +1,8 @@
+---
+title: "MCP Resources"
+description: "MCP Resources"
+---
+
 # MCP Resources
 
 Beyond its 24 tools, `cks-mcp` exposes every active session and its version

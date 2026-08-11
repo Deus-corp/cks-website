@@ -1,3 +1,8 @@
+---
+title: "Contracts"
+description: "Contracts"
+---
+
 # Contracts
 
 This document describes the formal contract that connects every major

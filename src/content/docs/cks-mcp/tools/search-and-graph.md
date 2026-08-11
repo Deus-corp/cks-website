@@ -1,3 +1,8 @@
+---
+title: "Graph Exploration  Visualization"
+description: "Graph Exploration  Visualization"
+---
+
 # Graph Exploration & Visualization
 
 Retrieving and rendering a neighbourhood of a Knowledge Structure, rather

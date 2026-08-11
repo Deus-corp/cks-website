@@ -1,3 +1,8 @@
+---
+title: "Security Model"
+description: "Security Model"
+---
+
 # Security Model
 
 `cks-mcp` sits at the boundary between an LLM and the rest of the CKS

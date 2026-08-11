@@ -1,3 +1,8 @@
+---
+title: "Case Study: Resolving a Reasoning Conflict with Inference Arbitration"
+description: "Case Study: Resolving a Reasoning Conflict with Inference Arbitration"
+---
+
 # Case Study: Resolving a Reasoning Conflict with Inference Arbitration
 
 **Problem:** Documentation and roadmaps drift over time. A project's

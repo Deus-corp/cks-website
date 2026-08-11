@@ -1,3 +1,8 @@
+---
+title: "ADR-002"
+description: "ADR-002"
+---
+
 # ADR-002
 
 # Belief Revision Support: Cascading Staleness and Entrenchment Ranking for InferenceStep

@@ -1,3 +1,8 @@
+---
+title: "Getting Started"
+description: "Getting Started"
+---
+
 # Getting Started
 
 Welcome to the **Canonical Knowledge Structure (CKS)** project.

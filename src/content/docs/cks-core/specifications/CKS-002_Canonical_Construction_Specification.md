@@ -1,3 +1,8 @@
+---
+title: "Purpose"
+description: "Purpose"
+---
+
 # Purpose
 
 ## Objective

@@ -1,3 +1,8 @@
+---
+title: "Case Study: Offline Semantic Search with Local Embeddings"
+description: "Case Study: Offline Semantic Search with Local Embeddings"
+---
+
 # Case Study: Offline Semantic Search with Local Embeddings
 
 **Problem:** Semantic search is a powerful tool for exploring a knowledge

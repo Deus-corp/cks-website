@@ -1,3 +1,8 @@
+---
+title: "ADR-012: Backup and Disaster Recovery"
+description: "ADR-012: Backup and Disaster Recovery"
+---
+
 # ADR-012: Backup and Disaster Recovery
 
 **Status:** Proposed

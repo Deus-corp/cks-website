@@ -1,3 +1,8 @@
+---
+title: "Architecture"
+description: "Architecture"
+---
+
 # Architecture
 
 This document describes the architecture of the Canonical Knowledge Structure (CKS) Python reference implementation.

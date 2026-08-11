@@ -1,3 +1,8 @@
+---
+title: "ADR-015"
+description: "ADR-015"
+---
+
 # ADR-015: Sweeper Control — Persistent Enable/Disable State and Concurrent-Caller Safety
 
 **Status:** Proposed

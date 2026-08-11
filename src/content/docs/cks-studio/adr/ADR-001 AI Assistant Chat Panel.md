@@ -1,3 +1,8 @@
+---
+title: "ADR-001: AI Assistant Chat Panel"
+description: "ADR-001: AI Assistant Chat Panel"
+---
+
 # ADR-001: AI Assistant Chat Panel
 
 **Status:** Proposed

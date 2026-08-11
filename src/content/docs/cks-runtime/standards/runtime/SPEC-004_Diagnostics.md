@@ -1,3 +1,8 @@
+---
+title: "SPEC-004"
+description: "SPEC-004"
+---
+
 # SPEC-004
 
 # Diagnostics

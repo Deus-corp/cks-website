@@ -1,3 +1,8 @@
+---
+title: "ADR-006"
+description: "ADR-006"
+---
+
 # ADR-006
 
 # Adapter Architecture

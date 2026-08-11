@@ -1,3 +1,8 @@
+---
+title: "ADR-008"
+description: "ADR-008"
+---
+
 # ADR-008
 
 # Gossip Replication for Distributed Runtime Nodes: Persistent Replica Identity and Operation-Log Exchange

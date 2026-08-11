@@ -1,3 +1,8 @@
+---
+title: "ADR-011: Temporal Staleness Detection"
+description: "ADR-011: Temporal Staleness Detection"
+---
+
 # ADR-011: Temporal Staleness Detection
 
 **Status:** Proposed

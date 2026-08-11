@@ -1,3 +1,8 @@
+---
+title: "Tools Reference"
+description: "Tools Reference"
+---
+
 # Tools Reference
 
 `cks-mcp` exposes **63 tools** over the Model Context Protocol. Every tool

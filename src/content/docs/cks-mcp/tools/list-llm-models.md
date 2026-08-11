@@ -1,3 +1,8 @@
+---
+title: "List LLM Models (`list_llm_models`)"
+description: "List LLM Models (`list_llm_models`)"
+---
+
 # List LLM Models (`list_llm_models`)
 
 Return the list of available models for the current LLM provider

@@ -1,0 +1,40 @@
+<!--
+	Override of Starlight's default ThemeProvider.
+	Only change from upstream: when no theme has been stored yet, default
+	to "dark" instead of following the OS `prefers-color-scheme`. Users can
+	still switch themes with the built-in selector; their choice is
+	persisted in localStorage as usual.
+-->
+<script is:inline>
+	window.StarlightThemeProvider = (() => {
+		const storageKey = 'starlight-theme';
+
+		const parseTheme = (theme) =>
+			theme === 'auto' || theme === 'dark' || theme === 'light' ? theme : undefined;
+
+		const loadTheme = () =>
+			(typeof localStorage !== 'undefined' && parseTheme(localStorage.getItem(storageKey))) || 'dark';
+
+		const storeTheme = (theme) => {
+			if (typeof localStorage !== 'undefined') {
+				localStorage.setItem(
+					storageKey,
+					theme === 'light' || theme === 'dark' ? theme : 'auto'
+				);
+			}
+		};
+
+		const onLoad = () => {
+			const theme = loadTheme();
+			document.documentElement.dataset.theme = theme === 'light' ? 'light' : 'dark';
+			window.document
+				.querySelectorAll('[data-theme-select]')
+				.forEach((el) => (el.value = theme));
+		};
+
+		window.addEventListener('storage', onLoad);
+		onLoad();
+
+		return { loadTheme, storeTheme, onLoad };
+	})();
+</script>

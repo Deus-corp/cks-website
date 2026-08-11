@@ -1,3 +1,8 @@
+---
+title: "Knowledge Lifecycle"
+description: "Knowledge Lifecycle"
+---
+
 # Knowledge Lifecycle
 
 The four core operations every other tool builds on top of. All four accept

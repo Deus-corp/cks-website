@@ -1,3 +1,8 @@
+---
+title: "Pipeline Agent (multi‑agent orchestration)"
+description: "Pipeline Agent (multi‑agent orchestration)"
+---
+
 # Pipeline Agent (multi‑agent orchestration)
 
 `cks-pipeline-agent` runs a configurable pipeline of `AgentStep`

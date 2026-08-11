@@ -1,4 +1,7 @@
-# Demo
+---
+title: Demo
+description: Explore the CKS ecosystem graph directly in your browser.
+---
 
 Explore the CKS ecosystem graph directly in your browser — no server, no
 installation.
@@ -9,7 +12,17 @@ client-side, loaded with a bundled snapshot of the ecosystem graph
 graph explorer, gallery, and pipeline monitor UI as the full studio, just
 without a live [cks-mcp](cks-mcp/index.md) server behind it.
 
-[Open the interactive demo &rarr;](studio-demo/demo.html){ .md-button .md-button--primary }
+<a href="/cks-website/demo/demo.html" target="_blank" rel="noopener" class="sl-flex" style="display:inline-block;padding:0.6rem 1.2rem;border-radius:8px;background:var(--sl-color-accent);color:#fff;font-weight:600;text-decoration:none;">
+	Open Demo &rarr;
+</a>
+
+<iframe
+	src="/cks-website/demo/demo.html"
+	width="100%"
+	height="800px"
+	style="border:none;border-radius:8px;margin-top:1.5rem;"
+	title="CKS Studio interactive demo"
+></iframe>
 
 ---
 
@@ -34,7 +47,8 @@ cks-mcp serve
 Then point [cks-studio](https://github.com/Deus-corp/cks-studio) at your
 local server and connect with a real session.
 
-!!! note "Source"
-    The demo page itself lives in the cks-studio repository at
-    `public/demo.html` / `src/demo.tsx`, built alongside the main studio
-    bundle and published here as a static file.
+:::note[Source]
+The demo page itself lives in the cks-studio repository at
+`public/demo.html` / `src/demo.tsx`, built alongside the main studio
+bundle and published here as a static file.
+:::

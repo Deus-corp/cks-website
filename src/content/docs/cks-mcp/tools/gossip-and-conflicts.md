@@ -1,3 +1,8 @@
+---
+title: "Gossip  Conflict Resolution"
+description: "Gossip  Conflict Resolution"
+---
+
 # Gossip & Conflict Resolution
 
 Tools for surfacing conflicts a background process found with no caller

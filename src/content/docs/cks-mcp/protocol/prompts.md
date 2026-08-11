@@ -1,3 +1,8 @@
+---
+title: "MCP Prompts"
+description: "MCP Prompts"
+---
+
 # MCP Prompts
 
 `cks-mcp` also exposes four **MCP Prompts** — ready-made workflow templates

@@ -1,3 +1,8 @@
+---
+title: "API Reference"
+description: "API Reference"
+---
+
 # API Reference
 
 This document describes the public API exposed by the Canonical Knowledge Structure (CKS) Python reference implementation.

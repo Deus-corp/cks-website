@@ -1,3 +1,8 @@
+---
+title: "Branching  Merging"
+description: "Branching  Merging"
+---
+
 # Branching & Merging
 
 Tools for isolating an experiment from a session's main line, and later

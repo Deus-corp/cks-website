@@ -1,3 +1,8 @@
+---
+title: "ADR-007"
+description: "ADR-007"
+---
+
 # ADR-007
 
 # Concurrent Multi-Agent Writes: Operation Log and Version Vectors

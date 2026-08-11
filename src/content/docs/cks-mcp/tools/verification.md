@@ -1,3 +1,8 @@
+---
+title: "Verification  Integrity"
+description: "Verification  Integrity"
+---
+
 # Verification & Integrity
 
 The two tools behind `cks-mcp`'s anti-hallucination guarantees. See

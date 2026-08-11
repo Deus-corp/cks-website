@@ -1,3 +1,8 @@
+---
+title: "ADR-010: Proactive Provenance Staleness Detection"
+description: "ADR-010: Proactive Provenance Staleness Detection"
+---
+
 # ADR-010: Proactive Provenance Staleness Detection
 
 **Status:** Proposed

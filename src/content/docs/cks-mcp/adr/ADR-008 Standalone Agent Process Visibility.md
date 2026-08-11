@@ -1,3 +1,8 @@
+---
+title: "ADR-008"
+description: "ADR-008"
+---
+
 # ADR-008: Standalone Agent Process Visibility (`list_processes` / `process_status`)
 
 **Status:** Proposed

@@ -1,3 +1,8 @@
+---
+title: "Knowledge Objects"
+description: "Knowledge Objects"
+---
+
 # Knowledge Objects
 
 ## Purpose

@@ -1,3 +1,8 @@
+---
+title: "SPEC-009"
+description: "SPEC-009"
+---
+
 # SPEC-009
 
 # Gossip Replication

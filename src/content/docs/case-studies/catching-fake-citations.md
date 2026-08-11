@@ -1,3 +1,8 @@
+---
+title: "Case Study: Catching Fake Citations"
+description: "Case Study: Catching Fake Citations"
+---
+
 # Case Study: Catching Fake Citations
 
 **Problem:** LLMs can produce plausible-looking citations that reference

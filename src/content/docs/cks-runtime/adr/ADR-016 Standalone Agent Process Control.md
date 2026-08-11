@@ -1,3 +1,8 @@
+---
+title: "ADR-016: Standalone Agent Process Control — `desired_state` Signal on `cks_agent_liveness`"
+description: "ADR-016: Standalone Agent Process Control — `desired_state` Signal on `cks_agent_liveness`"
+---
+
 # ADR-016: Standalone Agent Process Control — `desired_state` Signal on `cks_agent_liveness`
 
 **Status:** Proposed

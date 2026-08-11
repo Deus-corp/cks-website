@@ -1,3 +1,8 @@
+---
+title: "Case Study: Contradiction Detection and Hypothesis Sandboxing"
+description: "Case Study: Contradiction Detection and Hypothesis Sandboxing"
+---
+
 # Case Study: Contradiction Detection and Hypothesis Sandboxing
 
 **Problem:** A knowledge graph can accumulate logically inconsistent statements — for example, the same source–target pair might be linked by both `confirms` and `refutes` relations, or a planet might be asserted to orbit two different stars. Standard structural and even type‑level validation passes such graphs without complaint, because every individual edge looks well‑formed. The contradiction only becomes visible when multiple relations are read *together*.

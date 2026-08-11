@@ -1,3 +1,8 @@
+---
+title: "Canonical Knowledge Structure"
+description: "Canonical Knowledge Structure"
+---
+
 # Canonical Knowledge Structure
 
 > A universal, representation-independent foundation for verifiable AI knowledge.

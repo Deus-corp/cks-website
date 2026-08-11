@@ -1,3 +1,8 @@
+---
+title: "Plugin Development Guide"
+description: "Plugin Development Guide"
+---
+
 # Plugin Development Guide
 
 CKS supports external constraint plugins via the standard Python

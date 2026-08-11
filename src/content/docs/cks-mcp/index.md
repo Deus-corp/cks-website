@@ -1,3 +1,8 @@
+---
+title: "cks-mcp"
+description: "cks-mcp"
+---
+
 # cks-mcp
 
 > Model Context Protocol server for Canonical Knowledge Structure.

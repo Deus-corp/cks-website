@@ -1,3 +1,8 @@
+---
+title: "Version Control"
+description: "Version Control"
+---
+
 # Version Control
 
 Every committed change to a session (`validate_knowledge`, `evolve_knowledge`,

@@ -1,3 +1,8 @@
+---
+title: "Concepts"
+description: "Concepts"
+---
+
 # Concepts
 
 This document introduces the fundamental concepts of the Canonical Knowledge Structure (CKS).

@@ -1,3 +1,8 @@
+---
+title: "Case Study: Saving and Reusing Knowledge Graphs Across Sessions"
+description: "Case Study: Saving and Reusing Knowledge Graphs Across Sessions"
+---
+
 # Case Study: Saving and Reusing Knowledge Graphs Across Sessions
 
 **Problem:** Claude Desktop can build a project's knowledge graph (architecture,

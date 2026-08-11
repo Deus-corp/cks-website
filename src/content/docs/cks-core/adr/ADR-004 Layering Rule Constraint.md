@@ -1,3 +1,8 @@
+---
+title: "ADR-004"
+description: "ADR-004"
+---
+
 # ADR-004
 
 # Layering Rule Constraint: Enforcing Architectural Dependency Direction

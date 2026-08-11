@@ -1,3 +1,8 @@
+---
+title: "Getting Started"
+description: "Getting Started"
+---
+
 # Getting Started
 
 ## What is cks-mcp?
