@@ -1,0 +1,210 @@
+<!DOCTYPE html><html lang="en" dir="ltr" data-theme="dark" data-has-toc data-has-sidebar class="astro-vdxcvpsm"><head><meta charset="utf-8"/><meta name="viewport" content="width=device-width, initial-scale=1"/><title>Security Model | CKS Documentation</title><link rel="canonical" href="https://deus-corp.github.io/cks-website/cks-mcp/security/"/><link rel="sitemap" href="/cks-website/sitemap-index.xml"/><link rel="shortcut icon" href="/cks-website/favicon.svg" type="image/svg+xml"/><meta name="generator" content="Astro v7.2.0"/><meta name="generator" content="Starlight v0.41.7"/><meta property="og:title" content="Security Model"/><meta property="og:type" content="article"/><meta property="og:url" content="https://deus-corp.github.io/cks-website/cks-mcp/security/"/><meta property="og:locale" content="en"/><meta property="og:description" content="Security Model"/><meta property="og:site_name" content="CKS Documentation"/><meta name="twitter:card" content="summary_large_image"/><meta name="description" content="Security Model"/><!--
+	Override of Starlight's default ThemeProvider.
+	Only change from upstream: when no theme has been stored yet, default
+	to "dark" instead of following the OS `prefers-color-scheme`. Users can
+	still switch themes with the built-in selector; their choice is
+	persisted in localStorage as usual.
+--><script>
+	window.StarlightThemeProvider = (() => {
+		const storageKey = 'starlight-theme';
+
+		const parseTheme = (theme) =>
+			theme === 'auto' || theme === 'dark' || theme === 'light' ? theme : undefined;
+
+		const loadTheme = () =>
+			(typeof localStorage !== 'undefined' && parseTheme(localStorage.getItem(storageKey))) || 'dark';
+
+		const storeTheme = (theme) => {
+			if (typeof localStorage !== 'undefined') {
+				localStorage.setItem(
+					storageKey,
+					theme === 'light' || theme === 'dark' ? theme : 'auto'
+				);
+			}
+		};
+
+		const onLoad = () => {
+			const theme = loadTheme();
+			document.documentElement.dataset.theme = theme === 'light' ? 'light' : 'dark';
+			window.document
+				.querySelectorAll('[data-theme-select]')
+				.forEach((el) => (el.value = theme));
+		};
+
+		window.addEventListener('storage', onLoad);
+		onLoad();
+
+		return { loadTheme, storeTheme, onLoad };
+	})();
+</script><link rel="stylesheet" href="/cks-website/_astro/print.ehPL0gv-.css" media="print"><link rel="stylesheet" href="/cks-website/_astro/common.CY7aDjbY.css"><style>@layer starlight.components{.card:where(.astro-zts4jgjd){--sl-card-border:var(--sl-color-purple);--sl-card-bg:var(--sl-color-purple-low);border:1px solid var(--sl-color-gray-5);background-color:var(--sl-color-black);flex-direction:column;gap:clamp(.5rem,.125rem + 1vw,1rem);padding:clamp(1rem,.125rem + 3vw,2.5rem)}.card:where(.astro-zts4jgjd):nth-child(4n+1){--sl-card-border:var(--sl-color-orange);--sl-card-bg:var(--sl-color-orange-low)}.card:where(.astro-zts4jgjd):nth-child(4n+3){--sl-card-border:var(--sl-color-green);--sl-card-bg:var(--sl-color-green-low)}.card:where(.astro-zts4jgjd):nth-child(4n+4){--sl-card-border:var(--sl-color-red);--sl-card-bg:var(--sl-color-red-low)}.card:where(.astro-zts4jgjd):nth-child(4n+5){--sl-card-border:var(--sl-color-blue);--sl-card-bg:var(--sl-color-blue-low)}.title:where(.astro-zts4jgjd){font-weight:600;font-size:var(--sl-text-h4);color:var(--sl-color-white);line-height:var(--sl-line-height-headings);align-items:center;gap:1rem}.card:where(.astro-zts4jgjd) .icon:where(.astro-zts4jgjd){border:1px solid var(--sl-card-border);background-color:var(--sl-card-bg);border-radius:.25rem;flex-shrink:0;padding:.2em}.card:where(.astro-zts4jgjd) .body:where(.astro-zts4jgjd){font-size:clamp(var(--sl-text-sm), calc(.5rem + 1vw), var(--sl-text-body));margin:0}.card-grid:where(.astro-lmor3ela){grid-template-columns:100%;gap:1rem;display:grid}.card-grid:where(.astro-lmor3ela)>*{margin-top:0!important}@media (width>=50rem){.card-grid:where(.astro-lmor3ela){grid-template-columns:1fr 1fr;gap:1.5rem}.stagger:where(.astro-lmor3ela){--stagger-height:5rem;padding-bottom:var(--stagger-height)}.stagger:where(.astro-lmor3ela)>:nth-child(2n){transform:translateY(var(--stagger-height))}}}
+@layer starlight.components{svg:where(.astro-n5k4ipy7){color:var(--sl-icon-color);font-size:var(--sl-icon-size,1em);width:1em;height:1em}}
+</style><script type="module" src="/cks-website/_astro/page.Dwipeu-R.js"></script></head><body class="astro-vdxcvpsm"><a class="sl-skip-link astro-vxeigawq" href="#_top">Skip to content</a><div class="page sl-flex astro-gqpr5s5a"><header class="header astro-gqpr5s5a"><div class="header astro-nczgtkxc"><div class="title-wrapper sl-flex astro-nczgtkxc"><a href="/cks-website/" class="site-title sl-flex astro-clw6ags5"><img class="astro-clw6ags5" alt src="/cks-website/_astro/logo.eWQq6RJS.svg" width="18" height="18"><span class="astro-clw6ags5" translate="no">CKS Documentation</span></a></div><div class="sl-flex print:hidden astro-nczgtkxc"><site-search class="astro-nczgtkxc astro-r5ar4xm7" data-translations="{&quot;placeholder&quot;:&quot;Search&quot;}"><button data-open-modal disabled aria-label="Search" aria-keyshortcuts="Control+K" class="astro-r5ar4xm7"><svg aria-hidden="true" class="astro-r5ar4xm7 astro-n5k4ipy7" width="16" height="16" viewBox="0 0 24 24" fill="currentColor" style="--sl-icon-size: 1em;"><path d="M21.71 20.29 18 16.61A9 9 0 1 0 16.61 18l3.68 3.68a.999.999 0 0 0 1.42 0 1 1 0 0 0 0-1.39ZM11 18a7 7 0 1 1 0-14 7 7 0 0 1 0 14Z"/></svg><span class="sl-hidden md:sl-block astro-r5ar4xm7" aria-hidden="true">Search</span><kbd class="sl-hidden md:sl-flex astro-r5ar4xm7" style="display: none;"><kbd class="astro-r5ar4xm7">Ctrl</kbd><kbd class="astro-r5ar4xm7">K</kbd></kbd></button><dialog style="padding:0" aria-label="Search" class="astro-r5ar4xm7"><div class="dialog-frame sl-flex astro-r5ar4xm7"><button data-close-modal class="sl-flex md:sl-hidden astro-r5ar4xm7">Cancel</button><div class="search-container astro-r5ar4xm7"><div id="starlight__search" class="astro-r5ar4xm7"></div></div></div></dialog></site-search><script>
+	(() => {
+		const openBtn = document.querySelector('button[data-open-modal]');
+		const shortcut = openBtn?.querySelector('kbd');
+		if (!openBtn || !(shortcut instanceof HTMLElement)) return;
+		const platformKey = shortcut.querySelector('kbd');
+		if (platformKey && /(Mac|iPhone|iPod|iPad)/i.test(navigator.platform)) {
+			platformKey.textContent = '⌘';
+			openBtn.setAttribute('aria-keyshortcuts', 'Meta+K');
+		}
+		shortcut.style.display = '';
+	})();
+</script><script type="module" src="/cks-website/_astro/Search.astro_astro_type_script_index_0_lang.BREJkFK1.js"></script></div><div class="sl-hidden md:sl-flex print:hidden right-group astro-nczgtkxc"><div class="sl-flex social-icons astro-nczgtkxc"><a href="https://github.com/Deus-corp" rel="me" class="sl-flex astro-cg55etiy"><span class="sr-only astro-cg55etiy">GitHub</span><svg aria-hidden="true" class="astro-cg55etiy astro-n5k4ipy7" width="16" height="16" viewBox="0 0 24 24" fill="currentColor" style="--sl-icon-size: 1em;"><path d="M12 .3a12 12 0 0 0-3.8 23.38c.6.12.83-.26.83-.57L9 21.07c-3.34.72-4.04-1.61-4.04-1.61-.55-1.39-1.34-1.76-1.34-1.76-1.08-.74.09-.73.09-.73 1.2.09 1.83 1.24 1.83 1.24 1.08 1.83 2.81 1.3 3.5 1 .1-.78.42-1.31.76-1.61-2.67-.3-5.47-1.33-5.47-5.93 0-1.31.47-2.38 1.24-3.22-.14-.3-.54-1.52.1-3.18 0 0 1-.32 3.3 1.23a11.5 11.5 0 0 1 6 0c2.28-1.55 3.29-1.23 3.29-1.23.64 1.66.24 2.88.12 3.18a4.65 4.65 0 0 1 1.23 3.22c0 4.61-2.8 5.63-5.48 5.92.42.36.81 1.1.81 2.22l-.01 3.29c0 .31.2.69.82.57A12 12 0 0 0 12 .3Z"/></svg></a></div><starlight-theme-select><label style="--sl-select-width: 6.25em" class="astro-r2p65idu"><span class="sr-only astro-r2p65idu">Select theme</span><svg aria-hidden="true" class="icon label-icon astro-r2p65idu astro-n5k4ipy7" width="16" height="16" viewBox="0 0 24 24" fill="currentColor" style="--sl-icon-size: 1em;"><path d="M21 14h-1V7a3 3 0 0 0-3-3H7a3 3 0 0 0-3 3v7H3a1 1 0 0 0-1 1v2a3 3 0 0 0 3 3h14a3 3 0 0 0 3-3v-2a1 1 0 0 0-1-1ZM6 7a1 1 0 0 1 1-1h10a1 1 0 0 1 1 1v7H6V7Zm14 10a1 1 0 0 1-1 1H5a1 1 0 0 1-1-1v-1h16v1Z"/></svg><select autocomplete="off" class="astro-r2p65idu"><option value="dark" class="astro-r2p65idu">Dark</option><option value="light" class="astro-r2p65idu">Light</option><option value="auto" selected class="astro-r2p65idu">Auto</option></select><svg aria-hidden="true" class="icon caret astro-r2p65idu astro-n5k4ipy7" width="16" height="16" viewBox="0 0 24 24" fill="currentColor" style="--sl-icon-size: 1em;"><path d="M17 9.17a1 1 0 0 0-1.41 0L12 12.71 8.46 9.17a1 1 0 1 0-1.41 1.42l4.24 4.24a1.002 1.002 0 0 0 1.42 0L17 10.59a1.002 1.002 0 0 0 0-1.42Z"/></svg></label></starlight-theme-select><script>
+	StarlightThemeProvider.updatePickers();
+</script><script type="module">var e=`starlight-theme`,t=e=>e===`auto`||e===`dark`||e===`light`?e:`auto`,n=()=>t(typeof localStorage<`u`&&localStorage.getItem(e));function r(t){typeof localStorage<`u`&&localStorage.setItem(e,t===`light`||t===`dark`?t:``)}var i=()=>matchMedia(`(prefers-color-scheme: light)`).matches?`light`:`dark`;function a(e){StarlightThemeProvider.updatePickers(e),document.documentElement.dataset.theme=e===`auto`?i():e,r(e)}matchMedia(`(prefers-color-scheme: light)`).addEventListener(`change`,()=>{n()===`auto`&&a(`auto`)});var o=class extends HTMLElement{constructor(){super(),a(n()),this.querySelector(`select`)?.addEventListener(`change`,e=>{e.currentTarget instanceof HTMLSelectElement&&a(t(e.currentTarget.value))})}};customElements.define(`starlight-theme-select`,o);</script><script type="module">var e=class extends HTMLElement{constructor(){super();let e=this.querySelector(`select`);e&&(e.addEventListener(`change`,e=>{e.currentTarget instanceof HTMLSelectElement&&(window.location.pathname=e.currentTarget.value)}),window.addEventListener(`pageshow`,t=>{if(!t.persisted)return;let n=e.querySelector(`option[selected]`)?.index;n!==e.selectedIndex&&(e.selectedIndex=n??0)}))}};customElements.define(`starlight-lang-select`,e);</script></div></div></header><nav class="sidebar print:hidden astro-gqpr5s5a" aria-label="Main"><starlight-menu-button class="print:hidden astro-vvx7mffu"><button aria-expanded="false" aria-label="Menu" aria-controls="starlight__sidebar" class="sl-flex md:sl-hidden astro-vvx7mffu"><svg aria-hidden="true" class="open-menu astro-vvx7mffu astro-n5k4ipy7" width="16" height="16" viewBox="0 0 24 24" fill="currentColor" style="--sl-icon-size: 1em;"><path d="M3 8h18a1 1 0 1 0 0-2H3a1 1 0 0 0 0 2Zm18 8H3a1 1 0 0 0 0 2h18a1 1 0 0 0 0-2Zm0-5H3a1 1 0 0 0 0 2h18a1 1 0 0 0 0-2Z"/></svg><svg aria-hidden="true" class="close-menu astro-vvx7mffu astro-n5k4ipy7" width="16" height="16" viewBox="0 0 24 24" fill="currentColor" style="--sl-icon-size: 1em;"><path d="m13.41 12 6.3-6.29a1.004 1.004 0 1 0-1.42-1.42L12 10.59l-6.29-6.3a1.004 1.004 0 0 0-1.42 1.42l6.3 6.29-6.3 6.29a1 1 0 0 0 0 1.42.998.998 0 0 0 1.42 0l6.29-6.3 6.29 6.3a.999.999 0 0 0 1.42 0 1 1 0 0 0 0-1.42L13.41 12Z"/></svg></button></starlight-menu-button><script type="module">var e=class extends HTMLElement{btn=this.querySelector(`button`);constructor(){super(),this.btn.addEventListener(`click`,()=>this.toggleExpanded());let e=this.closest(`nav`);e&&e.addEventListener(`keyup`,e=>this.closeOnEscape(e)),matchMedia(`(min-width: 50em)`).addEventListener(`change`,()=>this.setExpanded(!1))}setExpanded(e){this.setAttribute(`aria-expanded`,String(e)),document.body.toggleAttribute(`data-mobile-menu-expanded`,e),document.querySelectorAll(`.main-frame, .sl-skip-link`).forEach(t=>{t.toggleAttribute(`inert`,e)})}toggleExpanded(){this.setExpanded(this.getAttribute(`aria-expanded`)!==`true`)}closeOnEscape(e){e.code===`Escape`&&(this.setExpanded(!1),this.btn.focus())}};customElements.define(`starlight-menu-button`,e);</script><div id="starlight__sidebar" class="sidebar-pane astro-gqpr5s5a"><div class="sidebar-content sl-flex astro-gqpr5s5a"><sl-sidebar-state-persist data-hash="193dlll" class="astro-f5yvicm7"><script aria-hidden="true">
+		(() => {
+			try {
+				if (!matchMedia('(min-width: 50em)').matches) return;
+				/** @type {HTMLElement | null} */
+				const target = document.querySelector('sl-sidebar-state-persist');
+				const state = JSON.parse(sessionStorage.getItem('sl-sidebar-state') || '0');
+				if (!target || !state || target.dataset.hash !== state.hash) return;
+				window._starlightScrollRestore = state.scroll;
+				customElements.define(
+					'sl-sidebar-restore',
+					class SidebarRestore extends HTMLElement {
+						connectedCallback() {
+							try {
+								const idx = parseInt(this.dataset.index || '');
+								const details = this.closest('details');
+								if (details && typeof state.open[idx] === 'boolean') details.open = state.open[idx];
+							} catch {}
+						}
+					}
+				);
+			} catch {}
+		})();
+	</script><ul class="top-level astro-ojxuodky"><li class="astro-ojxuodky"><a href="/cks-website/" class="large astro-ojxuodky"><span class="astro-ojxuodky">Home</span></a></li><li class="astro-ojxuodky"><a href="/cks-website/quickstart/" class="large astro-ojxuodky"><span class="astro-ojxuodky">Quick Start</span></a></li><li class="astro-ojxuodky"><a href="/cks-website/demo/" class="large astro-ojxuodky"><span class="astro-ojxuodky">Demo</span></a></li><li class="astro-ojxuodky"><details open class="astro-ojxuodky"><summary class="astro-ojxuodky"><span class="group-label astro-ojxuodky"><span class="large astro-ojxuodky">Case Studies</span></span><svg aria-hidden="true" class="caret astro-ojxuodky astro-n5k4ipy7" width="16" height="16" viewBox="0 0 24 24" fill="currentColor" style="--sl-icon-size: 1.25rem;"><path d="m14.83 11.29-4.24-4.24a1 1 0 1 0-1.42 1.41L12.71 12l-3.54 3.54a1 1 0 0 0 0 1.41 1 1 0 0 0 .71.29 1 1 0 0 0 .71-.29l4.24-4.24a1.002 1.002 0 0 0 0-1.42Z"/></svg></summary><sl-sidebar-restore data-index="0"></sl-sidebar-restore><ul class="astro-ojxuodky"><li class="astro-ojxuodky"><a href="/cks-website/case-studies/" class="astro-ojxuodky"><span class="astro-ojxuodky">Case Studies</span></a></li><li class="astro-ojxuodky"><a href="/cks-website/case-studies/catching-fake-citations/" class="astro-ojxuodky"><span class="astro-ojxuodky">Case Study: Catching Fake Citations</span></a></li><li class="astro-ojxuodky"><a href="/cks-website/case-studies/contradiction-detection-and-sandbox/" class="astro-ojxuodky"><span class="astro-ojxuodky">Case Study: Contradiction Detection and Hypothesis Sandboxing</span></a></li><li class="astro-ojxuodky"><a href="/cks-website/case-studies/crdt-fork-resolution/" class="astro-ojxuodky"><span class="astro-ojxuodky">Case Study: Automatic CRDT Fork Resolution with Fork Agent</span></a></li><li class="astro-ojxuodky"><a href="/cks-website/case-studies/inference-conflict-resolution/" class="astro-ojxuodky"><span class="astro-ojxuodky">Case Study: Resolving a Reasoning Conflict with Inference Arbitration</span></a></li><li class="astro-ojxuodky"><a href="/cks-website/case-studies/local-embeddings/" class="astro-ojxuodky"><span class="astro-ojxuodky">Case Study: Offline Semantic Search with Local Embeddings</span></a></li><li class="astro-ojxuodky"><a href="/cks-website/case-studies/memory-agent-graph-reuse/" class="astro-ojxuodky"><span class="astro-ojxuodky">Case Study: Saving and Reusing Knowledge Graphs Across Sessions</span></a></li><li class="astro-ojxuodky"><a href="/cks-website/case-studies/ontology-validation-and-visualization/" class="astro-ojxuodky"><span class="astro-ojxuodky">Case Study: Ontology Validation and Graph Visualization</span></a></li><li class="astro-ojxuodky"><a href="/cks-website/case-studies/semantic-search-and-partial-merge/" class="astro-ojxuodky"><span class="astro-ojxuodky">Case Study: Semantic Search and Partial Merge</span></a></li></ul></details></li><li class="astro-ojxuodky"><details open class="astro-ojxuodky"><summary class="astro-ojxuodky"><span class="group-label astro-ojxuodky"><span class="large astro-ojxuodky">Components</span></span><svg aria-hidden="true" class="caret astro-ojxuodky astro-n5k4ipy7" width="16" height="16" viewBox="0 0 24 24" fill="currentColor" style="--sl-icon-size: 1.25rem;"><path d="m14.83 11.29-4.24-4.24a1 1 0 1 0-1.42 1.41L12.71 12l-3.54 3.54a1 1 0 0 0 0 1.41 1 1 0 0 0 .71.29 1 1 0 0 0 .71-.29l4.24-4.24a1.002 1.002 0 0 0 0-1.42Z"/></svg></summary><sl-sidebar-restore data-index="1"></sl-sidebar-restore><ul class="astro-ojxuodky"><li class="astro-ojxuodky"><a href="/cks-website/cks-core/" class="astro-ojxuodky"><span class="astro-ojxuodky">cks-core</span></a></li><li class="astro-ojxuodky"><a href="/cks-website/cks-runtime/" class="astro-ojxuodky"><span class="astro-ojxuodky">cks-runtime</span></a></li><li class="astro-ojxuodky"><a href="/cks-website/cks-mcp/" class="astro-ojxuodky"><span class="astro-ojxuodky">cks-mcp</span></a></li><li class="astro-ojxuodky"><details open class="astro-ojxuodky"><summary class="astro-ojxuodky"><span class="group-label astro-ojxuodky"><span class="large astro-ojxuodky">cks-studio</span></span><svg aria-hidden="true" class="caret astro-ojxuodky astro-n5k4ipy7" width="16" height="16" viewBox="0 0 24 24" fill="currentColor" style="--sl-icon-size: 1.25rem;"><path d="m14.83 11.29-4.24-4.24a1 1 0 1 0-1.42 1.41L12.71 12l-3.54 3.54a1 1 0 0 0 0 1.41 1 1 0 0 0 .71.29 1 1 0 0 0 .71-.29l4.24-4.24a1.002 1.002 0 0 0 0-1.42Z"/></svg></summary><sl-sidebar-restore data-index="2"></sl-sidebar-restore><ul class="astro-ojxuodky"><li class="astro-ojxuodky"><details open class="astro-ojxuodky"><summary class="astro-ojxuodky"><span class="group-label astro-ojxuodky"><span class="large astro-ojxuodky">adr</span></span><svg aria-hidden="true" class="caret astro-ojxuodky astro-n5k4ipy7" width="16" height="16" viewBox="0 0 24 24" fill="currentColor" style="--sl-icon-size: 1.25rem;"><path d="m14.83 11.29-4.24-4.24a1 1 0 1 0-1.42 1.41L12.71 12l-3.54 3.54a1 1 0 0 0 0 1.41 1 1 0 0 0 .71.29 1 1 0 0 0 .71-.29l4.24-4.24a1.002 1.002 0 0 0 0-1.42Z"/></svg></summary><sl-sidebar-restore data-index="3"></sl-sidebar-restore><ul class="astro-ojxuodky"><li class="astro-ojxuodky"><a href="/cks-website/cks-studio/adr/adr-001-ai-assistant-chat-panel/" class="astro-ojxuodky"><span class="astro-ojxuodky">ADR-001: AI Assistant Chat Panel</span></a></li></ul></details></li></ul></details></li></ul></details></li></ul><script aria-hidden="true">
+		(() => {
+			const scroller = document.getElementById('starlight__sidebar');
+			if (!window._starlightScrollRestore || !scroller) return;
+			scroller.scrollTop = window._starlightScrollRestore;
+			delete window._starlightScrollRestore;
+		})();
+	</script></sl-sidebar-state-persist><div class="md:sl-hidden"><div class="mobile-preferences sl-flex astro-b5gddk54"><div class="social-icons astro-b5gddk54"><a href="https://github.com/Deus-corp" rel="me" class="sl-flex astro-cg55etiy"><span class="sr-only astro-cg55etiy">GitHub</span><svg aria-hidden="true" class="astro-cg55etiy astro-n5k4ipy7" width="16" height="16" viewBox="0 0 24 24" fill="currentColor" style="--sl-icon-size: 1em;"><path d="M12 .3a12 12 0 0 0-3.8 23.38c.6.12.83-.26.83-.57L9 21.07c-3.34.72-4.04-1.61-4.04-1.61-.55-1.39-1.34-1.76-1.34-1.76-1.08-.74.09-.73.09-.73 1.2.09 1.83 1.24 1.83 1.24 1.08 1.83 2.81 1.3 3.5 1 .1-.78.42-1.31.76-1.61-2.67-.3-5.47-1.33-5.47-5.93 0-1.31.47-2.38 1.24-3.22-.14-.3-.54-1.52.1-3.18 0 0 1-.32 3.3 1.23a11.5 11.5 0 0 1 6 0c2.28-1.55 3.29-1.23 3.29-1.23.64 1.66.24 2.88.12 3.18a4.65 4.65 0 0 1 1.23 3.22c0 4.61-2.8 5.63-5.48 5.92.42.36.81 1.1.81 2.22l-.01 3.29c0 .31.2.69.82.57A12 12 0 0 0 12 .3Z"/></svg></a></div><starlight-theme-select><label style="--sl-select-width: 6.25em" class="astro-r2p65idu"><span class="sr-only astro-r2p65idu">Select theme</span><svg aria-hidden="true" class="icon label-icon astro-r2p65idu astro-n5k4ipy7" width="16" height="16" viewBox="0 0 24 24" fill="currentColor" style="--sl-icon-size: 1em;"><path d="M21 14h-1V7a3 3 0 0 0-3-3H7a3 3 0 0 0-3 3v7H3a1 1 0 0 0-1 1v2a3 3 0 0 0 3 3h14a3 3 0 0 0 3-3v-2a1 1 0 0 0-1-1ZM6 7a1 1 0 0 1 1-1h10a1 1 0 0 1 1 1v7H6V7Zm14 10a1 1 0 0 1-1 1H5a1 1 0 0 1-1-1v-1h16v1Z"/></svg><select autocomplete="off" class="astro-r2p65idu"><option value="dark" class="astro-r2p65idu">Dark</option><option value="light" class="astro-r2p65idu">Light</option><option value="auto" selected class="astro-r2p65idu">Auto</option></select><svg aria-hidden="true" class="icon caret astro-r2p65idu astro-n5k4ipy7" width="16" height="16" viewBox="0 0 24 24" fill="currentColor" style="--sl-icon-size: 1em;"><path d="M17 9.17a1 1 0 0 0-1.41 0L12 12.71 8.46 9.17a1 1 0 1 0-1.41 1.42l4.24 4.24a1.002 1.002 0 0 0 1.42 0L17 10.59a1.002 1.002 0 0 0 0-1.42Z"/></svg></label></starlight-theme-select><script>
+	StarlightThemeProvider.updatePickers();
+</script></div></div></div></div></nav><div class="main-frame astro-gqpr5s5a"><script type="module">var e=document.getElementById(`starlight__sidebar`),t=e?.querySelector(`sl-sidebar-state-persist`),n=`sl-sidebar-state`,r=()=>{let r=[],i=t?.dataset.hash||``;try{let e=sessionStorage.getItem(n),t=JSON.parse(e||`{}`);Array.isArray(t.open)&&t.hash===i&&(r=t.open)}catch{}return{hash:i,open:r,scroll:e?.scrollTop||0}},i=e=>{try{sessionStorage.setItem(n,JSON.stringify(e))}catch{}},a=()=>i(r()),o=(e,t)=>{let n=r();n.open[t]=e,i(n)};t?.addEventListener(`click`,e=>{if(!(e.target instanceof Element))return;let t=e.target.closest(`summary`)?.closest(`details`);if(!t)return;let n=t.querySelector(`sl-sidebar-restore`),r=parseInt(n?.dataset.index||``);isNaN(r)||o(!t.open,r)}),addEventListener(`visibilitychange`,()=>{document.visibilityState===`hidden`&&a()});</script><div class="lg:sl-flex astro-abfeecmu"><aside class="right-sidebar-container print:hidden astro-abfeecmu"><div class="right-sidebar astro-abfeecmu"><div class="lg:sl-hidden astro-q5mffni3"><mobile-starlight-toc data-min-h="2" data-max-h="3" class="astro-5ulgm6bh"><nav aria-labelledby="starlight__on-this-page--mobile" class="astro-5ulgm6bh"><details id="starlight__mobile-toc" class="astro-5ulgm6bh"><summary id="starlight__on-this-page--mobile" class="sl-flex astro-5ulgm6bh"><span class="toggle sl-flex astro-5ulgm6bh">On this page<svg aria-hidden="true" class="caret astro-5ulgm6bh astro-n5k4ipy7" width="16" height="16" viewBox="0 0 24 24" fill="currentColor" style="--sl-icon-size: 1rem;"><path d="m14.83 11.29-4.24-4.24a1 1 0 1 0-1.42 1.41L12.71 12l-3.54 3.54a1 1 0 0 0 0 1.41 1 1 0 0 0 .71.29 1 1 0 0 0 .71-.29l4.24-4.24a1.002 1.002 0 0 0 0-1.42Z"/></svg></span><span class="display-current astro-5ulgm6bh"></span></summary><div class="dropdown astro-5ulgm6bh"><ul class="isMobile astro-cxyftcne" style="--depth: 0;"><li style="--depth: 0;" class="astro-cxyftcne"><a href="#_top" style="--depth: 0;" class="astro-cxyftcne"><span style="--depth: 0;" class="astro-cxyftcne">Overview</span></a></li><li style="--depth: 0;" class="astro-cxyftcne"><a href="#ssrf--dns-rebinding-protection" style="--depth: 0;" class="astro-cxyftcne"><span style="--depth: 0;" class="astro-cxyftcne">SSRF &amp; DNS-Rebinding Protection</span></a></li><li style="--depth: 0;" class="astro-cxyftcne"><a href="#provenance-enforcement" style="--depth: 0;" class="astro-cxyftcne"><span style="--depth: 0;" class="astro-cxyftcne">Provenance Enforcement</span></a></li><li style="--depth: 0;" class="astro-cxyftcne"><a href="#trust-boundary-summary" style="--depth: 0;" class="astro-cxyftcne"><span style="--depth: 0;" class="astro-cxyftcne">Trust Boundary Summary</span></a></li></ul></div></details></nav></mobile-starlight-toc><script type="module" src="/cks-website/_astro/MobileTableOfContents.astro_astro_type_script_index_0_lang.BcSo_yiZ.js"></script></div><div class="right-sidebar-panel sl-hidden lg:sl-block astro-q5mffni3"><div class="sl-container astro-q5mffni3"><starlight-toc data-min-h="2" data-max-h="3"><nav aria-labelledby="starlight__on-this-page"><h2 id="starlight__on-this-page">On this page</h2><ul class="astro-cxyftcne" style="--depth: 0;"><li style="--depth: 0;" class="astro-cxyftcne"><a href="#_top" style="--depth: 0;" class="astro-cxyftcne"><span style="--depth: 0;" class="astro-cxyftcne">Overview</span></a></li><li style="--depth: 0;" class="astro-cxyftcne"><a href="#ssrf--dns-rebinding-protection" style="--depth: 0;" class="astro-cxyftcne"><span style="--depth: 0;" class="astro-cxyftcne">SSRF &amp; DNS-Rebinding Protection</span></a></li><li style="--depth: 0;" class="astro-cxyftcne"><a href="#provenance-enforcement" style="--depth: 0;" class="astro-cxyftcne"><span style="--depth: 0;" class="astro-cxyftcne">Provenance Enforcement</span></a></li><li style="--depth: 0;" class="astro-cxyftcne"><a href="#trust-boundary-summary" style="--depth: 0;" class="astro-cxyftcne"><span style="--depth: 0;" class="astro-cxyftcne">Trust Boundary Summary</span></a></li></ul></nav></starlight-toc><script type="module" src="/cks-website/_astro/TableOfContents.astro_astro_type_script_index_0_lang.Csloo1VZ.js"></script></div></div></div></aside><div class="main-pane astro-abfeecmu"><main data-pagefind-body class="astro-vdxcvpsm" lang="en" dir="ltr"><div class="content-panel astro-oil7k7jf"><div class="sl-container astro-oil7k7jf"><h1 id="_top" class="astro-2sm4b3ln">Security Model</h1></div></div><div class="content-panel astro-oil7k7jf"><div class="sl-container astro-oil7k7jf"><div class="sl-markdown-content"><div class="sl-heading-wrapper level-h1"><h1 id="security-model">Security Model</h1><a class="sl-anchor-link" href="#security-model"><span aria-hidden="true" class="sl-anchor-icon"><svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor"><path d="m12.11 15.39-3.88 3.88a2.52 2.52 0 0 1-3.5 0 2.47 2.47 0 0 1 0-3.5l3.88-3.88a1 1 0 1 0-1.42-1.42l-3.88 3.89a4.48 4.48 0 0 0 6.33 6.33l3.89-3.88a1 1 0 0 0-1.42-1.42m8.58-12.08a4.49 4.49 0 0 0-6.33 0l-3.89 3.88a1 1 0 1 0 1.42 1.42l3.88-3.88a2.52 2.52 0 0 1 3.5 0 2.47 2.47 0 0 1 0 3.5l-3.88 3.88a1 1 0 0 0 0 1.42 1 1 0 0 0 1.42 0l3.88-3.89a4.49 4.49 0 0 0 0-6.33M8.83 15.17a1 1 0 0 0 .71.29 1 1 0 0 0 .71-.29l4.92-4.92a1 1 0 1 0-1.42-1.42l-4.92 4.92a1 1 0 0 0 0 1.42"></path></svg></span><span class="sr-only" data-pagefind-ignore>Section titled “Security Model”</span></a></div>
+<p><code dir="auto">cks-mcp</code> sits at the boundary between an LLM and the rest of the CKS
+ecosystem. Its trust model follows from one premise: <strong>the LLM and its
+input are untrusted</strong>. The server enforces every safety and integrity rule
+itself, regardless of whether the LLM correctly requests it, remembers to
+ask, or is actively trying to produce convincing-looking fabricated data.</p>
+<p>This covers two independent concerns: preventing the server from being
+used as an SSRF vector, and preventing fabricated verification claims from
+ever being treated as genuine.</p>
+<div class="sl-heading-wrapper level-h2"><h2 id="ssrf--dns-rebinding-protection">SSRF &amp; DNS-Rebinding Protection</h2><a class="sl-anchor-link" href="#ssrf--dns-rebinding-protection"><span aria-hidden="true" class="sl-anchor-icon"><svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor"><path d="m12.11 15.39-3.88 3.88a2.52 2.52 0 0 1-3.5 0 2.47 2.47 0 0 1 0-3.5l3.88-3.88a1 1 0 1 0-1.42-1.42l-3.88 3.89a4.48 4.48 0 0 0 6.33 6.33l3.89-3.88a1 1 0 0 0-1.42-1.42m8.58-12.08a4.49 4.49 0 0 0-6.33 0l-3.89 3.88a1 1 0 1 0 1.42 1.42l3.88-3.88a2.52 2.52 0 0 1 3.5 0 2.47 2.47 0 0 1 0 3.5l-3.88 3.88a1 1 0 0 0 0 1.42 1 1 0 0 0 1.42 0l3.88-3.89a4.49 4.49 0 0 0 0-6.33M8.83 15.17a1 1 0 0 0 .71.29 1 1 0 0 0 .71-.29l4.92-4.92a1 1 0 1 0-1.42-1.42l-4.92 4.92a1 1 0 0 0 0 1.42"></path></svg></span><span class="sr-only" data-pagefind-ignore>Section titled “SSRF &amp; DNS-Rebinding Protection”</span></a></div>
+<p><code dir="auto">verify_source</code> and <code dir="auto">ingest_document</code> are the only two tools that make an
+outbound HTTP request on the server’s behalf, and both route through the
+same <code dir="auto">_safe_request</code> implementation — the protection isn’t duplicated
+per-tool, and a new tool that needs to fetch a URL gets the same guarantees
+by construction.</p>
+<p>The request goes through three checks, in order:</p>
+<ol>
+<li><strong>Scheme allow-list.</strong> Only <code dir="auto">http</code> and <code dir="auto">https</code> are accepted.</li>
+<li><strong>Public-IP validation.</strong> The hostname is resolved, and <em>every</em> IP it
+resolves to must be a public address — private, loopback, link-local,
+multicast, reserved, and unspecified ranges are all blocked. Two ranges
+Python’s <code dir="auto">ipaddress</code> module doesn’t classify as private but that aren’t
+public internet either are also explicitly blocked: <code dir="auto">100.64.0.0/10</code>
+(RFC 6598 Shared Address Space — the range Tailscale and several cloud
+providers use for internal node addressing) and <code dir="auto">192.0.0.0/24</code> (IETF
+protocol assignments). If a hostname resolves to <em>any</em> non-public
+address alongside public ones, the whole request is refused — not just
+the unsafe address.</li>
+<li><strong>DNS-pinned connection.</strong> The actual request is pinned to the specific
+IP validated in step 2, via a reference-counted, thread-local override
+of <code dir="auto">socket.getaddrinfo</code>. This closes the gap between “the address we
+checked” and “the address we connect to” — without it, a DNS response
+could legitimately differ between the validation lookup and the
+request itself (classic DNS rebinding). The override preserves SNI and
+TLS certificate validation, unlike mutating the connection pool
+directly.</li>
+</ol>
+<p><strong>Redirects are followed manually, one hop at a time</strong>, up to a fixed
+limit — never via <code dir="auto">requests</code>’ built-in <code dir="auto">allow_redirects=True</code>. Every new
+<code dir="auto">Location</code> is re-resolved and re-validated through the same three checks
+before it’s followed. Without this, a server that passed the initial
+check could redirect straight past it to an internal or cloud-metadata
+endpoint.</p>
+<div class="sl-heading-wrapper level-h2"><h2 id="provenance-enforcement">Provenance Enforcement</h2><a class="sl-anchor-link" href="#provenance-enforcement"><span aria-hidden="true" class="sl-anchor-icon"><svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor"><path d="m12.11 15.39-3.88 3.88a2.52 2.52 0 0 1-3.5 0 2.47 2.47 0 0 1 0-3.5l3.88-3.88a1 1 0 1 0-1.42-1.42l-3.88 3.89a4.48 4.48 0 0 0 6.33 6.33l3.89-3.88a1 1 0 0 0-1.42-1.42m8.58-12.08a4.49 4.49 0 0 0-6.33 0l-3.89 3.88a1 1 0 1 0 1.42 1.42l3.88-3.88a2.52 2.52 0 0 1 3.5 0 2.47 2.47 0 0 1 0 3.5l-3.88 3.88a1 1 0 0 0 0 1.42 1 1 0 0 0 1.42 0l3.88-3.89a4.49 4.49 0 0 0 0-6.33M8.83 15.17a1 1 0 0 0 .71.29 1 1 0 0 0 .71-.29l4.92-4.92a1 1 0 1 0-1.42-1.42l-4.92 4.92a1 1 0 0 0 0 1.42"></path></svg></span><span class="sr-only" data-pagefind-ignore>Section titled “Provenance Enforcement”</span></a></div>
+<p>A <code dir="auto">VerificationRecord</code> is supposed to mean “this claim was actually
+checked.” The problem: a <code dir="auto">VerificationRecord</code> that was <em>never</em> checked —
+just hand-crafted by an LLM to look convincing — is structurally
+indistinguishable from a genuine one. Static validation alone cannot tell
+them apart (see <a href="extensions.md#verification_record"><code dir="auto">verification_record</code></a>
+for why that’s a hard limit, not an oversight). Closing that gap needs two
+things working together:</p>
+<ol>
+<li><strong>A single sanctioned constructor.</strong> <code dir="auto">verify_source</code> is the <em>only</em> tool
+that builds a <code dir="auto">VerificationRecord</code> — always from the result of a real
+HTTP request it just performed itself, never from caller-supplied
+fields.</li>
+<li><strong>A signature only that constructor can produce.</strong> Every record
+<code dir="auto">verify_source</code> builds is signed with an HMAC-SHA256 over its content
+(<code dir="auto">record_id</code>, <code dir="auto">subject_id</code>, <code dir="auto">checked_at</code>, <code dir="auto">checked_via</code>, <code dir="auto">http_status</code>),
+keyed by a secret held only by the running server process
+(<code dir="auto">CKS_MCP_SECRET</code>, persisted to <code dir="auto">~/.cks-mcp/.cks_provenance_secret</code> on
+first use so a restart doesn’t invalidate history).</li>
+</ol>
+<p>Everywhere else a structure can enter or leave the system —
+<code dir="auto">validate_knowledge</code>, <code dir="auto">evolve_knowledge</code>, <code dir="auto">merge_knowledge</code>,
+<code dir="auto">merge_branch</code>, and the <code dir="auto">json_data</code> fallback paths of
+<code dir="auto">serialize_knowledge</code>/<code dir="auto">explain_knowledge</code>/<code dir="auto">detect_contradictions</code> — checks
+every <code dir="auto">VerificationRecord</code> in it against that signature, <strong>unconditionally</strong>,
+whether or not the caller asked for the <code dir="auto">verification_record</code> extension.
+A record without a valid signature produces a <code dir="auto">CKS-MCP-UNVERIFIED-PROVENANCE</code>
+diagnostic and is treated as unverified.</p>
+<p>Two extra edge cases the check closes:</p>
+<ul>
+<li><strong>Structural identification, not label-based.</strong> A relation is recognized
+by having <code dir="auto">participants</code> + <code dir="auto">relation_type</code> in its structure — the same
+way <code dir="auto">cks-core</code> itself identifies one — never by trusting
+<code dir="auto">identity.type == "Relation"</code>. A forged record linked via a <code dir="auto">verified_by</code>
+relation carrying some other <code dir="auto">identity.type</code> would otherwise slip past
+as “unlinked” (a warning) instead of hitting the signature check (an
+error).</li>
+<li><strong>Ambiguous references are rejected outright.</strong> If more than one subject
+claims the same <code dir="auto">VerificationRecord</code> via <code dir="auto">verified_by</code>, that’s flagged
+as <code dir="auto">CKS-MCP-AMBIGUOUS-VERIFICATION-REFERENCE</code> before the signature is
+even checked — an ambiguous claim isn’t something a signature check can
+resolve.</li>
+</ul>
+<p><strong>Nothing invalid is ever committed, even partially.</strong> For a fresh
+<code dir="auto">json_data</code> structure with a forged record, <code dir="auto">validate_knowledge</code> doesn’t
+even register the session via <code dir="auto">runtime.create_session()</code> — it dry-runs
+against a throwaway, unregistered <code dir="auto">RuntimeSession</code> first. If it registered
+the session before the provenance check, the forged record would already
+be live and readable through <code dir="auto">serialize_knowledge</code>, <code dir="auto">query_subgraph</code>, or an
+MCP Resource on that <code dir="auto">session_id</code>, regardless of what the validation
+response itself said. The same dry-run-before-commit shape is used by
+<code dir="auto">evolve_knowledge</code>, <code dir="auto">merge_branch</code>, and <code dir="auto">merge_knowledge</code> for the same
+reason: a version is exactly what every downstream reader will treat as
+trustworthy, so nothing becomes a version unless it’s already known-good.</p>
+<div class="sl-heading-wrapper level-h2"><h2 id="trust-boundary-summary">Trust Boundary Summary</h2><a class="sl-anchor-link" href="#trust-boundary-summary"><span aria-hidden="true" class="sl-anchor-icon"><svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor"><path d="m12.11 15.39-3.88 3.88a2.52 2.52 0 0 1-3.5 0 2.47 2.47 0 0 1 0-3.5l3.88-3.88a1 1 0 1 0-1.42-1.42l-3.88 3.89a4.48 4.48 0 0 0 6.33 6.33l3.89-3.88a1 1 0 0 0-1.42-1.42m8.58-12.08a4.49 4.49 0 0 0-6.33 0l-3.89 3.88a1 1 0 1 0 1.42 1.42l3.88-3.88a2.52 2.52 0 0 1 3.5 0 2.47 2.47 0 0 1 0 3.5l-3.88 3.88a1 1 0 0 0 0 1.42 1 1 0 0 0 1.42 0l3.88-3.89a4.49 4.49 0 0 0 0-6.33M8.83 15.17a1 1 0 0 0 .71.29 1 1 0 0 0 .71-.29l4.92-4.92a1 1 0 1 0-1.42-1.42l-4.92 4.92a1 1 0 0 0 0 1.42"></path></svg></span><span class="sr-only" data-pagefind-ignore>Section titled “Trust Boundary Summary”</span></a></div>
+<table>
+<thead>
+<tr>
+<th>Layer</th>
+<th>Responsibility</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code dir="auto">cks-mcp</code></td>
+<td>Enforces provenance and SSRF protection at the MCP boundary — the only layer that knows an <code dir="auto">VerificationRecord</code> needs a signature, or that a URL came from an untrusted LLM.</td>
+</tr>
+<tr>
+<td><code dir="auto">cks-runtime</code></td>
+<td>Session/transaction integrity, storage safety — doesn’t know or care what a <code dir="auto">VerificationRecord</code> is.</td>
+</tr>
+<tr>
+<td><code dir="auto">cks-core</code></td>
+<td>Structural and semantic validation — checks a <code dir="auto">VerificationRecord</code>’s <em>shape</em>, never its provenance (it never sees the signing key).</td>
+</tr>
+</tbody>
+</table>
+<p>See <a href="../SECURITY.md"><code dir="auto">SECURITY.md</code></a> for how to report a vulnerability, and
+<a href="extensions.md">Extension Model</a> for the full opt-in constraint set this
+document’s provenance section is one (unconditionally-enforced) part of.</p>
+</div><footer class="sl-flex astro-xhxjzfa7"><div class="meta sl-flex astro-xhxjzfa7"></div><div class="pagination-links print:hidden astro-jgq3vlii" dir="ltr"></div></footer></div></div></main></div></div></div></div></body></html>
