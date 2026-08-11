@@ -26,8 +26,8 @@ CKS Website completes the CKS toolchain:
 | **cks-core** | Canonical semantic engine – the single source of canonical truth. | [Deus-corp/cks-core](https://github.com/Deus-corp/cks-core) |
 | **cks-runtime** | Operational environment – sessions, transactions, persistence. | [Deus-corp/cks-runtime](https://github.com/Deus-corp/cks-runtime) |
 | **cks-mcp** | MCP server – exposes CKS to LLMs and autonomous agents. | [Deus-corp/cks-mcp](https://github.com/Deus-corp/cks-mcp) |
-| **cks-studio** | Visual workspace – explore, monitor, and manage knowledge graphs. | [Deus-corp/cks-studio](https://github.com/Deus-corp/cks-studio) |
-| **cks-website** | Documentation & demo site (this repository). | [Deus-corp/cks-website](https://github.com/Deus-corp/cks-website) |
+| **cks-studio** | Visual workspace – explore, monitor, and manage graphs. | [Deus-corp/cks-studio](https://github.com/Deus-corp/cks-studio) |
+| **cks-website** | Documentation & demo site. | [Deus-corp/cks-website](https://github.com/Deus-corp/cks-website) |
 
 ---
 

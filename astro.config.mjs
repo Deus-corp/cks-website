@@ -28,25 +28,31 @@ export default defineConfig({
 				{ label: 'Demo', link: '/demo/' },
 				{
 					label: 'Case Studies',
+					collapsed: true,
 					items: [{ autogenerate: { directory: 'case-studies' } }],
 				},
 				{
 					label: 'Components',
+					collapsed: true,
 					items: [
 						{
 							label: 'cks-core',
+							collapsed: true,
 							items: [{ autogenerate: { directory: 'cks-core' } }],
 						},
 						{
 							label: 'cks-runtime',
+							collapsed: true,
 							items: [{ autogenerate: { directory: 'cks-runtime' } }],
 						},
 						{
 							label: 'cks-mcp',
+							collapsed: true,
 							items: [{ autogenerate: { directory: 'cks-mcp' } }],
 						},
 						{
 							label: 'cks-studio',
+							collapsed: true,
 							items: [{ autogenerate: { directory: 'cks-studio' } }],
 						},
 					],
