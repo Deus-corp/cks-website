@@ -15,17 +15,20 @@ CKS is an open ecosystem that gives LLMs a **canonical knowledge backbone**. Eve
 [Section titled “How It Works”](#how-it-works)
 
 ```plaintext
-Your LLM (Claude Desktop, etc.)
-        │
-        ▼
-    cks-mcp ─── Model Context Protocol server
-        │
-        ▼
- cks-runtime ─── Sessions, transactions, version history
-        │
-        ▼
-   cks-core ─── Immutable semantic engine
+Your LLM (Claude Desktop, etc.)      cks-studio (visual workspace)
+        │                                     │
+        └───────────────┬─────────────────────┘
+                         ▼
+                     cks-mcp ─── Model Context Protocol server
+                         │
+                         ▼
+                  cks-runtime ─── Sessions, transactions, version history
+                         │
+                         ▼
+                    cks-core ─── Immutable semantic engine
 ```
+
+An LLM and a human can drive the *same* knowledge graph at the same time — one over MCP through Claude Desktop, the other clicking around the graph canvas in `cks-studio` — because both go through the same `cks-mcp` tool surface into the same `cks-runtime` session.
 
 ## Key Capabilities
 
@@ -37,17 +40,19 @@ Your LLM (Claude Desktop, etc.)
 * **Time-travel debugging** – list versions, compare them, and safely roll back to any previous state.
 * **Branch, merge, and sandbox** – isolate an experiment from the main line, reconcile it with a three-way merge, or throw it away.
 * **Real semantic search** – find knowledge by meaning, not keywords, via HuggingFace embeddings.
-* **LLM-friendly API** – native MCP server with 24 tools, plus MCP Resources and Prompts, fully compatible with Claude Desktop and other MCP clients.
+* **LLM-friendly API** – native MCP server with 63 tools, plus MCP Resources and Prompts, fully compatible with Claude Desktop and other MCP clients.
+* **Visual workspace** – explore graphs, inspect inference chains, review CRDT forks, and monitor agent pipelines from `cks-studio`, without leaving the browser.
 
 ## Projects
 
 [Section titled “Projects”](#projects)
 
-| Project                             | Description                                                          | Status  |
-| ----------------------------------- | -------------------------------------------------------------------- | ------- |
-| [cks-core](cks-core/index.md)       | Semantic engine – immutable knowledge objects, validation, evolution | v1.15.0 |
-| [cks-runtime](cks-runtime/index.md) | Operational environment – sessions, transactions, versioning, events | v1.24.0 |
-| [cks-mcp](cks-mcp/index.md)         | MCP server – exposes CKS to LLMs via 24 tools                        | v1.16.2 |
+| Project                                               | Description                                                                                                   | Status  |
+| ----------------------------------------------------- | ------------------------------------------------------------------------------------------------------------- | ------- |
+| [cks-core](cks-core/index.md)                         | Semantic engine – immutable knowledge objects, validation, evolution                                          | v1.15.0 |
+| [cks-runtime](cks-runtime/index.md)                   | Operational environment – sessions, transactions, versioning, events                                          | v1.24.0 |
+| [cks-mcp](cks-mcp/index.md)                           | MCP server – exposes CKS to LLMs via 63 tools                                                                 | v1.16.2 |
+| [cks-studio](https://github.com/Deus-corp/cks-studio) | Visual workspace – graph canvas, gallery, agent monitoring, and an AI chat panel that can call the same tools | v0.6.6  |
 
 ## Get Started in 5 Minutes
 
@@ -59,7 +64,9 @@ pip install cks-core cks-runtime cks-mcp
 
 Then connect to Claude Desktop – see the [Quick Start guide](quickstart.md).
 
-For a deeper dive into the MCP server specifically: its [24 tools](cks-mcp/tools/index.md), [security model](cks-mcp/security.md), and [architecture](cks-mcp/architecture/ARCHITECTURE.md) each have their own page under [cks-mcp](cks-mcp/index.md).
+Prefer a visual, click-around interface instead? `cks-studio` runs alongside `cks-mcp` and gives you a graph canvas, session gallery, and an in-browser AI chat panel that can call the same tools an LLM would — see its [repository](https://github.com/Deus-corp/cks-studio) for setup.
+
+For a deeper dive into the MCP server specifically: its [tools reference](cks-mcp/tools/index.md), [security model](cks-mcp/security.md), and [architecture](cks-mcp/architecture/ARCHITECTURE.md) each have their own page under [cks-mcp](cks-mcp/index.md).
 
 ***
 
@@ -18387,7 +18394,7 @@ The Python Reference Binding therefore serves as the behavioural reference imple
 
 `cks-mcp` gives LLMs a **canonical knowledge backbone**: a persistent, versioned, verifiable place to put structured knowledge, instead of holding it — and quietly forgetting or hallucinating it — in a context window.
 
-It exposes **24 tools** over MCP, backed by the deterministic, immutable semantics of [`cks-core`](https://github.com/Deus-corp/cks-core) and the async operational management of [`cks-runtime`](https://github.com/Deus-corp/cks-runtime). Every tool call that mutates state runs inside a Runtime **Session** and **Transaction**, producing an immutable **Version** — so every change is reproducible and auditable after the fact.
+It exposes **63 tools** over MCP, backed by the deterministic, immutable semantics of [`cks-core`](https://github.com/Deus-corp/cks-core) and the async operational management of [`cks-runtime`](https://github.com/Deus-corp/cks-runtime). Every tool call that mutates state runs inside a Runtime **Session** and **Transaction**, producing an immutable **Version** — so every change is reproducible and auditable after the fact.
 
 ## Why cks-mcp?
 
@@ -18427,11 +18434,11 @@ cks-core       ← Semantic Layer: canonical structure, validation, evolution
 | Page                                                                    | Covers                                                                                                            |
 | ----------------------------------------------------------------------- | ----------------------------------------------------------------------------------------------------------------- |
 | [Getting Started](getting-started.md)                                   | Install, connect to Claude Desktop, first session                                                                 |
-| [Tools Reference](tools/index.md)                                       | All 24 tools, grouped by function, with request/response examples                                                 |
+| [Tools Reference](tools/index.md)                                       | All 63 tools, grouped by function, with request/response examples                                                 |
 | [Architecture](architecture/ARCHITECTURE.md)                            | Layering, components, and the [request lifecycle](architecture/request-lifecycle.md)                              |
 | [Security Model](security.md)                                           | SSRF protection, provenance signing, defense in depth                                                             |
 | [Extension Model](extensions.md)                                        | The opt-in `extensions` parameter and what each of the six checks                                                 |
-| [MCP Resources](protocol/resources.md) & [Prompts](protocol/prompts.md) | The two MCP-native features the server exposes beyond its 24 tools                                                |
+| [MCP Resources](protocol/resources.md) & [Prompts](protocol/prompts.md) | The two MCP-native features the server exposes beyond its 63 tools                                                |
 | [ADRs](adr/)                                                            | Why specific architectural decisions were made — thin translator, provenance signing, middleware, extension model |
 
 ## Learning Path
@@ -30150,13 +30157,15 @@ The demo page itself lives in the cks-studio repository at `public/demo.html` / 
 
 Get CKS up and running with your LLM in under 5 minutes.
 
+Two ways in: drive it through **Claude Desktop** (chat, tool calls, no UI to install), or through **`cks-studio`** (a graph canvas and AI chat panel in the browser). Both talk to the same `cks-mcp` server, so you can use either — or both at once, pointed at the same session.
+
 ***
 
 ## 1. Install
 
 [Section titled “1. Install”](#1-install)
 
-One command installs the entire ecosystem:
+One command installs the entire backend:
 
 ```bash
 pip install cks-mcp
@@ -30189,7 +30198,25 @@ If `cks-mcp` was installed into a virtual environment rather than your global Py
 
 3. Save and restart Claude Desktop (Cmd+Q, then reopen).
 
-After restart, a connector icon will appear — **cks-mcp** with 24 tools is ready to use.
+After restart, a connector icon will appear — **cks-mcp** with 63 tools is ready to use.
+
+***
+
+## 2b. Or: Launch cks-studio
+
+[Section titled “2b. Or: Launch cks-studio”](#2b-or-launch-cks-studio)
+
+Prefer clicking around a graph to typing prompts? `cks-studio` is a single-page app that connects to `cks-mcp` over HTTP and gives you a graph canvas, a session gallery, agent-pipeline monitoring, and its own AI chat panel that can call the same tools:
+
+```bash
+git clone https://github.com/Deus-corp/cks-studio.git
+cd cks-studio
+npm install
+cp .env.example .env.local   # point it at your cks-mcp server
+npm run dev
+```
+
+Open `http://localhost:5173`. See the [cks-studio repository](https://github.com/Deus-corp/cks-studio) for the full setup, including the one-command ecosystem demo graph and free-tier AI chat via OpenRouter.
 
 ***
 
@@ -30197,11 +30224,11 @@ After restart, a connector icon will appear — **cks-mcp** with 24 tools is rea
 
 [Section titled “3. Your First Experiment”](#3-your-first-experiment)
 
-Ask Claude:
+Ask Claude (or type into cks-studio’s chat panel):
 
 > Create a knowledge structure about “Quantum Mechanics” with two concepts (Wave-Particle Duality and Superposition). Link them with a relation. Then validate the structure.
 
-Claude will call `validate_knowledge` and report back whether the structure is valid.
+Claude will call `validate_knowledge` and report back whether the structure is valid. If you’re in `cks-studio`, watch the graph canvas update live as each tool call lands.
 
 ***
 
@@ -30209,10 +30236,11 @@ Claude will call `validate_knowledge` and report back whether the structure is v
 
 [Section titled “What’s Next”](#whats-next)
 
-* Browse the [Tools Reference](cks-mcp/tools/index.md) — all 24 tools, grouped by what they’re for, with request/response examples.
+* Browse the [Tools Reference](cks-mcp/tools/index.md) — all 63 tools, grouped by what they’re for, with request/response examples.
 * Explore the [cks-core](cks-core/index.md) semantic engine.
 * Learn about [cks-runtime](cks-runtime/index.md) sessions and version history.
 * Read the [Architecture](cks-mcp/architecture/ARCHITECTURE.md) and [Security Model](cks-mcp/security.md) of the MCP server.
+* Set up [cks-studio](https://github.com/Deus-corp/cks-studio) for a visual, browser-based workspace on top of the same backend.
 
 ***
 
