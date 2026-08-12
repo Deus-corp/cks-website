@@ -3,8 +3,6 @@ title: "Introduction"
 description: "Introduction"
 ---
 
-# Introduction
-
 ## Purpose
 
 Canonical Serialization defines the canonical representation of Canonical Knowledge Structures in machine-processable form.

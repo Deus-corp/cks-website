@@ -3,8 +3,6 @@ title: "ADR-001: AI Assistant Chat Panel"
 description: "ADR-001: AI Assistant Chat Panel"
 ---
 
-# ADR-001: AI Assistant Chat Panel
-
 **Status:** Proposed
 **Related:** cks-mcp ADR-007 (CKSAgentOrchestrator — a different, longer-running
 multi-agent pipeline; this ADR is a single interactive chat turn, not that

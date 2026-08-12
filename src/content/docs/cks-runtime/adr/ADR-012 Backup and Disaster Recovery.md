@@ -3,8 +3,6 @@ title: "ADR-012: Backup and Disaster Recovery"
 description: "ADR-012: Backup and Disaster Recovery"
 ---
 
-# ADR-012: Backup and Disaster Recovery
-
 **Status:** Proposed
 **Related:** ADR-004 (Storage Abstraction), ADR-005 (Version History), ADR-008 (Gossip Replication)
 

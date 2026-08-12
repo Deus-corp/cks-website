@@ -3,8 +3,6 @@ title: "SPEC-005"
 description: "SPEC-005"
 ---
 
-# SPEC-005
-
 # Transactions
 
 **Status:** Draft

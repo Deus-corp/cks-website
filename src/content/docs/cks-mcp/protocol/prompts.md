@@ -3,8 +3,6 @@ title: "MCP Prompts"
 description: "MCP Prompts"
 ---
 
-# MCP Prompts
-
 `cks-mcp` also exposes four **MCP Prompts** — ready-made workflow templates
 a client can list (`prompts/list`) and fill in (`prompts/get`) to get a
 concrete instruction back, without the user having to know which tools to

@@ -3,8 +3,6 @@ title: "cks-mcp"
 description: "cks-mcp"
 ---
 
-# cks-mcp
-
 > Model Context Protocol server for Canonical Knowledge Structure.
 
 `cks-mcp` gives LLMs a **canonical knowledge backbone**: a persistent,

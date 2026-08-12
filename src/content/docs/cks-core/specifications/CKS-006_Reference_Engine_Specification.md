@@ -3,8 +3,6 @@ title: "Part I — Normative Reference Engine Model"
 description: "Part I — Normative Reference Engine Model"
 ---
 
-# Part I — Normative Reference Engine Model
-
 # Introduction
 
 ## Purpose

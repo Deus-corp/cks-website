@@ -3,8 +3,6 @@ title: "Plugin Framework"
 description: "Plugin Framework"
 ---
 
-# Plugin Framework
-
 `cks-mcp` ships a lightweight **Plugin Framework** that lets you add optional
 functionality without touching `cks-core` or `cks-runtime`.
 

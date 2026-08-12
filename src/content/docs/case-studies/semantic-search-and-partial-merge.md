@@ -3,8 +3,6 @@ title: "Case Study: Semantic Search and Partial Merge"
 description: "Case Study: Semantic Search and Partial Merge"
 ---
 
-# Case Study: Semantic Search and Partial Merge
-
 **Problem:** Managing a knowledge graph with multiple contributors leads to
 conflicts — two people (or two LLM agents) editing the same concept
 simultaneously. Traditional tools force a manual resolution of every

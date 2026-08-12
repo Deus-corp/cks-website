@@ -3,8 +3,6 @@ title: "Canonical Knowledge Structure"
 description: "Canonical Knowledge Structure"
 ---
 
-# Canonical Knowledge Structure
-
 > A universal, representation-independent foundation for verifiable AI knowledge.
 
 CKS is an open ecosystem that gives LLMs a **canonical knowledge backbone**. Every piece of information must be explicitly structured, validated against formal constraints, and traceable to its origin. This eliminates hallucinations and makes AI-generated knowledge auditable.

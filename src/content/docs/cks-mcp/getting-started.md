@@ -3,8 +3,6 @@ title: "Getting Started"
 description: "Getting Started"
 ---
 
-# Getting Started
-
 ## What is cks-mcp?
 
 `cks-mcp` is an MCP server: it lets an LLM client (Claude Desktop, or any

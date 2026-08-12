@@ -3,8 +3,6 @@ title: "ADR-003"
 description: "ADR-003"
 ---
 
-# ADR-003
-
 # Transaction Model
 
 **Status:** Accepted

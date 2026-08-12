@@ -3,8 +3,6 @@ title: "ADR-009"
 description: "ADR-009"
 ---
 
-# ADR-009
-
 # Proactive Inference Staleness Detection: A Background Sweeper for Reasoning Conflicts
 
 **Status:** Proposed

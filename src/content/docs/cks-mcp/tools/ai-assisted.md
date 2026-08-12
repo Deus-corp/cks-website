@@ -3,8 +3,6 @@ title: "AI-Assisted  Ingestion"
 description: "AI-Assisted  Ingestion"
 ---
 
-# AI-Assisted & Ingestion
-
 Tools that turn something unstructured — free text or a web page — into a
 validated Knowledge Structure, and one that helps an LLM propose a correct
 `evolve_knowledge` call instead of guessing.

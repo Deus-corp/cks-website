@@ -3,8 +3,6 @@ title: "Case Study: Saving and Reusing Knowledge Graphs Across Sessions"
 description: "Case Study: Saving and Reusing Knowledge Graphs Across Sessions"
 ---
 
-# Case Study: Saving and Reusing Knowledge Graphs Across Sessions
-
 **Problem:** Claude Desktop can build a project's knowledge graph (architecture,
 modules, dependencies) using `cks-mcp` tools, but the graph's `session_id` is
 lost when the chat ends. In a new conversation, the graph must be rebuilt from

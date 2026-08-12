@@ -3,8 +3,6 @@ title: "ADR-010: Process Control Tool (`request_process_stop`)"
 description: "ADR-010: Process Control Tool (`request_process_stop`)"
 ---
 
-# ADR-010: Process Control Tool (`request_process_stop`)
-
 **Status:** Proposed
 **Related:** cks-runtime ADR-016 (Standalone Agent Process Control —
 owns the `cks_agent_liveness.desired_state` column and the

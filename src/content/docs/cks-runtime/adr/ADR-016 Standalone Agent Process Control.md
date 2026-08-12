@@ -3,8 +3,6 @@ title: "ADR-016: Standalone Agent Process Control — `desired_state` Signal on 
 description: "ADR-016: Standalone Agent Process Control — `desired_state` Signal on `cks_agent_liveness`"
 ---
 
-# ADR-016: Standalone Agent Process Control — `desired_state` Signal on `cks_agent_liveness`
-
 **Status:** Proposed
 **Related:** ADR-014 (Standalone Agent Liveness Heartbeat — owns the
 `cks_agent_liveness` schema this ADR extends), ADR-015 (Sweeper

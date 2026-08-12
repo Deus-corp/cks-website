@@ -3,8 +3,6 @@ title: "Quick Start"
 description: "Quick Start"
 ---
 
-# Quick Start
-
 Get CKS up and running with your LLM in under 5 minutes.
 
 ---

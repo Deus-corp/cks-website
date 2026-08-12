@@ -3,8 +3,6 @@ title: "Security Model"
 description: "Security Model"
 ---
 
-# Security Model
-
 `cks-mcp` sits at the boundary between an LLM and the rest of the CKS
 ecosystem. Its trust model follows from one premise: **the LLM and its
 input are untrusted**. The server enforces every safety and integrity rule

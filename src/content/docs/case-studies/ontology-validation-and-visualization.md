@@ -3,8 +3,6 @@ title: "Case Study: Ontology Validation and Graph Visualization"
 description: "Case Study: Ontology Validation and Graph Visualization"
 ---
 
-# Case Study: Ontology Validation and Graph Visualization
-
 **Problem:** A knowledge graph about astronomy can silently accept nonsensical
 data, like "Earth orbits Pasta", if there are no type-level constraints. Traditional
 validation only checks structural integrity, not whether a relation makes sense

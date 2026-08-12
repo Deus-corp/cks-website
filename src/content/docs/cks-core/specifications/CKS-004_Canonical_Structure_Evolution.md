@@ -3,8 +3,6 @@ title: "Part I — Operational Foundation"
 description: "Part I — Operational Foundation"
 ---
 
-# Part I — Operational Foundation
-
 # Introduction
 
 ## Purpose

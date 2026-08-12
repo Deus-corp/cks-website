@@ -3,8 +3,6 @@ title: "cks-runtime"
 description: "cks-runtime"
 ---
 
-# cks-runtime
-
 > The canonical operational environment for Canonical Knowledge Structures.
 
 `cks-runtime` provides the infrastructure to execute, manage, version, persist, and expose Canonical Knowledge Structures without becoming a semantic authority itself.

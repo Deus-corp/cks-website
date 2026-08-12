@@ -3,8 +3,6 @@ title: "Introduction"
 description: "Introduction"
 ---
 
-# Introduction
-
 ## Purpose
 
 The purpose of this specification is to describe the Reference

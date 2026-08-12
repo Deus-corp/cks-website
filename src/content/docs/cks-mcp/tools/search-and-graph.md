@@ -3,8 +3,6 @@ title: "Graph Exploration  Visualization"
 description: "Graph Exploration  Visualization"
 ---
 
-# Graph Exploration & Visualization
-
 Retrieving and rendering a neighbourhood of a Knowledge Structure, rather
 than the whole thing — important once a session's graph grows past what
 fits comfortably in a response.

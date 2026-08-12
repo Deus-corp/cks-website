@@ -3,8 +3,6 @@ title: "SPEC-002"
 description: "SPEC-002"
 ---
 
-# SPEC-002
-
 # Session Model
 
 **Status:** Draft

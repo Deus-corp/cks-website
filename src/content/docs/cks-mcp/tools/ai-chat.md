@@ -3,8 +3,6 @@ title: "AI Chat (`ai_chat`)"
 description: "AI Chat (`ai_chat`)"
 ---
 
-# AI Chat (`ai_chat`)
-
 Send a chat turn to an LLM (currently Anthropic only) that has access
 to a restricted set of cks-mcp tools, scoped to a single session.
 

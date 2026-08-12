@@ -3,8 +3,6 @@ title: "List LLM Models (`list_llm_models`)"
 description: "List LLM Models (`list_llm_models`)"
 ---
 
-# List LLM Models (`list_llm_models`)
-
 Return the list of available models for the current LLM provider
 (Ollama, Anthropic, or OpenAI‑compatible), so a client UI can offer a
 model picker before calling `ai_chat` with its optional `model` argument.

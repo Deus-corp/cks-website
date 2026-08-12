@@ -3,8 +3,6 @@ title: "Knowledge Objects"
 description: "Knowledge Objects"
 ---
 
-# Knowledge Objects
-
 ## Purpose
 
 This section defines the **Knowledge Object (KO)**, the fundamental semantic entity of the Canonical Knowledge Structure (CKS).

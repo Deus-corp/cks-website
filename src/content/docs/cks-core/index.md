@@ -3,8 +3,6 @@ title: "Canonical Knowledge Structure (CKS)"
 description: "Canonical Knowledge Structure (CKS)"
 ---
 
-# Canonical Knowledge Structure (CKS)
-
 > **A universal, representation-independent semantic foundation for knowledge.**
 
 The Canonical Knowledge Structure (CKS) project defines a formal semantic model for representing, validating, exchanging, and evolving knowledge independently of programming languages, document formats, databases, or artificial intelligence systems.

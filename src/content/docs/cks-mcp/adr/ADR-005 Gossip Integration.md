@@ -3,8 +3,6 @@ title: "ADR-005"
 description: "ADR-005"
 ---
 
-# ADR-005
-
 # Gossip Integration (Multi-Instance Session Sync)
 
 **Status:** Accepted

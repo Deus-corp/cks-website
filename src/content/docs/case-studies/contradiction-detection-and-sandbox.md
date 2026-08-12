@@ -3,8 +3,6 @@ title: "Case Study: Contradiction Detection and Hypothesis Sandboxing"
 description: "Case Study: Contradiction Detection and Hypothesis Sandboxing"
 ---
 
-# Case Study: Contradiction Detection and Hypothesis Sandboxing
-
 **Problem:** A knowledge graph can accumulate logically inconsistent statements — for example, the same source–target pair might be linked by both `confirms` and `refutes` relations, or a planet might be asserted to orbit two different stars. Standard structural and even type‑level validation passes such graphs without complaint, because every individual edge looks well‑formed. The contradiction only becomes visible when multiple relations are read *together*.
 
 **CKS solution:** The new `mutual_exclusion` and `functional_relation` extension constraints (introduced in `cks-core` 1.13.0) let a graph *declare* what counts as a contradiction, and the `detect_contradictions` tool surfaces those violations in a compact, machine‑readable form. The `fork_sandbox` tool provides an isolated “what‑if” branch — apply a hypothesis, see the diff, and keep or discard the result — without ever touching the parent session. Together with the existing `suggest_evolution` preview mode, these tools give LLMs a full **explore–detect–fix–validate** loop inside a single conversation.

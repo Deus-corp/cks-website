@@ -3,8 +3,6 @@ title: "ADR-001"
 description: "ADR-001"
 ---
 
-# ADR-001
-
 # Reasoning Objects: Inference as a First-Class, Opt-In Extension
 
 **Status:** Proposed

@@ -3,8 +3,6 @@ title: "CKS Specifications"
 description: "CKS Specifications"
 ---
 
-# CKS Specifications
-
 The Canonical Knowledge Structure (CKS) project is defined by a family of implementation-independent specifications.
 
 Each specification describes one aspect of the CKS ecosystem.

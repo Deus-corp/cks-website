@@ -3,8 +3,6 @@ title: "Case Study: Catching Fake Citations"
 description: "Case Study: Catching Fake Citations"
 ---
 
-# Case Study: Catching Fake Citations
-
 **Problem:** LLMs can produce plausible-looking citations that reference
 non-existent papers, authors, or URLs. Prompt-based solutions ask the
 model nicely not to hallucinate — but don't enforce anything.

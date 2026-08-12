@@ -3,8 +3,6 @@ title: "Case Study: Automatic CRDT Fork Resolution with Fork Agent"
 description: "Case Study: Automatic CRDT Fork Resolution with Fork Agent"
 ---
 
-# Case Study: Automatic CRDT Fork Resolution with Fork Agent
-
 **Problem:** When two replicas of cks-mcp concurrently modify the same
 knowledge object (e.g. via gossip), a CRDT conflict (fork) arises.
 Without automatic resolution, the conflict remains unresolved, leaving

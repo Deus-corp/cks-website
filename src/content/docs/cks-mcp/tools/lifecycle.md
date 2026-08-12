@@ -3,8 +3,6 @@ title: "Knowledge Lifecycle"
 description: "Knowledge Lifecycle"
 ---
 
-# Knowledge Lifecycle
-
 The four core operations every other tool builds on top of. All four accept
 either a fresh `json_data` string or an existing `session_id` — see
 [the shared conventions](index.md#conventions-used-across-every-tool).

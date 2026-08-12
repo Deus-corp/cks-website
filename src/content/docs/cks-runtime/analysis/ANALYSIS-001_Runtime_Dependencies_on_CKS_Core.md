@@ -3,8 +3,6 @@ title: "ANALYSIS-001"
 description: "ANALYSIS-001"
 ---
 
-# ANALYSIS-001
-
 ## Runtime Dependencies on CKS Core
 
 **Status:** Draft

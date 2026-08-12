@@ -3,8 +3,6 @@ title: "ADR-010: Proactive Provenance Staleness Detection"
 description: "ADR-010: Proactive Provenance Staleness Detection"
 ---
 
-# ADR-010: Proactive Provenance Staleness Detection
-
 **Status:** Proposed
 **Related:** ADR-009 (Proactive Inference Staleness Detection), ADR-002 (cks-mcp, Provenance Signing), ADR-008 (Gossip Replication)
 

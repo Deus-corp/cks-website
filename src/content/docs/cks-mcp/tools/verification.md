@@ -3,8 +3,6 @@ title: "Verification  Integrity"
 description: "Verification  Integrity"
 ---
 
-# Verification & Integrity
-
 The two tools behind `cks-mcp`'s anti-hallucination guarantees. See
 [Security Model](../security.md) for the full trust model these implement.
 

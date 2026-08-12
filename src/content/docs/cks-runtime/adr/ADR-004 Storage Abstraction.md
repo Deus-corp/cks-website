@@ -3,8 +3,6 @@ title: "ADR-004"
 description: "ADR-004"
 ---
 
-# ADR-004
-
 # Storage Abstraction
 
 **Status:** Accepted

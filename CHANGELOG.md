@@ -2,7 +2,15 @@
 
 All notable changes to CKS Website will be documented in this file.
 
-The format is based on Keep a Changelog and this project follows Semantic Versioning.
+---
+
+## [0.1.1] - 2026-08-12
+
+### Fixed
+- **Theme switcher** – restored upstream Starlight API in `ThemeProvider.astro` so the light/dark/auto toggle works again (defaults to dark).
+- **Duplicate headings** – removed redundant `# Title` from 98 Markdown files; Starlight already renders the title from frontmatter.
+- **Favicon** – replaced generic compass with a graphite‑amber CKS node icon.
+- **Content width** – increased `--sl-content-width` from 45rem to 60rem and reduced `--sl-sidebar-width` from 18.75rem to 16rem for a more spacious reading area.
 
 ---
 

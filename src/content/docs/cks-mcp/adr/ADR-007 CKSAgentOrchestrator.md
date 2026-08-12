@@ -3,8 +3,6 @@ title: "ADR-007"
 description: "ADR-007"
 ---
 
-# ADR-007
-
 # CKSAgentOrchestrator: Coordinating Researcher → Critic → Synthesizer → Arbiter
 
 **Status:** Proposed

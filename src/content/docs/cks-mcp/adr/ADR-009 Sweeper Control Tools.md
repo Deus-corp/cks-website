@@ -2,7 +2,6 @@
 title: "ADR-009"
 description: "ADR-009"
 ---
-# ADR-009: Sweeper Control Tools (`start_agent` / `stop_agent`)
 
 **Status:** Proposed
 **Related:** cks-runtime ADR-015 (Sweeper Control — owns the

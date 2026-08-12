@@ -3,8 +3,6 @@ title: "ADR-011: `ai_chat` Tool"
 description: "ADR-011: `ai_chat` Tool"
 ---
 
-# ADR-011: `ai_chat` Tool
-
 **Status:** Proposed
 **Related:** cks-studio ADR-001 (AI Assistant Chat Panel — owns the
 client-side page/store design this tool serves), ADR-007

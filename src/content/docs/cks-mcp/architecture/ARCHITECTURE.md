@@ -3,8 +3,6 @@ title: "Architecture"
 description: "Architecture"
 ---
 
-# Architecture
-
 **Status:** Living document — reflects the codebase as of `v1.17.x`.
 
 ## 1. Purpose

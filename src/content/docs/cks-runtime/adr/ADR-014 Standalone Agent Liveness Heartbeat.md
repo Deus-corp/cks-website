@@ -3,8 +3,6 @@ title: "ADR-014: Standalone Agent Liveness Heartbeat"
 description: "ADR-014: Standalone Agent Liveness Heartbeat"
 ---
 
-# ADR-014: Standalone Agent Liveness Heartbeat
-
 **Status:** Proposed
 **Related:** ADR-004 (Storage Abstraction), ADR-007 (Concurrent Multi-Agent
 Writes), cks-mcp ADR-007 (CKSAgentOrchestrator), cks-studio

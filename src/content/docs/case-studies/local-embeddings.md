@@ -3,8 +3,6 @@ title: "Case Study: Offline Semantic Search with Local Embeddings"
 description: "Case Study: Offline Semantic Search with Local Embeddings"
 ---
 
-# Case Study: Offline Semantic Search with Local Embeddings
-
 **Problem:** Semantic search is a powerful tool for exploring a knowledge
 graph, but until recently it required a Hugging Face API token. This
 created a barrier for users who just wanted to try CKS, added a dependency

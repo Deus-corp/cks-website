@@ -3,8 +3,6 @@ title: "ADR-008"
 description: "ADR-008"
 ---
 
-# ADR-008: Standalone Agent Process Visibility (`list_processes` / `process_status`)
-
 **Status:** Proposed
 **Related:** cks-runtime ADR-014 (Standalone Agent Liveness Heartbeat —
 owns the `cks_agent_liveness` schema and the heartbeat-writer contract

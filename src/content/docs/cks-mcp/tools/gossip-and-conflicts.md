@@ -3,8 +3,6 @@ title: "Gossip  Conflict Resolution"
 description: "Gossip  Conflict Resolution"
 ---
 
-# Gossip & Conflict Resolution
-
 Tools for surfacing conflicts a background process found with no caller
 waiting on it: a multi-agent deployment where several `cks-mcp` processes
 gossip-replicate sessions to each other (`CKS_GOSSIP_ENABLED=true` — see

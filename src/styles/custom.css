@@ -28,6 +28,18 @@
 
 	--sl-font: 'Manrope', system-ui, sans-serif;
 	--sl-font-mono: 'JetBrains Mono', ui-monospace, 'SFMono-Regular', Menlo, monospace;
+
+	/* -- Layout ------------------------------------------------------------
+	   Starlight defaults (45rem content / 18.75rem sidebar) read narrow for
+	   documentation this dense in tables and code. Give content more room
+	   and claim some of it back from the sidebar. */
+	--sl-content-width: 60rem;
+}
+
+@media (min-width: 50em) {
+	:root {
+		--sl-sidebar-width: 16rem;
+	}
 }
 
 :root[data-theme='dark'] {

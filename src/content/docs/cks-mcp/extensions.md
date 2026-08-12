@@ -3,8 +3,6 @@ title: "Extension Model"
 description: "Extension Model"
 ---
 
-# Extension Model
-
 `cks-mcp` validates structures against a small, normative core rule set by
 default (unique identities, no dangling relations, derivation arity and
 acyclicity). Beyond that, six **opt-in extensions** add domain-specific

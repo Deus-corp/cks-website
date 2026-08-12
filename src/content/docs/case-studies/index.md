@@ -3,8 +3,6 @@ title: "Case Studies"
 description: "Case Studies"
 ---
 
-# Case Studies
-
 Real-world scenarios that demonstrate how CKS prevents hallucinations,
 tracks provenance, and gives LLMs a verifiable knowledge backbone.
 

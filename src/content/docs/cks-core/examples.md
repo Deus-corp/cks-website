@@ -3,8 +3,6 @@ title: "Examples"
 description: "Examples"
 ---
 
-# Examples
-
 The CKS reference implementation includes a **Reference Corpus** of
 canonical examples demonstrating valid and invalid Knowledge Structures.
 

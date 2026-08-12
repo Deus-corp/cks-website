@@ -3,7 +3,6 @@ title: "Part I — Foundational Manifesto"
 description: "Part I — Foundational Manifesto"
 ---
 
-# Part I — Foundational Manifesto
 ## Canonical Motto
 
 > Knowledge exists independently of representation.

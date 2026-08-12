@@ -3,8 +3,6 @@ title: "MCP Resources"
 description: "MCP Resources"
 ---
 
-# MCP Resources
-
 Beyond its 24 tools, `cks-mcp` exposes every active session and its version
 history as **MCP Resources** — read-only, URI-addressable views a client
 can list and read directly, without a tool call. Useful for a client UI

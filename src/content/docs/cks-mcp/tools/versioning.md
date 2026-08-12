@@ -3,8 +3,6 @@ title: "Version Control"
 description: "Version Control"
 ---
 
-# Version Control
-
 Every committed change to a session (`validate_knowledge`, `evolve_knowledge`,
 a merge, a revert, ...) creates a new immutable `Version`. These four tools
 let you inspect and travel through that history. All require a `session_id`

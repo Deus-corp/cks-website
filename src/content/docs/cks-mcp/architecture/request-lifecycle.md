@@ -3,8 +3,6 @@ title: "Request Lifecycle"
 description: "Request Lifecycle"
 ---
 
-# Request Lifecycle
-
 How a request actually flows through the components in
 [Architecture](ARCHITECTURE.md), using `validate_knowledge` — the most
 involved tool — as the walkthrough. Simpler tools follow the same shape

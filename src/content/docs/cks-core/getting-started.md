@@ -3,8 +3,6 @@ title: "Getting Started"
 description: "Getting Started"
 ---
 
-# Getting Started
-
 Welcome to the **Canonical Knowledge Structure (CKS)** project.
 
 This guide introduces the core ideas behind CKS and walks through the first steps of using the Python reference implementation.

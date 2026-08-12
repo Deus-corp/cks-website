@@ -3,8 +3,6 @@ title: "Export  Observability"
 description: "Export  Observability"
 ---
 
-# Export & Observability
-
 Getting data out of a session, in the format the destination expects — and
 seeing how the server itself is performing.
 

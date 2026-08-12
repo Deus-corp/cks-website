@@ -3,8 +3,6 @@ title: "SPEC-006"
 description: "SPEC-006"
 ---
 
-# SPEC-006
-
 # Storage
 
 **Status:** Draft

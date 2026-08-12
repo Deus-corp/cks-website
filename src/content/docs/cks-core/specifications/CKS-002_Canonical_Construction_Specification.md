@@ -3,8 +3,6 @@ title: "Purpose"
 description: "Purpose"
 ---
 
-# Purpose
-
 ## Objective
 
 The Canonical Construction Specification (CKS‑002) defines the
