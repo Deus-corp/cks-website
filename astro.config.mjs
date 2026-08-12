@@ -1,6 +1,8 @@
 // @ts-check
 import { defineConfig } from 'astro/config';
 import starlight from '@astrojs/starlight';
+import starlightLlmsTxt from 'starlight-llms-txt';
+import starlightCopyButton from 'starlight-copy-button';
 
 // https://astro.build/config
 export default defineConfig({
@@ -82,6 +84,55 @@ export default defineConfig({
 			components: {
 				ThemeProvider: './src/components/ThemeProvider.astro',
 			},
+			plugins: [
+				starlightLlmsTxt({
+					projectName: 'CKS',
+				}),
+				starlightCopyButton(),
+			],
+			head: [
+				// Open Graph
+				{
+					tag: 'meta',
+					attrs: { property: 'og:type', content: 'website' },
+				},
+				{
+					tag: 'meta',
+					attrs: { property: 'og:site_name', content: 'CKS Documentation' },
+				},
+				{
+					tag: 'meta',
+					attrs: {
+						property: 'og:image',
+						content: 'https://deus-corp.github.io/cks-website/og-card.png',
+					},
+				},
+				{
+					tag: 'meta',
+					attrs: { property: 'og:image:width', content: '1200' },
+				},
+				{
+					tag: 'meta',
+					attrs: { property: 'og:image:height', content: '630' },
+				},
+				// Twitter Card
+				{
+					tag: 'meta',
+					attrs: { name: 'twitter:card', content: 'summary_large_image' },
+				},
+				{
+					tag: 'meta',
+					attrs: {
+						name: 'twitter:image',
+						content: 'https://deus-corp.github.io/cks-website/og-card.png',
+					},
+				},
+				// Theme color for browser UI (matches --cks-ink from custom.css)
+				{
+					tag: 'meta',
+					attrs: { name: 'theme-color', content: '#0b0e14' },
+				},
+			],
 		}),
 	],
 });

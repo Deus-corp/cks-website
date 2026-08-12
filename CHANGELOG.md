@@ -1,0 +1,29 @@
+# Changelog
+
+All notable changes to CKS Website will be documented in this file.
+
+The format is based on Keep a Changelog and this project follows Semantic Versioning.
+
+---
+
+## [0.1.0] - 2026-08-12
+
+### Added
+- Custom 404 page with project‑themed humour (“CITATION_HALLUCINATION”).
+- OG / Twitter meta tags (`og:type`, `og:site_name`, `og:image`, `twitter:card`, `theme-color`) injected globally via Starlight’s `head` config.
+- Proper 1200×630 OG card image (`public/og-card.png`) to replace the temporary favicon fallback.
+- `starlight-llms-txt` plugin — auto‑generates `llms.txt`, `llms-full.txt`, and `llms-small.txt` on build.
+- `starlight-copy-button` plugin — adds a “Copy page” button to every documentation page.
+- `favicon.svg` replaced with a CKS‑branded icon.
+
+### Changed
+- All Starlight boilerplate removed: `guides/example.md`, `reference/example.md`, and `houston.webp` are deleted.
+- Sidebar fully collapsed by default (`collapsed: true` on every group and auto‑generated directory).
+- Demo asset paths fixed to use relative URLs; conflicting `index.html` and `manifest.webmanifest` excluded from the demo bundle.
+- README rewritten for the CKS ecosystem.
+
+---
+
+## Notes
+
+This is the first public reference implementation of the CKS Website Standard.
