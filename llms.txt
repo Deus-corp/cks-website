@@ -1,0 +1,13 @@
+# CKS
+
+> Canonical Knowledge Structure — verifiable knowledge graphs for LLMs
+
+## Documentation Sets
+
+- [Abridged documentation](https://deus-corp.github.io/cks-website/llms-small.txt): a compact version of the documentation for CKS, with non-essential content removed
+- [Complete documentation](https://deus-corp.github.io/cks-website/llms-full.txt): the full documentation for CKS
+
+## Notes
+
+- The complete documentation includes all content from the official documentation
+- The content is automatically generated from the same source as the official documentation
