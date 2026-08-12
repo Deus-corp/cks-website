@@ -4,10 +4,6 @@
 
 > Canonical Knowledge Structure
 
-# Canonical Knowledge Structure
-
-[Section titled “Canonical Knowledge Structure”](#canonical-knowledge-structure)
-
 > A universal, representation-independent foundation for verifiable AI knowledge.
 
 CKS is an open ecosystem that gives LLMs a **canonical knowledge backbone**. Every piece of information must be explicitly structured, validated against formal constraints, and traceable to its origin. This eliminates hallucinations and makes AI-generated knowledge auditable.
@@ -77,10 +73,6 @@ Today, the same knowledge exists in many incompatible forms – documents, datab
 
 > This page could not be traced to any canonical source.
 
-# 404 — Unverifiable Reference
-
-[Section titled “404 — Unverifiable Reference”](#404--unverifiable-reference)
-
 > **CITATION\_HALLUCINATION**: reference to `[this page]` could not be traced to any canonical source.
 
 This URL doesn’t resolve to any node in the knowledge graph. Possible causes:
@@ -99,10 +91,6 @@ No amount of retries will make this URL canonical. Here’s what does exist:
 
 > Case Studies
 
-# Case Studies
-
-[Section titled “Case Studies”](#case-studies)
-
 Real-world scenarios that demonstrate how CKS prevents hallucinations, tracks provenance, and gives LLMs a verifiable knowledge backbone.
 
 | Case Study                                                                                       | What it shows                                                                                                                   |
@@ -119,10 +107,6 @@ Real-world scenarios that demonstrate how CKS prevents hallucinations, tracks pr
 # Case Study: Catching Fake Citations
 
 > Case Study: Catching Fake Citations
-
-# Case Study: Catching Fake Citations
-
-[Section titled “Case Study: Catching Fake Citations”](#case-study-catching-fake-citations)
 
 **Problem:** LLMs can produce plausible-looking citations that reference non-existent papers, authors, or URLs. Prompt-based solutions ask the model nicely not to hallucinate — but don’t enforce anything.
 
@@ -197,10 +181,6 @@ No coding required.
 # Case Study: Contradiction Detection and Hypothesis Sandboxing
 
 > Case Study: Contradiction Detection and Hypothesis Sandboxing
-
-# Case Study: Contradiction Detection and Hypothesis Sandboxing
-
-[Section titled “Case Study: Contradiction Detection and Hypothesis Sandboxing”](#case-study-contradiction-detection-and-hypothesis-sandboxing)
 
 **Problem:** A knowledge graph can accumulate logically inconsistent statements — for example, the same source–target pair might be linked by both `confirms` and `refutes` relations, or a planet might be asserted to orbit two different stars. Standard structural and even type‑level validation passes such graphs without complaint, because every individual edge looks well‑formed. The contradiction only becomes visible when multiple relations are read *together*.
 
@@ -375,10 +355,6 @@ As a regression check, we validated a graph where Earth orbits Pasta (type Food)
 
 > Case Study: Automatic CRDT Fork Resolution with Fork Agent
 
-# Case Study: Automatic CRDT Fork Resolution with Fork Agent
-
-[Section titled “Case Study: Automatic CRDT Fork Resolution with Fork Agent”](#case-study-automatic-crdt-fork-resolution-with-fork-agent)
-
 **Problem:** When two replicas of cks-mcp concurrently modify the same knowledge object (e.g. via gossip), a CRDT conflict (fork) arises. Without automatic resolution, the conflict remains unresolved, leaving the graph in an inconsistent state and requiring manual intervention.
 
 **CKS solution:** CRDT adapter (ADR-013) Stages 2–3: MV-Register, causality tracking, fork detection events, and a dedicated `ForkResolutionAgent` that autonomously claims and resolves `crdt_fork` tasks from the persistent outbox.
@@ -459,10 +435,6 @@ Log excerpt:
 # Case Study: Resolving a Reasoning Conflict with Inference Arbitration
 
 > Case Study: Resolving a Reasoning Conflict with Inference Arbitration
-
-# Case Study: Resolving a Reasoning Conflict with Inference Arbitration
-
-[Section titled “Case Study: Resolving a Reasoning Conflict with Inference Arbitration”](#case-study-resolving-a-reasoning-conflict-with-inference-arbitration)
 
 **Problem:** Documentation and roadmaps drift over time. A project’s `ROADMAP.md` claims one status, its `CHANGELOG.md` shows another, and a human reader is left to guess which source to trust. CKS’s reasoning layer (ADR-001) is designed to model exactly this: competing `InferenceStep`s that conclude the same fact but disagree, with a structured process to detect, rank, and resolve the conflict.
 
@@ -560,10 +532,6 @@ Each step concluded `"Is cks-core v1.4 complete?"` but with different `operator`
 # Case Study: Offline Semantic Search with Local Embeddings
 
 > Case Study: Offline Semantic Search with Local Embeddings
-
-# Case Study: Offline Semantic Search with Local Embeddings
-
-[Section titled “Case Study: Offline Semantic Search with Local Embeddings”](#case-study-offline-semantic-search-with-local-embeddings)
 
 **Problem:** Semantic search is a powerful tool for exploring a knowledge graph, but until recently it required a Hugging Face API token. This created a barrier for users who just wanted to try CKS, added a dependency on an external service, and introduced a common failure mode — the token was set in the user’s shell but not inherited by the MCP server process launched by Claude Desktop, leading to silent fallback to non-semantic stub embeddings.
 
@@ -679,10 +647,6 @@ No API tokens. No cloud services. Just a conversation.
 
 > Case Study: Saving and Reusing Knowledge Graphs Across Sessions
 
-# Case Study: Saving and Reusing Knowledge Graphs Across Sessions
-
-[Section titled “Case Study: Saving and Reusing Knowledge Graphs Across Sessions”](#case-study-saving-and-reusing-knowledge-graphs-across-sessions)
-
 **Problem:** Claude Desktop can build a project’s knowledge graph (architecture, modules, dependencies) using `cks-mcp` tools, but the graph’s `session_id` is lost when the chat ends. In a new conversation, the graph must be rebuilt from scratch — wasting time and offering no guarantee the structure will be identical. LLMs need “memory” of previously created graphs.
 
 **CKS solution:** Memory Agent v1 — three new MCP tools (`register_graph`, `get_graph`, `list_graphs`) and a `graph_registry` table in `cks-runtime` (SQLite/Postgres). Now a graph can be given a meaningful name, saved, and looked up in the next conversation — no rebuilding needed.
@@ -797,10 +761,6 @@ The whole process takes 10–15 minutes and requires zero lines of code — just
 # Case Study: Ontology Validation and Graph Visualization
 
 > Case Study: Ontology Validation and Graph Visualization
-
-# Case Study: Ontology Validation and Graph Visualization
-
-[Section titled “Case Study: Ontology Validation and Graph Visualization”](#case-study-ontology-validation-and-graph-visualization)
 
 **Problem:** A knowledge graph about astronomy can silently accept nonsensical data, like “Earth orbits Pasta”, if there are no type-level constraints. Traditional validation only checks structural integrity, not whether a relation makes sense for the types it connects.
 
@@ -931,10 +891,6 @@ No coding required.
 
 > Case Study: Semantic Search and Partial Merge
 
-# Case Study: Semantic Search and Partial Merge
-
-[Section titled “Case Study: Semantic Search and Partial Merge”](#case-study-semantic-search-and-partial-merge)
-
 **Problem:** Managing a knowledge graph with multiple contributors leads to conflicts — two people (or two LLM agents) editing the same concept simultaneously. Traditional tools force a manual resolution of every conflict, blocking the entire merge until all are resolved.
 
 **CKS solution:** `merge_branch` now accepts a `resolutions` parameter, enabling partial three-way merges. The caller specifies per-object strategies (`"branch_a"`, `"branch_b"`, `None`, or a custom object), and the merge commits immediately, without manual intervention for the resolved identities. Combined with semantic search and in-place `update_object`, this enables a fully automated knowledge workflow.
@@ -1059,10 +1015,6 @@ No coding required.
 # Canonical Knowledge Structure (CKS)
 
 > Canonical Knowledge Structure (CKS)
-
-# Canonical Knowledge Structure (CKS)
-
-[Section titled “Canonical Knowledge Structure (CKS)”](#canonical-knowledge-structure-cks)
 
 > **A universal, representation-independent semantic foundation for knowledge.**
 
@@ -1314,10 +1266,6 @@ The CKS reference implementation is released under the MIT License.
 
 > ADR-001
 
-# ADR-001
-
-[Section titled “ADR-001”](#adr-001)
-
 # Reasoning Objects: Inference as a First-Class, Opt-In Extension
 
 [Section titled “Reasoning Objects: Inference as a First-Class, Opt-In Extension”](#reasoning-objects-inference-as-a-first-class-opt-in-extension)
@@ -1437,10 +1385,6 @@ A thin wrapper over the same mechanism `AddObject` uses (an `InferenceStep` is a
 # ADR-002
 
 > ADR-002
-
-# ADR-002
-
-[Section titled “ADR-002”](#adr-002)
 
 # Belief Revision Support: Cascading Staleness and Entrenchment Ranking for InferenceStep
 
@@ -1585,10 +1529,6 @@ Implemented in cks-core 1.17.0. Depends only on ADR-001’s existing `InferenceS
 
 > ADR-003
 
-# ADR-003
-
-[Section titled “ADR-003”](#adr-003)
-
 # Temporal Validity Constraint: Time-Bounded Fact Semantics
 
 [Section titled “Temporal Validity Constraint: Time-Bounded Fact Semantics”](#temporal-validity-constraint-time-bounded-fact-semantics)
@@ -1627,10 +1567,6 @@ This is deliberately minimal – no reasoning about time intervals, Allen’s al
 
 > ADR-004
 
-# ADR-004
-
-[Section titled “ADR-004”](#adr-004)
-
 # Layering Rule Constraint: Enforcing Architectural Dependency Direction
 
 [Section titled “Layering Rule Constraint: Enforcing Architectural Dependency Direction”](#layering-rule-constraint-enforcing-architectural-dependency-direction)
@@ -1667,10 +1603,6 @@ The layering order is hardcoded for the CKS ecosystem: `cks-core < cks-runtime <
 # API Reference
 
 > API Reference
-
-# API Reference
-
-[Section titled “API Reference”](#api-reference)
 
 This document describes the public API exposed by the Canonical Knowledge Structure (CKS) Python reference implementation.
 
@@ -2346,10 +2278,6 @@ For additional information, see:
 
 > Architecture
 
-# Architecture
-
-[Section titled “Architecture”](#architecture)
-
 This document describes the architecture of the Canonical Knowledge Structure (CKS) Python reference implementation.
 
 The implementation follows the architecture defined by the CKS specifications while remaining completely implementation-independent.
@@ -2812,10 +2740,6 @@ The next document, **API Reference**, describes the complete public interface ex
 
 > Concepts
 
-# Concepts
-
-[Section titled “Concepts”](#concepts)
-
 This document introduces the fundamental concepts of the Canonical Knowledge Structure (CKS).
 
 The concepts presented here are independent of any programming language or implementation and form the semantic foundation of the entire CKS ecosystem.
@@ -3202,10 +3126,6 @@ The following document, **Architecture**, explains how these concepts are realis
 
 > Contracts
 
-# Contracts
-
-[Section titled “Contracts”](#contracts)
-
 This document describes the formal contract that connects every major component of the Canonical Knowledge Structure (CKS) ecosystem.
 
 ## The Contract Chain
@@ -3250,10 +3170,6 @@ New components (e.g., MCP servers, alternative language bindings) must satisfy t
 # Examples
 
 > Examples
-
-# Examples
-
-[Section titled “Examples”](#examples)
 
 The CKS reference implementation includes a **Reference Corpus** of canonical examples demonstrating valid and invalid Knowledge Structures.
 
@@ -3434,10 +3350,6 @@ Current status: 134+ tests passing.
 # Getting Started
 
 > Getting Started
-
-# Getting Started
-
-[Section titled “Getting Started”](#getting-started)
 
 Welcome to the **Canonical Knowledge Structure (CKS)** project.
 
@@ -3775,10 +3687,6 @@ Continue with:
 
 > Plugin Development Guide
 
-# Plugin Development Guide
-
-[Section titled “Plugin Development Guide”](#plugin-development-guide)
-
 CKS supports external constraint plugins via the standard Python `entry_points` mechanism. This allows domain‑specific constraints to be distributed as independent packages and loaded automatically when `cks` is imported.
 
 ***
@@ -3918,10 +3826,6 @@ Publish your plugin as a standard PyPI package. Users only need to install it (`
 # CKS Specifications
 
 > CKS Specifications
-
-# CKS Specifications
-
-[Section titled “CKS Specifications”](#cks-specifications)
 
 The Canonical Knowledge Structure (CKS) project is defined by a family of implementation-independent specifications.
 
@@ -4253,10 +4157,6 @@ Together these documents provide both an accessible introduction and a complete 
 # Part I — Foundational Manifesto
 
 > Part I — Foundational Manifesto
-
-# Part I — Foundational Manifesto
-
-[Section titled “Part I — Foundational Manifesto”](#part-i--foundational-manifesto)
 
 ## Canonical Motto
 
@@ -4792,10 +4692,6 @@ the long-term evolution of CKS is guided by the preservation of canonical semant
 # Knowledge Objects
 
 > Knowledge Objects
-
-# Knowledge Objects
-
-[Section titled “Knowledge Objects”](#knowledge-objects)
 
 ## Purpose
 
@@ -6083,10 +5979,6 @@ Every subsequent component of the CKS ecosystem shall be regarded as an extensio
 
 > Purpose
 
-# Purpose
-
-[Section titled “Purpose”](#purpose)
-
 ## Objective
 
 [Section titled “Objective”](#objective)
@@ -6190,7 +6082,7 @@ Only the resulting canonical semantic structure possesses normative significance
 
 ## Purpose
 
-[Section titled “Purpose”](#purpose-1)
+[Section titled “Purpose”](#purpose)
 
 The Construction Principles define the fundamental rules governing the construction of Canonical Knowledge Structures. These principles ensure that independently constructed Knowledge Structures remain structurally consistent, semantically compatible, and interoperable across the CKS ecosystem.
 
@@ -6258,7 +6150,7 @@ Construction shall remain independent of every concrete representation. The same
 
 ## Purpose
 
-[Section titled “Purpose”](#purpose-2)
+[Section titled “Purpose”](#purpose-1)
 
 The Canonical Construction Process defines the implementation‑independent methodology by which knowledge is transformed into a Canonical Knowledge Structure. Its objective is to produce a structurally valid Canonical Knowledge Structure that faithfully represents the underlying knowledge.
 
@@ -6345,7 +6237,7 @@ Only the resulting canonical semantic structure possesses normative significance
 
 ## Purpose
 
-[Section titled “Purpose”](#purpose-3)
+[Section titled “Purpose”](#purpose-2)
 
 Knowledge Objects are the fundamental construction units of every Canonical Knowledge Structure. This section defines the canonical methodology for constructing Knowledge Objects from semantic entities identified during structural decomposition. Construction shall follow the semantic model defined by the Core Specification while remaining independent of representation and implementation.
 
@@ -6414,7 +6306,7 @@ Only valid Knowledge Objects may participate in Canonical Knowledge Structures.
 
 ## Purpose
 
-[Section titled “Purpose”](#purpose-4)
+[Section titled “Purpose”](#purpose-3)
 
 Canonical Relations establish the canonical semantic organisation of Knowledge Objects. This section defines the methodology for constructing Canonical Relations during the development of a Canonical Knowledge Structure. Relations shall represent semantic dependencies rather than representational associations.
 
@@ -6489,7 +6381,7 @@ Only valid Canonical Relations may participate in Canonical Knowledge Structures
 
 ## Purpose
 
-[Section titled “Purpose”](#purpose-5)
+[Section titled “Purpose”](#purpose-4)
 
 A Knowledge Structure is the canonical organisation of Knowledge Objects and Canonical Relations. This section defines the methodology for constructing coherent Knowledge Structures from previously constructed canonical components. Construction shall produce a structurally complete, semantically consistent, and implementation‑independent organisation of knowledge.
 
@@ -6574,7 +6466,7 @@ Only such structures constitute admissible Canonical Knowledge Structures.
 
 ## Purpose
 
-[Section titled “Purpose”](#purpose-6)
+[Section titled “Purpose”](#purpose-5)
 
 Structural Decomposition is the canonical process of identifying semantic entities and separating them into independent Knowledge Objects. Its objective is to reveal the intrinsic semantic organisation of knowledge independently of any existing representation. Structural decomposition operates on knowledge rather than on documents.
 
@@ -6656,7 +6548,7 @@ Equivalent knowledge shall produce equivalent canonical decompositions regardles
 
 ## Purpose
 
-[Section titled “Purpose”](#purpose-7)
+[Section titled “Purpose”](#purpose-6)
 
 Canonical Organisation defines the principles governing the organisation of Knowledge Objects, Canonical Relations, and Knowledge Structures into coherent, scalable, and navigable Canonical Knowledge Structures. Its objective is to ensure that knowledge remains structurally understandable, maintainable, and extensible regardless of size or application domain.
 
@@ -6730,7 +6622,7 @@ Canonical organisation is considered valid when:
 
 ## Purpose
 
-[Section titled “Purpose”](#purpose-8)
+[Section titled “Purpose”](#purpose-7)
 
 Construction Quality defines the qualitative criteria by which the construction of Canonical Knowledge Structures is evaluated. Where structural validity determines whether a Knowledge Structure satisfies the formal requirements of the Core Specification, construction quality evaluates how well that structure has been constructed.
 
@@ -6802,7 +6694,7 @@ Structural validity is a prerequisite for construction quality. An invalid Knowl
 
 ## Purpose
 
-[Section titled “Purpose”](#purpose-9)
+[Section titled “Purpose”](#purpose-8)
 
 Construction Completion defines the conditions under which a Canonical Knowledge Structure may be regarded as complete for its intended scope. Completion is determined by canonical semantic coverage rather than by representational size or document length.
 
@@ -6877,7 +6769,7 @@ Construction completion concludes the canonical construction process. Subsequent
 
 ## Purpose
 
-[Section titled “Purpose”](#purpose-10)
+[Section titled “Purpose”](#purpose-9)
 
 Construction Evolution defines the methodology for modifying Canonical Knowledge Structures after their initial construction. Its objective is to enable continuous refinement and extension while preserving canonical semantics, structural consistency, and traceability.
 
@@ -6957,7 +6849,7 @@ Construction does not terminate after initial completion. Canonical Knowledge St
 
 ## Purpose
 
-[Section titled “Purpose”](#purpose-11)
+[Section titled “Purpose”](#purpose-10)
 
 Canonical Knowledge Structures are intended to support systematic reuse. Rather than reconstructing existing knowledge, new Canonical Knowledge Structures should be composed from previously constructed canonical components whenever appropriate. Reuse preserves consistency, reduces redundancy, and enables cumulative knowledge growth.
 
@@ -7038,7 +6930,7 @@ Systematic reuse enables:
 
 ## Purpose
 
-[Section titled “Purpose”](#purpose-12)
+[Section titled “Purpose”](#purpose-11)
 
 Construction Principles summarise the engineering philosophy governing the canonical construction of knowledge. Unlike the Canonical Laws defined by the Core Specification, these principles guide the practical construction of Canonical Knowledge Structures. They are intended to maximise clarity, consistency, scalability, and long‑term maintainability.
 
@@ -7127,10 +7019,6 @@ Canonical Knowledge Structures remain open to refinement throughout their lifecy
 # Introduction
 
 > Introduction
-
-# Introduction
-
-[Section titled “Introduction”](#introduction)
 
 ## Purpose
 
@@ -7820,10 +7708,6 @@ Compatibility enables:
 # Part I — Operational Foundation
 
 > Part I — Operational Foundation
-
-# Part I — Operational Foundation
-
-[Section titled “Part I — Operational Foundation”](#part-i--operational-foundation)
 
 # Introduction
 
@@ -9086,10 +8970,6 @@ Accordingly, this specification completes the mathematical foundation of Canonic
 # Part I — Normative Validator Model
 
 > Part I — Normative Validator Model
-
-# Part I — Normative Validator Model
-
-[Section titled “Part I — Normative Validator Model”](#part-i--normative-validator-model)
 
 # Introduction
 
@@ -11591,10 +11471,6 @@ Subsequent specifications build upon this foundation without modifying the canon
 # Part I — Normative Reference Engine Model
 
 > Part I — Normative Reference Engine Model
-
-# Part I — Normative Reference Engine Model
-
-[Section titled “Part I — Normative Reference Engine Model”](#part-i--normative-reference-engine-model)
 
 # Introduction
 
@@ -15112,10 +14988,6 @@ This principle establishes the computational foundation of the Canonical Knowled
 
 > Introduction
 
-# Introduction
-
-[Section titled “Introduction”](#introduction)
-
 ## Purpose
 
 [Section titled “Purpose”](#purpose)
@@ -17313,10 +17185,6 @@ the Canonical Knowledge Interface provides the stable operational foundation upo
 
 > Introduction
 
-# Introduction
-
-[Section titled “Introduction”](#introduction)
-
 ## Purpose
 
 [Section titled “Purpose”](#purpose)
@@ -17779,10 +17647,6 @@ Conformance therefore evolves through extension rather than revision.
 
 > Introduction
 
-# Introduction
-
-[Section titled “Introduction”](#introduction)
-
 ## Purpose
 
 [Section titled “Purpose”](#purpose)
@@ -17931,10 +17795,6 @@ CKS‑008 defines *that* an implementation must be tested for conformance; this 
 # Introduction
 
 > Introduction
-
-# Introduction
-
-[Section titled “Introduction”](#introduction)
 
 ## Purpose
 
@@ -18523,10 +18383,6 @@ The Python Reference Binding therefore serves as the behavioural reference imple
 
 > cks-mcp
 
-# cks-mcp
-
-[Section titled “cks-mcp”](#cks-mcp)
-
 > Model Context Protocol server for Canonical Knowledge Structure.
 
 `cks-mcp` gives LLMs a **canonical knowledge backbone**: a persistent, versioned, verifiable place to put structured knowledge, instead of holding it — and quietly forgetting or hallucinating it — in a context window.
@@ -18601,10 +18457,6 @@ MIT — see [LICENSE](../LICENSE).
 # ADR-001
 
 > ADR-001
-
-# ADR-001
-
-[Section titled “ADR-001”](#adr-001)
 
 # Thin Translator
 
@@ -18687,10 +18539,6 @@ Accepted. New tools and features should extend `cks-runtime`/`cks-core` when the
 # ADR-002
 
 > ADR-002
-
-# ADR-002
-
-[Section titled “ADR-002”](#adr-002)
 
 # Provenance via HMAC Signing
 
@@ -18777,10 +18625,6 @@ Accepted. Revisit the single-secret model specifically if/when multi- instance o
 # ADR-003
 
 > ADR-003
-
-# ADR-003
-
-[Section titled “ADR-003”](#adr-003)
 
 # Composable Middleware Stack
 
@@ -18879,10 +18723,6 @@ Accepted, and already in production use — every tool in `tool_registry.py` is 
 
 > ADR-004
 
-# ADR-004
-
-[Section titled “ADR-004”](#adr-004)
-
 # Opt-in Extension Model
 
 [Section titled “Opt-in Extension Model”](#opt-in-extension-model)
@@ -18970,10 +18810,6 @@ Accepted. The one unconditional exception (`verification_record`) is intentional
 # ADR-005
 
 > ADR-005
-
-# ADR-005
-
-[Section titled “ADR-005”](#adr-005)
 
 # Gossip Integration (Multi-Instance Session Sync)
 
@@ -19067,10 +18903,6 @@ Accepted. `cks_mcp/gossip.py`, off by default, wired into `server.py`’s `main(
 
 > ADR-006
 
-# ADR-006
-
-[Section titled “ADR-006”](#adr-006)
-
 # Gossip Conflict Arbitration: LLM-Assisted Merge Resolution
 
 [Section titled “Gossip Conflict Arbitration: LLM-Assisted Merge Resolution”](#gossip-conflict-arbitration-llm-assisted-merge-resolution)
@@ -19110,10 +18942,6 @@ Add `resolve_gossip_conflict` as a new MCP tool, mirroring `arbitrate_inference_
 # ADR-007
 
 > ADR-007
-
-# ADR-007
-
-[Section titled “ADR-007”](#adr-007)
 
 # CKSAgentOrchestrator: Coordinating Researcher → Critic → Synthesizer → Arbiter
 
@@ -19287,10 +19115,6 @@ class CKSAgentOrchestrator:
 
 > ADR-008
 
-# ADR-008: Standalone Agent Process Visibility (`list_processes` / `process_status`)
-
-[Section titled “ADR-008: Standalone Agent Process Visibility (list\_processes / process\_status)”](#adr-008-standalone-agent-process-visibility-list_processes--process_status)
-
 **Status:** Proposed **Related:** cks-runtime ADR-014 (Standalone Agent Liveness Heartbeat — owns the `cks_agent_liveness` schema and the heartbeat-writer contract this ADR consumes), ADR-007 (CKSAgentOrchestrator)
 
 ## Context
@@ -19323,10 +19147,6 @@ Same process-locality caveat as `list_agents`/`agent_status` and `get_metrics`�
 # ADR-009
 
 > ADR-009
-
-# ADR-009: Sweeper Control Tools (`start_agent` / `stop_agent`)
-
-[Section titled “ADR-009: Sweeper Control Tools (start\_agent / stop\_agent)”](#adr-009-sweeper-control-tools-start_agent--stop_agent)
 
 **Status:** Proposed **Related:** cks-runtime ADR-015 (Sweeper Control — owns the `cks_sweeper_control` schema and the concurrency-lock contract this ADR consumes), ADR-007 (CKSAgentOrchestrator)
 
@@ -19361,10 +19181,6 @@ Neither tool is named `pause_agent`/`resume_agent` — see cks-runtime ADR-015 �
 
 > ADR-010: Process Control Tool (`request_process_stop`)
 
-# ADR-010: Process Control Tool (`request_process_stop`)
-
-[Section titled “ADR-010: Process Control Tool (request\_process\_stop)”](#adr-010-process-control-tool-request_process_stop)
-
 **Status:** Proposed **Related:** cks-runtime ADR-016 (Standalone Agent Process Control — owns the `cks_agent_liveness.desired_state` column and the `LivenessReporter` wiring this ADR consumes), cks-mcp ADR-008 (Standalone Agent Process Visibility — the read side this ADR adds a write to)
 
 ## Context
@@ -19396,10 +19212,6 @@ No `request_process_start` — cks-runtime ADR-016 §4 rules out tool-initiated 
 # ADR-011: `ai_chat` Tool
 
 > ADR-011: `ai_chat` Tool
-
-# ADR-011: `ai_chat` Tool
-
-[Section titled “ADR-011: ai\_chat Tool”](#adr-011-ai_chat-tool)
 
 **Status:** Proposed **Related:** cks-studio ADR-001 (AI Assistant Chat Panel — owns the client-side page/store design this tool serves), ADR-007 (CKSAgentOrchestrator — a longer-running multi-agent pipeline; `ai_chat` is a single synchronous chat turn, not that pipeline), ADR-009/ADR-010 (Sweeper/Process Control Tools — same split precedent: this ADR owns the server-side tool contract, cks-studio ADR-001 owns the UI)
 
@@ -19473,10 +19285,6 @@ Milestone 2 (SSE streaming, Ollama `/api/chat` tool-calling path) and Milestone 
 # Architecture
 
 > Architecture
-
-# Architecture
-
-[Section titled “Architecture”](#architecture)
 
 **Status:** Living document — reflects the codebase as of `v1.17.x`.
 
@@ -19617,10 +19425,6 @@ Resolves `~/.cks-mcp` (or `CKS_MCP_DATA_DIR`) once, cwd-independent — the one 
 
 > Request Lifecycle
 
-# Request Lifecycle
-
-[Section titled “Request Lifecycle”](#request-lifecycle)
-
 How a request actually flows through the components in [Architecture](ARCHITECTURE.md), using `validate_knowledge` — the most involved tool — as the walkthrough. Simpler tools follow the same shape with fewer steps.
 
 ## `validate_knowledge` with a fresh `json_data` payload
@@ -19660,10 +19464,6 @@ See [Architecture](ARCHITECTURE.md) for what each component in this flow is resp
 # Extension Model
 
 > Extension Model
-
-# Extension Model
-
-[Section titled “Extension Model”](#extension-model)
 
 `cks-mcp` validates structures against a small, normative core rule set by default (unique identities, no dangling relations, derivation arity and acyclicity). Beyond that, six **opt-in extensions** add domain-specific checks — each one defined in `cks-core` as a `Constraint`, and activated per call via `validate_knowledge`’s `extensions` parameter:
 
@@ -19732,10 +19532,6 @@ Every other extension is opt-in *and* harmless if skipped — a structure that d
 # Getting Started
 
 > Getting Started
-
-# Getting Started
-
-[Section titled “Getting Started”](#getting-started)
 
 ## What is cks-mcp?
 
@@ -19926,10 +19722,6 @@ python -m pytest -v
 # Plugin Framework
 
 > Plugin Framework
-
-# Plugin Framework
-
-[Section titled “Plugin Framework”](#plugin-framework)
 
 `cks-mcp` ships a lightweight **Plugin Framework** that lets you add optional functionality without touching `cks-core` or `cks-runtime`.
 
@@ -20235,10 +20027,6 @@ def test_teardown_none_is_noop():
 
 > MCP Prompts
 
-# MCP Prompts
-
-[Section titled “MCP Prompts”](#mcp-prompts)
-
 `cks-mcp` also exposes four **MCP Prompts** — ready-made workflow templates a client can list (`prompts/list`) and fill in (`prompts/get`) to get a concrete instruction back, without the user having to know which tools to chain together or in what order.
 
 A prompt doesn’t call any tools itself: `prompts/get` returns a single user-role text message, built from the prompt’s arguments, that the connected model then acts on normally — using whichever of the 24 tools that instruction implies.
@@ -20286,10 +20074,6 @@ Each prompt corresponds to one of the workflows [Getting Started](../getting-sta
 
 > MCP Resources
 
-# MCP Resources
-
-[Section titled “MCP Resources”](#mcp-resources)
-
 Beyond its 24 tools, `cks-mcp` exposes every active session and its version history as **MCP Resources** — read-only, URI-addressable views a client can list and read directly, without a tool call. Useful for a client UI that wants to browse what exists without asking an LLM to call `list_versions` on its behalf.
 
 ## URI structure
@@ -20335,10 +20119,6 @@ See [Tools Reference](../tools/index.md) for the tool-based equivalents of each 
 # Security Model
 
 > Security Model
-
-# Security Model
-
-[Section titled “Security Model”](#security-model)
 
 `cks-mcp` sits at the boundary between an LLM and the rest of the CKS ecosystem. Its trust model follows from one premise: **the LLM and its input are untrusted**. The server enforces every safety and integrity rule itself, regardless of whether the LLM correctly requests it, remembers to ask, or is actively trying to produce convincing-looking fabricated data.
 
@@ -20392,10 +20172,6 @@ See [`SECURITY.md`](../SECURITY.md) for how to report a vulnerability, and [Exte
 
 > Tools Reference
 
-# Tools Reference
-
-[Section titled “Tools Reference”](#tools-reference)
-
 `cks-mcp` exposes **63 tools** over the Model Context Protocol. Every tool call is a canonical operation: it runs inside a `RuntimeSession`, and any call that mutates state does so through a `Transaction`, producing an immutable `Version` (see [Architecture](../architecture/ARCHITECTURE.md)).
 
 This reference is split by function, mirroring how the tools are actually used together rather than their declaration order in the registry:
@@ -20430,10 +20206,6 @@ See also: [Extension Model](../extensions.md) for the opt-in `extensions` parame
 # AI-Assisted  Ingestion
 
 > AI-Assisted  Ingestion
-
-# AI-Assisted & Ingestion
-
-[Section titled “AI-Assisted & Ingestion”](#ai-assisted--ingestion)
 
 Tools that turn something unstructured — free text or a web page — into a validated Knowledge Structure, and one that helps an LLM propose a correct `evolve_knowledge` call instead of guessing.
 
@@ -20586,10 +20358,6 @@ The structure is entirely LLM‑generated from the extracted content; no determi
 
 > AI Chat (`ai_chat`)
 
-# AI Chat (`ai_chat`)
-
-[Section titled “AI Chat (ai\_chat)”](#ai-chat-ai_chat)
-
 Send a chat turn to an LLM (currently Anthropic only) that has access to a restricted set of cks-mcp tools, scoped to a single session.
 
 The LLM can call tools (`query_subgraph`, `evolve_knowledge`, …); the handler executes them server‑side and feeds results back to the LLM until it produces a final text reply or the iteration cap is hit.
@@ -20660,10 +20428,6 @@ The LLM can call tools (`query_subgraph`, `evolve_knowledge`, …); the handler 
 # Branching  Merging
 
 > Branching  Merging
-
-# Branching & Merging
-
-[Section titled “Branching & Merging”](#branching--merging)
 
 Tools for isolating an experiment from a session’s main line, and later reconciling it — either by promoting it back in, or discarding it.
 
@@ -20785,10 +20549,6 @@ Releases a session from the runtime. Typical use: after `merge_branch` reports s
 # Export  Observability
 
 > Export  Observability
-
-# Export & Observability
-
-[Section titled “Export & Observability”](#export--observability)
 
 Getting data out of a session, in the format the destination expects — and seeing how the server itself is performing.
 
@@ -20966,10 +20726,6 @@ Transfers all data from the current storage backend to a new backend of a differ
 # Gossip  Conflict Resolution
 
 > Gossip  Conflict Resolution
-
-# Gossip & Conflict Resolution
-
-[Section titled “Gossip & Conflict Resolution”](#gossip--conflict-resolution)
 
 Tools for surfacing conflicts a background process found with no caller waiting on it: a multi-agent deployment where several `cks-mcp` processes gossip-replicate sessions to each other (`CKS_GOSSIP_ENABLED=true` — see [Architecture](../architecture/ARCHITECTURE.md)), or a single deployment’s `InferenceStalenessSweeper` (runs by default — see `RuntimeConfig.inference_sweep_interval`) re-checking sessions nobody has touched in a while. Either way, something needs to resolve what comes out of that.
 
@@ -21178,10 +20934,6 @@ See [CRDT Fork Resolution Case Study](../case-studies/crdt-fork-resolution.md) f
 
 > Knowledge Lifecycle
 
-# Knowledge Lifecycle
-
-[Section titled “Knowledge Lifecycle”](#knowledge-lifecycle)
-
 The four core operations every other tool builds on top of. All four accept either a fresh `json_data` string or an existing `session_id` — see [the shared conventions](index.md#conventions-used-across-every-tool).
 
 ## `validate_knowledge`
@@ -21312,10 +21064,6 @@ Each operator is `{"type": "...", ...}`; the other fields are **not** interchang
 
 > List LLM Models (`list_llm_models`)
 
-# List LLM Models (`list_llm_models`)
-
-[Section titled “List LLM Models (list\_llm\_models)”](#list-llm-models-list_llm_models)
-
 Return the list of available models for the current LLM provider (Ollama, Anthropic, or OpenAI‑compatible), so a client UI can offer a model picker before calling `ai_chat` with its optional `model` argument.
 
 ## Usage
@@ -21367,10 +21115,6 @@ None. The tool reads the same environment variables as `get_llm_status`.
 
 > Pipeline Agent (multi‑agent orchestration)
 
-# Pipeline Agent (multi‑agent orchestration)
-
-[Section titled “Pipeline Agent (multi‑agent orchestration)”](#pipeline-agent-multiagent-orchestration)
-
 `cks-pipeline-agent` runs a configurable pipeline of `AgentStep` implementations coordinated by `CKSAgentOrchestrator` (ADR-007). Each step writes its result as a knowledge object with provenance and a semantic edge from the previous step, while the orchestrator publishes `AgentStepStarted` / `AgentStepCompleted` events.
 
 ## Quick start
@@ -21421,10 +21165,6 @@ See [ADR-007 CKSAgentOrchestrator](../adr/ADR-007%20CKSAgentOrchestrator.md) for
 # Graph Exploration  Visualization
 
 > Graph Exploration  Visualization
-
-# Graph Exploration & Visualization
-
-[Section titled “Graph Exploration & Visualization”](#graph-exploration--visualization)
 
 Retrieving and rendering a neighbourhood of a Knowledge Structure, rather than the whole thing — important once a session’s graph grows past what fits comfortably in a response.
 
@@ -21523,10 +21263,6 @@ Internally this always routes through `query_subgraph` in compact mode, so its t
 
 > Verification  Integrity
 
-# Verification & Integrity
-
-[Section titled “Verification & Integrity”](#verification--integrity)
-
 The two tools behind `cks-mcp`’s anti-hallucination guarantees. See [Security Model](../security.md) for the full trust model these implement.
 
 ## `verify_source`
@@ -21598,10 +21334,6 @@ A `VerificationRecord` looks the same to a downstream reader whether it was genu
 # Version Control
 
 > Version Control
-
-# Version Control
-
-[Section titled “Version Control”](#version-control)
 
 Every committed change to a session (`validate_knowledge`, `evolve_knowledge`, a merge, a revert, …) creates a new immutable `Version`. These four tools let you inspect and travel through that history. All require a `session_id` obtained from an earlier call.
 
@@ -21707,10 +21439,6 @@ Use `compare_versions` when you want a compact, replayable operations list; use 
 
 > cks-runtime
 
-# cks-runtime
-
-[Section titled “cks-runtime”](#cks-runtime)
-
 > The canonical operational environment for Canonical Knowledge Structures.
 
 `cks-runtime` provides the infrastructure to execute, manage, version, persist, and expose Canonical Knowledge Structures without becoming a semantic authority itself.
@@ -21774,10 +21502,6 @@ print(version.version_id)
 # ADR-001
 
 > ADR-001
-
-# ADR-001
-
-[Section titled “ADR-001”](#adr-001)
 
 # Runtime Layering
 
@@ -22067,10 +21791,6 @@ Future Runtime specifications, architectures and implementations shall preserve 
 
 > ADR-002
 
-# ADR-002
-
-[Section titled “ADR-002”](#adr-002)
-
 # Session Ownership
 
 [Section titled “Session Ownership”](#session-ownership)
@@ -22312,10 +22032,6 @@ Every conformant Runtime implementation shall preserve Session ownership as the 
 # ADR-003
 
 > ADR-003
-
-# ADR-003
-
-[Section titled “ADR-003”](#adr-003)
 
 # Transaction Model
 
@@ -22605,10 +22321,6 @@ Every conformant Runtime implementation shall evolve Session lifecycle state exc
 # ADR-004
 
 > ADR-004
-
-# ADR-004
-
-[Section titled “ADR-004”](#adr-004)
 
 # Storage Abstraction
 
@@ -22929,10 +22641,6 @@ Every conformant Runtime implementation shall interact with persistence mechanis
 # ADR-005
 
 > ADR-005
-
-# ADR-005
-
-[Section titled “ADR-005”](#adr-005)
 
 # Version History
 
@@ -23433,10 +23141,6 @@ Every conformant Runtime implementation shall preserve Runtime history as an imm
 # ADR-006
 
 > ADR-006
-
-# ADR-006
-
-[Section titled “ADR-006”](#adr-006)
 
 # Adapter Architecture
 
@@ -23972,10 +23676,6 @@ Every conformant Adapter implementation shall preserve the separation between:
 
 > ADR-007
 
-# ADR-007
-
-[Section titled “ADR-007”](#adr-007)
-
 # Concurrent Multi-Agent Writes: Operation Log and Version Vectors
 
 [Section titled “Concurrent Multi-Agent Writes: Operation Log and Version Vectors”](#concurrent-multi-agent-writes-operation-log-and-version-vectors)
@@ -24145,10 +23845,6 @@ Proposed. Not yet implemented. Filed here per the request to record the design b
 
 > ADR-008
 
-# ADR-008
-
-[Section titled “ADR-008”](#adr-008)
-
 # Gossip Replication for Distributed Runtime Nodes: Persistent Replica Identity and Operation-Log Exchange
 
 [Section titled “Gossip Replication for Distributed Runtime Nodes: Persistent Replica Identity and Operation-Log Exchange”](#gossip-replication-for-distributed-runtime-nodes-persistent-replica-identity-and-operation-log-exchange)
@@ -24285,10 +23981,6 @@ Partially implemented as of the 2026-08-01 revision note above: persistent `repl
 # ADR-009
 
 > ADR-009
-
-# ADR-009
-
-[Section titled “ADR-009”](#adr-009)
 
 # Proactive Inference Staleness Detection: A Background Sweeper for Reasoning Conflicts
 
@@ -24475,10 +24167,6 @@ Proposed. Not implemented. Depends on `cks-core`’s `InferenceConfidenceConflic
 
 > ADR-010: Proactive Provenance Staleness Detection
 
-# ADR-010: Proactive Provenance Staleness Detection
-
-[Section titled “ADR-010: Proactive Provenance Staleness Detection”](#adr-010-proactive-provenance-staleness-detection)
-
 **Status:** Proposed **Related:** ADR-009 (Proactive Inference Staleness Detection), ADR-002 (cks-mcp, Provenance Signing), ADR-008 (Gossip Replication)
 
 ## Context
@@ -24526,10 +24214,6 @@ Add `cks_runtime.reasoning.provenance_staleness_sweeper`, structurally parallel 
 
 > ADR-011: Temporal Staleness Detection
 
-# ADR-011: Temporal Staleness Detection
-
-[Section titled “ADR-011: Temporal Staleness Detection”](#adr-011-temporal-staleness-detection)
-
 **Status:** Proposed **Related:** ADR-009 (Proactive Inference Staleness Detection), ADR-010 (Proactive Provenance Staleness Detection), cks-core ADR-003 (Temporal Validity Constraint)
 
 ## Context
@@ -24575,10 +24259,6 @@ Add `cks_runtime.reasoning.temporal_staleness_sweeper`, structurally parallel to
 # ADR-012: Backup and Disaster Recovery
 
 > ADR-012: Backup and Disaster Recovery
-
-# ADR-012: Backup and Disaster Recovery
-
-[Section titled “ADR-012: Backup and Disaster Recovery”](#adr-012-backup-and-disaster-recovery)
 
 **Status:** Proposed **Related:** ADR-004 (Storage Abstraction), ADR-005 (Version History), ADR-008 (Gossip Replication)
 
@@ -24707,10 +24387,6 @@ Sessions and versions are stored as their already-serialised JSON strings (the s
 # ADR-013
 
 > ADR-013
-
-# ADR-013
-
-[Section titled “ADR-013”](#adr-013)
 
 # CRDT Adapter for Distributed Knowledge Objects: G-Set + Merkle Tree (Stage 1)
 
@@ -24844,10 +24520,6 @@ Stage 1 answers “have I seen this object before” (a G-Set). Stage 2 answers 
 
 > ADR-014: Standalone Agent Liveness Heartbeat
 
-# ADR-014: Standalone Agent Liveness Heartbeat
-
-[Section titled “ADR-014: Standalone Agent Liveness Heartbeat”](#adr-014-standalone-agent-liveness-heartbeat)
-
 **Status:** Proposed **Related:** ADR-004 (Storage Abstraction), ADR-007 (Concurrent Multi-Agent Writes), cks-mcp ADR-007 (CKSAgentOrchestrator), cks-studio `AGENT_VISIBILITY.md` (v1 read-only sweeper panel, already shipped)
 
 ## Context
@@ -24954,10 +24626,6 @@ Rationale for separate tools over folding a `kind: "process"` variant into `list
 # ADR-015
 
 > ADR-015
-
-# ADR-015: Sweeper Control — Persistent Enable/Disable State and Concurrent-Caller Safety
-
-[Section titled “ADR-015: Sweeper Control — Persistent Enable/Disable State and Concurrent-Caller Safety”](#adr-015-sweeper-control--persistent-enabledisable-state-and-concurrent-caller-safety)
 
 **Status:** Proposed **Related:** ADR-014 (Standalone Agent Liveness Heartbeat — same “Control Panel blocked on a design doc” origin, see that ADR’s Consequences), cks-mcp ADR-009 (Sweeper Control Tools — thin tool layer consuming this ADR), `AGENT_VISIBILITY.md` (v1 read-only panel, already shipped)
 
@@ -25101,10 +24769,6 @@ Each sweep pass (`sweep_once()`) is one bounded, already-atomic-enough unit of w
 
 > ADR-016: Standalone Agent Process Control — `desired_state` Signal on `cks_agent_liveness`
 
-# ADR-016: Standalone Agent Process Control — `desired_state` Signal on `cks_agent_liveness`
-
-[Section titled “ADR-016: Standalone Agent Process Control — desired\_state Signal on cks\_agent\_liveness”](#adr-016-standalone-agent-process-control--desired_state-signal-on-cks_agent_liveness)
-
 **Status:** Proposed **Related:** ADR-014 (Standalone Agent Liveness Heartbeat — owns the `cks_agent_liveness` schema this ADR extends), ADR-015 (Sweeper Control — the in-process counterpart of this ADR, same “blocked on a design doc” origin), cks-mcp ADR-010 (Process Control Tools — thin tool layer consuming this ADR)
 
 ## Context
@@ -25233,10 +24897,6 @@ Pause/resume: a standalone agent’s unit of work is one claimed outbox task (`r
 # ANALYSIS-001
 
 > ANALYSIS-001
-
-# ANALYSIS-001
-
-[Section titled “ANALYSIS-001”](#analysis-001)
 
 ## Runtime Dependencies on CKS Core
 
@@ -25668,10 +25328,6 @@ This separation enables multiple Runtime implementations, multiple transport ada
 # ARCH-001
 
 > ARCH-001
-
-# ARCH-001
-
-[Section titled “ARCH-001”](#arch-001)
 
 # Runtime Architecture
 
@@ -26290,10 +25946,6 @@ CKS Runtime provides the operational environment required to manage, execute, pe
 
 > CKS Runtime Charter
 
-# CKS Runtime Charter
-
-[Section titled “CKS Runtime Charter”](#cks-runtime-charter)
-
 **Status:** Draft
 
 **Applies to:** CKS Runtime Standard
@@ -26638,10 +26290,6 @@ This separation establishes a stable architectural foundation upon which indepen
 # SPEC-001
 
 > SPEC-001
-
-# SPEC-001
-
-[Section titled “SPEC-001”](#spec-001)
 
 # Runtime Overview
 
@@ -27011,10 +26659,6 @@ This specification establishes the architectural foundation upon which every sub
 
 > SPEC-002
 
-# SPEC-002
-
-[Section titled “SPEC-002”](#spec-002)
-
 # Session Model
 
 [Section titled “Session Model”](#session-model)
@@ -27299,10 +26943,6 @@ Subsequent Runtime specifications build upon the Session model introduced by thi
 # SPEC-003
 
 > SPEC-003
-
-# SPEC-003
-
-[Section titled “SPEC-003”](#spec-003)
 
 # Runtime API
 
@@ -27737,10 +27377,6 @@ It provides implementation-independent capabilities through which external syste
 
 > SPEC-004
 
-# SPEC-004
-
-[Section titled “SPEC-004”](#spec-004)
-
 # Diagnostics
 
 [Section titled “Diagnostics”](#diagnostics)
@@ -28146,10 +27782,6 @@ The Runtime Standard distinguishes diagnostic ownership, aggregates diagnostic i
 
 > SPEC-005
 
-# SPEC-005
-
-[Section titled “SPEC-005”](#spec-005)
-
 # Transactions
 
 [Section titled “Transactions”](#transactions)
@@ -28541,10 +28173,6 @@ Subsequent Runtime specifications build upon the Transaction model introduced by
 # SPEC-006
 
 > SPEC-006
-
-# SPEC-006
-
-[Section titled “SPEC-006”](#spec-006)
 
 # Storage
 
@@ -28952,10 +28580,6 @@ Storage provides persistence, not interpretation.
 
 > SPEC-007
 
-# SPEC-007
-
-[Section titled “SPEC-007”](#spec-007)
-
 # Version History
 
 [Section titled “Version History”](#version-history)
@@ -29309,10 +28933,6 @@ Version History preserves Runtime evolution and enables Session restoration whil
 # SPEC-008
 
 > SPEC-008
-
-# SPEC-008
-
-[Section titled “SPEC-008”](#spec-008)
 
 # Runtime Conformance
 
@@ -29674,10 +29294,6 @@ CKS Runtime conformance therefore represents compatibility with a stable operati
 # SPEC-009
 
 > SPEC-009
-
-# SPEC-009
-
-[Section titled “SPEC-009”](#spec-009)
 
 # Gossip Replication
 
@@ -30059,10 +29675,6 @@ Gossip Replication reuses the Runtime’s existing merge mechanism. It provides 
 # ADR-001: AI Assistant Chat Panel
 
 > ADR-001: AI Assistant Chat Panel
-
-# ADR-001: AI Assistant Chat Panel
-
-[Section titled “ADR-001: AI Assistant Chat Panel”](#adr-001-ai-assistant-chat-panel)
 
 **Status:** Proposed **Related:** cks-mcp ADR-007 (CKSAgentOrchestrator — a different, longer-running multi-agent pipeline; this ADR is a single interactive chat turn, not that pipeline), cks-mcp ADR-009/ADR-010 (Sweeper/Process Control Tools — the pattern this ADR follows: thin cks-mcp-side tool, cks-studio-side UI), companion cks-mcp ADR-011 (`ai_chat` Tool — owns the agentic loop and provider contract this ADR consumes)
 
@@ -30535,10 +30147,6 @@ The demo page itself lives in the cks-studio repository at `public/demo.html` / 
 # Quick Start
 
 > Quick Start
-
-# Quick Start
-
-[Section titled “Quick Start”](#quick-start)
 
 Get CKS up and running with your LLM in under 5 minutes.
 
