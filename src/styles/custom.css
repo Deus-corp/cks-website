@@ -43,14 +43,41 @@
 }
 
 :root[data-theme='dark'] {
+	/* Tonal ladder, darkest to lightest, so the four visual zones (page
+	   canvas, sidebar, top nav, raised panels like code blocks) read as
+	   distinct surfaces instead of one flat black. */
+	--cks-ink-sidebar: color-mix(in srgb, var(--cks-ink) 92%, white);
+	--cks-ink-nav: color-mix(in srgb, var(--cks-ink) 85%, white);
+	--cks-ink-raised: color-mix(in srgb, var(--cks-ink) 78%, white);
+
 	--sl-color-bg: var(--cks-ink);
-	--sl-color-bg-nav: var(--cks-ink);
-	--sl-color-bg-sidebar: var(--cks-ink);
+	--sl-color-bg-nav: var(--cks-ink-nav);
+	--sl-color-bg-sidebar: var(--cks-ink-sidebar);
 	--sl-color-black: var(--cks-ink);
 	--sl-color-gray-6: var(--cks-ink-raised);
 	--sl-color-gray-5: #1b212c;
 	--sl-color-hairline: #232a37;
 	--sl-color-hairline-light: #232a37;
+
+	--cks-surface-raised: var(--cks-ink-raised);
+}
+
+:root[data-theme='light'] {
+	/* Same idea as the dark ladder above, mixed toward black instead of
+	   white: content stays the brightest/cleanest reading surface, sidebar
+	   and nav get progressively more tint. */
+	--cks-paper: #ffffff;
+	--cks-paper-sidebar: color-mix(in srgb, var(--cks-paper) 96%, black);
+	--cks-paper-nav: color-mix(in srgb, var(--cks-paper) 91%, black);
+	--cks-paper-raised: color-mix(in srgb, var(--cks-paper) 88%, black);
+
+	--sl-color-bg: var(--cks-paper);
+	--sl-color-bg-nav: var(--cks-paper-nav);
+	--sl-color-bg-sidebar: var(--cks-paper-sidebar);
+	--sl-color-hairline: color-mix(in srgb, var(--cks-paper) 80%, black);
+	--sl-color-hairline-light: color-mix(in srgb, var(--cks-paper) 80%, black);
+
+	--cks-surface-raised: var(--cks-paper-raised);
 }
 
 /* -- Typography ------------------------------------------------------------ */
@@ -81,9 +108,12 @@ kbd {
 
 /* Code blocks (used constantly here for ASCII architecture diagrams and
    spec examples) get a slightly raised, bordered panel instead of the
-   default flat block, so they read as artifacts, not paragraphs. */
+   default flat block, so they read as artifacts, not paragraphs.
+   --cks-surface-raised resolves per-theme (see :root[data-theme] blocks
+   above) — this used to be hardcoded to the dark ink tone and painted
+   every code block black even in light mode. */
 .sl-markdown-content pre {
-	background: var(--cks-ink-raised) !important;
+	background: var(--cks-surface-raised) !important;
 	border: 1px solid var(--sl-color-hairline);
 	border-left: 3px solid var(--cks-seal-dim);
 	border-radius: 6px;

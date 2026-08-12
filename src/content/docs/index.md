@@ -12,17 +12,20 @@ CKS is an open ecosystem that gives LLMs a **canonical knowledge backbone**. Eve
 ## How It Works
 
 ```
-Your LLM (Claude Desktop, etc.)
-        │
-        ▼
-    cks-mcp ─── Model Context Protocol server
-        │
-        ▼
- cks-runtime ─── Sessions, transactions, version history
-        │
-        ▼
-   cks-core ─── Immutable semantic engine
+Your LLM (Claude Desktop, etc.)      cks-studio (visual workspace)
+        │                                     │
+        └───────────────┬─────────────────────┘
+                         ▼
+                     cks-mcp ─── Model Context Protocol server
+                         │
+                         ▼
+                  cks-runtime ─── Sessions, transactions, version history
+                         │
+                         ▼
+                    cks-core ─── Immutable semantic engine
 ```
+
+An LLM and a human can drive the *same* knowledge graph at the same time — one over MCP through Claude Desktop, the other clicking around the graph canvas in `cks-studio` — because both go through the same `cks-mcp` tool surface into the same `cks-runtime` session.
 
 ## Key Capabilities
 
@@ -32,7 +35,8 @@ Your LLM (Claude Desktop, etc.)
 - **Time-travel debugging** – list versions, compare them, and safely roll back to any previous state.
 - **Branch, merge, and sandbox** – isolate an experiment from the main line, reconcile it with a three-way merge, or throw it away.
 - **Real semantic search** – find knowledge by meaning, not keywords, via HuggingFace embeddings.
-- **LLM-friendly API** – native MCP server with 24 tools, plus MCP Resources and Prompts, fully compatible with Claude Desktop and other MCP clients.
+- **LLM-friendly API** – native MCP server with 63 tools, plus MCP Resources and Prompts, fully compatible with Claude Desktop and other MCP clients.
+- **Visual workspace** – explore graphs, inspect inference chains, review CRDT forks, and monitor agent pipelines from `cks-studio`, without leaving the browser.
 
 ## Projects
 
@@ -40,7 +44,8 @@ Your LLM (Claude Desktop, etc.)
 |---------|-------------|--------|
 | [cks-core](cks-core/index.md) | Semantic engine – immutable knowledge objects, validation, evolution | v1.15.0 |
 | [cks-runtime](cks-runtime/index.md) | Operational environment – sessions, transactions, versioning, events | v1.24.0 |
-| [cks-mcp](cks-mcp/index.md) | MCP server – exposes CKS to LLMs via 24 tools | v1.16.2 |
+| [cks-mcp](cks-mcp/index.md) | MCP server – exposes CKS to LLMs via 63 tools | v1.16.2 |
+| [cks-studio](https://github.com/Deus-corp/cks-studio) | Visual workspace – graph canvas, gallery, agent monitoring, and an AI chat panel that can call the same tools | v0.6.6 |
 
 ## Get Started in 5 Minutes
 
@@ -50,8 +55,13 @@ pip install cks-core cks-runtime cks-mcp
 
 Then connect to Claude Desktop – see the [Quick Start guide](quickstart.md).
 
+Prefer a visual, click-around interface instead? `cks-studio` runs alongside
+`cks-mcp` and gives you a graph canvas, session gallery, and an in-browser
+AI chat panel that can call the same tools an LLM would — see its
+[repository](https://github.com/Deus-corp/cks-studio) for setup.
+
 For a deeper dive into the MCP server specifically: its
-[24 tools](cks-mcp/tools/index.md), [security model](cks-mcp/security.md),
+[tools reference](cks-mcp/tools/index.md), [security model](cks-mcp/security.md),
 and [architecture](cks-mcp/architecture/ARCHITECTURE.md) each have their
 own page under [cks-mcp](cks-mcp/index.md).
 

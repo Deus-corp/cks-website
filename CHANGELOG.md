@@ -4,6 +4,22 @@ All notable changes to CKS Website will be documented in this file.
 
 ---
 
+## [0.1.2] - 2026-08-12
+
+### Changed
+- **Favicon** – removed dark background, leaving only the amber nodes for better visibility at small sizes.
+- **Logo** – recoloured from violet to amber (`#e8a33d`) to match the brand palette.
+
+### Fixed
+- **Code blocks on light theme** – no longer forced to a dark background; `--cks-surface-raised` now respects the active theme.
+- **Surface tone differentiation** – nav, sidebar, and content areas now have subtly distinct backgrounds in both dark and light themes.
+- **Outdated tool count** – Home and Quickstart pages now show the correct number of tools (63), matching `cks-mcp/docs/tools/index.md`.
+
+### Added
+- **cks-studio** mentioned in the Home page, Quickstart guide, and Projects table, including quick-start instructions (`npm install && npm run dev`).
+
+---
+
 ## [0.1.1] - 2026-08-12
 
 ### Fixed
