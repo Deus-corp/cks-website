@@ -175,6 +175,42 @@ starlight-sidebar-group-toggle,
 	font-weight: 600;
 }
 
+/* -- Search --------------------------------------------------------------
+   Starlight's search trigger button and result dialog paint their surface
+   with --sl-color-black and their input text with --sl-color-white. Those
+   two tokens are intentionally repurposed above (light theme block) to
+   mean "near-black text on paper" rather than "background surface", which
+   is right everywhere else but leaves the search input with a dark ink
+   background and (invisible) dark-on-dark text in light mode. Give search
+   its own theme-correct surface instead of inheriting that repurposing. */
+
+:root[data-theme='light'] button[data-open-modal] {
+	background-color: var(--cks-paper-nav);
+	color: var(--cks-text-dim);
+}
+
+:root[data-theme='light'] button[data-open-modal]:hover {
+	border-color: var(--cks-text-dim);
+	color: var(--cks-text);
+}
+
+:root[data-theme='light'] #starlight__search {
+	--pagefind-ui-background: var(--cks-paper);
+	--pagefind-ui-text: var(--cks-text-dim);
+	--pagefind-ui-primary: var(--cks-text);
+	--pagefind-ui-border: var(--sl-color-hairline);
+}
+
+:root[data-theme='light'] #starlight__search .pagefind-ui__search-input {
+	color: var(--cks-text);
+}
+
+:root[data-theme='light'] #starlight__search .pagefind-ui__result-title:not(:where(.pagefind-ui__result-nested *)),
+:root[data-theme='light'] #starlight__search .pagefind-ui__result-nested,
+:root[data-theme='light'] #starlight__search .pagefind-ui__result-tags {
+	background-color: var(--cks-paper);
+}
+
 /* -- Tables -------------------------------------------------------------- */
 /* This site leans heavily on tables (project index, capability matrices,
    version numbers) — give them clearer rules and a mono column for
