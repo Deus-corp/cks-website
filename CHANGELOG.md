@@ -4,6 +4,13 @@ All notable changes to CKS Website will be documented in this file.
 
 ---
 
+## [0.1.3] - 2026-08-12
+
+### Fixed
+- **Sidebar balance** – right sidebar/TOC no longer widens disproportionately on large screens; content column now centers in available space.
+
+---
+
 ## [0.1.2] - 2026-08-12
 
 ### Changed

@@ -49,6 +49,40 @@
 	}
 }
 
+/* -- Layout balance (right sidebar / TOC) ---------------------------------
+   Starlight sizes the right sidebar (table of contents) with
+   `max(--sl-sidebar-width, --sl-sidebar-width + leftover / 2)`, where
+   `leftover` is whatever viewport width is left over once the left
+   sidebar and the content column (--sl-content-width) are accounted for
+   -- see TwoColumnContent.astro. Any leftover is split in half: one half
+   grows the *container* the reading column sits in (main-pane), the
+   other half grows the TOC container. The reading column's actual text
+   is still capped at --sl-content-width and left-anchored inside its
+   now-wider container (`margin-inline: auto 0`), so that first half is
+   rendered as blank space, not wider text.
+   With the previous 45rem/18.75rem content/sidebar pair this leftover
+   was usually small. Raising content to 60rem and dropping the sidebar
+   to 16rem made `leftover` larger on typical desktop widths, so the
+   right sidebar's container grew visibly past the left sidebar's width
+   while the paragraph/demo text stayed pinned at 60rem with a widening
+   gap in between -- the "right sidebar wider, text not wider" bug.
+   Fix: stop the right sidebar from absorbing that leftover (pin it to
+   the same width as the left one) and let the reading column center
+   itself in whatever room remains instead of hugging the left edge, so
+   any extra viewport width becomes balanced margin around the text
+   rather than extra sidebar chrome. Matches Starlight's own 72rem
+   breakpoint for the right sidebar/TOC layout. */
+@media (min-width: 72rem) {
+	.right-sidebar-container {
+		width: var(--sl-sidebar-width);
+	}
+
+	[data-has-sidebar][data-has-toc] .main-pane {
+		width: calc(100% - var(--sl-sidebar-width));
+		--sl-content-margin-inline: auto;
+	}
+}
+
 :root[data-theme='dark'] {
 	/* Tonal ladder, darkest to lightest, so the four visual zones (page
 	   canvas, sidebar, top nav, raised panels like code blocks) read as
