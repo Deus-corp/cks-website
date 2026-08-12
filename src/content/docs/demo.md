@@ -48,6 +48,8 @@ local server and connect with a real session.
 
 :::note[Source]
 The demo page itself lives in the cks-studio repository at
-`public/demo.html` / `src/demo.tsx`, built alongside the main studio
+`demo.html` / `src/demo.tsx` (at the repo root, next to `index.html` —
+not under `public/`, so Vite bundles it as a second build entry point
+rather than copying it verbatim), built alongside the main studio
 bundle and published here as a static file.
 :::

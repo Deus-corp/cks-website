@@ -3,7 +3,7 @@ title: "ADR-011: Temporal Staleness Detection"
 description: "ADR-011: Temporal Staleness Detection"
 ---
 
-**Status:** Proposed
+**Status:** Implemented (`cks_runtime/reasoning/temporal_staleness_sweeper.py`)
 **Related:** ADR-009 (Proactive Inference Staleness Detection), ADR-010 (Proactive Provenance Staleness Detection), cks-core ADR-003 (Temporal Validity Constraint)
 
 ## Context

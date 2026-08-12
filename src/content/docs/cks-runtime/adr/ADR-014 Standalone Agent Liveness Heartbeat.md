@@ -1,7 +1,9 @@
 ---
-title: "ADR-014: Standalone Agent Liveness Heartbeat"
-description: "ADR-014: Standalone Agent Liveness Heartbeat"
+title: "ADR-014"
+description: "ADR-014"
 ---
+
+# ADR-014: Standalone Agent Liveness Heartbeat
 
 **Status:** Proposed
 **Related:** ADR-004 (Storage Abstraction), ADR-007 (Concurrent Multi-Agent

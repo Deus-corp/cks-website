@@ -3,6 +3,8 @@ title: "ADR-015"
 description: "ADR-015"
 ---
 
+# ADR-015: Sweeper Control — Persistent Enable/Disable State and Concurrent-Caller Safety
+
 **Status:** Proposed
 **Related:** ADR-014 (Standalone Agent Liveness Heartbeat — same "Control
 Panel blocked on a design doc" origin, see that ADR's Consequences),

@@ -42,10 +42,10 @@ An LLM and a human can drive the *same* knowledge graph at the same time — one
 
 | Project | Description | Status |
 |---------|-------------|--------|
-| [cks-core](cks-core/index.md) | Semantic engine – immutable knowledge objects, validation, evolution | v1.15.0 |
-| [cks-runtime](cks-runtime/index.md) | Operational environment – sessions, transactions, versioning, events | v1.24.0 |
-| [cks-mcp](cks-mcp/index.md) | MCP server – exposes CKS to LLMs via 63 tools | v1.16.2 |
-| [cks-studio](https://github.com/Deus-corp/cks-studio) | Visual workspace – graph canvas, gallery, agent monitoring, and an AI chat panel that can call the same tools | v0.6.6 |
+| [cks-core](cks-core/index.md) | Semantic engine – immutable knowledge objects, validation, evolution | v1.21.1 |
+| [cks-runtime](cks-runtime/index.md) | Operational environment – sessions, transactions, versioning, events | v1.49.2 |
+| [cks-mcp](cks-mcp/index.md) | MCP server – exposes CKS to LLMs via 63 tools | v1.58.0 |
+| [cks-studio](cks-studio/index.md) | Visual workspace – graph canvas, gallery, agent monitoring, and an AI chat panel that can call the same tools | v0.6.6 |
 
 ## Get Started in 5 Minutes
 

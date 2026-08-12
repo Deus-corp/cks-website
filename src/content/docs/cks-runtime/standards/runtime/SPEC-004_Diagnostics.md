@@ -344,4 +344,3 @@ Conformance to this specification does not imply conformance to the complete Run
 Runtime Diagnostics provide operational observability while preserving the canonical semantic diagnostics defined by CKS Core.
 
 The Runtime Standard distinguishes diagnostic ownership, aggregates diagnostic information originating from Runtime components and CKS Core, and provides a unified operational view while preserving the ownership, identity and semantics of every diagnostic.
-

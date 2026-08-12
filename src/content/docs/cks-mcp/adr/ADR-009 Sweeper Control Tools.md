@@ -3,7 +3,9 @@ title: "ADR-009"
 description: "ADR-009"
 ---
 
-**Status:** Proposed
+# ADR-009: Sweeper Control Tools (`start_agent` / `stop_agent`)
+
+**Status:** Implemented (`start_agent`, `stop_agent`)
 **Related:** cks-runtime ADR-015 (Sweeper Control — owns the
 `cks_sweeper_control` schema and the concurrency-lock contract this ADR
 consumes), ADR-007 (CKSAgentOrchestrator)

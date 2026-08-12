@@ -94,7 +94,7 @@ If you're in `cks-studio`, watch the graph canvas update live as each tool call 
 - Learn about [cks-runtime](cks-runtime/index.md) sessions and version history.
 - Read the [Architecture](cks-mcp/architecture/ARCHITECTURE.md) and
   [Security Model](cks-mcp/security.md) of the MCP server.
-- Set up [cks-studio](https://github.com/Deus-corp/cks-studio) for a visual,
+- Set up [cks-studio](cks-studio/index.md) for a visual,
   browser-based workspace on top of the same backend.
 
 ---

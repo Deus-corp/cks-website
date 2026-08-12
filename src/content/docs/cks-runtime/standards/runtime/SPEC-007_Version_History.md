@@ -317,4 +317,3 @@ Runtime Version History defines the canonical historical model of Runtime Sessio
 Versions are immutable snapshots of committed Runtime operational state created exclusively through successful Transaction completion.
 
 Version History preserves Runtime evolution and enables Session restoration while leaving canonical knowledge semantics entirely under the authority of CKS Core.
-

@@ -358,4 +358,3 @@ Storage enables Session restoration, Version preservation and long-term Runtime 
 Storage preserves Runtime operational state independently of implementation technology.
 
 Storage provides persistence, not interpretation.
-

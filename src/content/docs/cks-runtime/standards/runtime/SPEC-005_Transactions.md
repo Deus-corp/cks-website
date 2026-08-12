@@ -349,4 +349,3 @@ Transactions define the operational execution boundary through which Runtime sta
 They coordinate Runtime behavior while preserving the canonical semantic guarantees, validation model and diagnostic semantics established by CKS Core.
 
 Subsequent Runtime specifications build upon the Transaction model introduced by this document.
-

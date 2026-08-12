@@ -1,7 +1,9 @@
 ---
-title: "ADR-016: Standalone Agent Process Control — `desired_state` Signal on `cks_agent_liveness`"
-description: "ADR-016: Standalone Agent Process Control — `desired_state` Signal on `cks_agent_liveness`"
+title: "ADR-016"
+description: "ADR-016"
 ---
+
+# ADR-016: Standalone Agent Process Control — `desired_state` Signal on `cks_agent_liveness`
 
 **Status:** Proposed
 **Related:** ADR-014 (Standalone Agent Liveness Heartbeat — owns the
