@@ -47,12 +47,12 @@ An LLM and a human can drive the *same* knowledge graph at the same time — one
 
 [Section titled “Projects”](#projects)
 
-| Project                                               | Description                                                                                                   | Status  |
-| ----------------------------------------------------- | ------------------------------------------------------------------------------------------------------------- | ------- |
-| [cks-core](cks-core/index.md)                         | Semantic engine – immutable knowledge objects, validation, evolution                                          | v1.15.0 |
-| [cks-runtime](cks-runtime/index.md)                   | Operational environment – sessions, transactions, versioning, events                                          | v1.24.0 |
-| [cks-mcp](cks-mcp/index.md)                           | MCP server – exposes CKS to LLMs via 63 tools                                                                 | v1.16.2 |
-| [cks-studio](https://github.com/Deus-corp/cks-studio) | Visual workspace – graph canvas, gallery, agent monitoring, and an AI chat panel that can call the same tools | v0.6.6  |
+| Project                             | Description                                                                                                   | Status  |
+| ----------------------------------- | ------------------------------------------------------------------------------------------------------------- | ------- |
+| [cks-core](cks-core/index.md)       | Semantic engine – immutable knowledge objects, validation, evolution                                          | v1.21.1 |
+| [cks-runtime](cks-runtime/index.md) | Operational environment – sessions, transactions, versioning, events                                          | v1.49.2 |
+| [cks-mcp](cks-mcp/index.md)         | MCP server – exposes CKS to LLMs via 63 tools                                                                 | v1.58.0 |
+| [cks-studio](cks-studio/index.md)   | Visual workspace – graph canvas, gallery, agent monitoring, and an AI chat panel that can call the same tools | v0.6.6  |
 
 ## Get Started in 5 Minutes
 
@@ -1158,13 +1158,13 @@ This repository contains the official Python reference implementation.
 Current components include:
 
 * immutable semantic model;
-* canonical serializer;
-* validator with constraint registry;
+* canonical serializer with format versioning;
+* validator with constraint registry (including belief-revision, temporal, and layering domains);
 * reference engine;
-* structural evolution (Genesis/Decay operators);
+* structural evolution (Genesis/Decay/Mutation operators);
 * command-line interface (CLI);
 * public interface;
-* conformance tests (116 tests);
+* conformance tests (400+ tests);
 * reference corpus (valid and invalid examples);
 * documentation.
 
@@ -1227,21 +1227,25 @@ The Python implementation serves as the first canonical implementation of the CK
 Completed milestones include:
 
 * ✅ Core semantic model (CKS‑001)
-* ✅ Canonical serialization (CKS‑003)
+* ✅ Canonical serialization (CKS‑003) with format versioning and migration
 * ✅ Validation pipeline (CKS‑005)
 * ✅ Reference Engine (CKS‑006)
 * ✅ Canonical Knowledge Interface (CKS‑007)
-* ✅ Structural Evolution (CKS‑004)
+* ✅ Structural Evolution (CKS‑004), including three-way merge and subgraph queries
 * ✅ Command-Line Interface
 * ✅ Reference Corpus
+* ✅ Belief Revision & Reasoning Engine (ADR‑001, ADR‑002)
+* ✅ Temporal Validity and Layering Rule extension constraints (ADR‑003, ADR‑004)
+* ✅ Plugin architecture (constraint entry points)
+* ✅ RDF‑family import/export adapters (JSON‑LD, Turtle, RDF/XML)
+* ✅ MCP Server, shipped separately as `cks-mcp`
 
 Future work includes:
 
 * additional reference implementations (Rust, TypeScript);
-* extended constraint libraries;
-* interoperability tooling;
-* domain-specific knowledge models;
-* SDK and plugin architecture.
+* semantic reasoning tools beyond belief revision (pathfinding, concept similarity);
+* CKS Studio (visual workspace);
+* IDE integration.
 
 ***
 
@@ -2020,6 +2024,15 @@ CKS provides optional constraints that are not active by default. They can be re
 
 For example, the `EmbeddingProjectionIntegrityConstraint` (available in `cks.constraints.projection`) enforces that an `EmbeddingProjection` object points to a valid source object and references its vector payload externally.
 
+Other optional constraints, available via `OPTIONAL_CONSTRAINTS_BY_NAME`:
+
+| Name                            | Module                      | Checks                                                                                                            |
+| ------------------------------- | --------------------------- | ----------------------------------------------------------------------------------------------------------------- |
+| `temporal_validity`             | `cks.constraints.temporal`  | An object’s `structure.valid_until`, if present, has not passed (WARNING)                                         |
+| `layering_rule`                 | `cks.constraints.layering`  | `depends_on` relations between recognized ecosystem components respect `cks-core < cks-runtime < cks-mcp` (ERROR) |
+| `inference_confidence_conflict` | `cks.constraints.reasoning` | Active `InferenceStep`s sharing a conclusion but disagreeing on confidence (WARNING)                              |
+| `stale_premise`                 | `cks.constraints.reasoning` | An active `InferenceStep` citing a premise that has itself been superseded (WARNING)                              |
+
 To activate an optional constraint, register it in the global registry or in a scoped `ConstraintRegistry`:
 
 ```python
@@ -2029,6 +2042,11 @@ from cks.constraints.registry import registry
 
 for constraint in OPTIONAL_CONSTRAINTS:
     registry.register(constraint)
+
+
+# Or activate a single named constraint:
+from cks.constraints.builtin import OPTIONAL_CONSTRAINTS_BY_NAME
+registry.register(OPTIONAL_CONSTRAINTS_BY_NAME["temporal_validity"])
 ```
 
 See the Plugin Development Guide for more details.
@@ -2043,7 +2061,7 @@ See the Plugin Development Guide for more details.
 
 [Section titled “evolve()”](#evolve)
 
-Apply a sequence of admissible structural operators (Genesis/Decay) to a Knowledge Structure.
+Apply a sequence of admissible structural operators (Genesis/Decay/Mutation) to a Knowledge Structure.
 
 ### Signature
 
@@ -2060,24 +2078,31 @@ evolve(
 
 [Section titled “Operators”](#operators)
 
-| Operator         | Description                                      |
-| ---------------- | ------------------------------------------------ |
-| `AddObject`      | Introduce a new KnowledgeObject                  |
-| `AddRelation`    | Introduce a new CanonicalRelation                |
-| `RemoveObject`   | Remove a KnowledgeObject (and related relations) |
-| `RemoveRelation` | Remove a CanonicalRelation                       |
+| Operator                   | Class    | Description                                                        |
+| -------------------------- | -------- | ------------------------------------------------------------------ |
+| `AddObject`                | Genesis  | Introduce a new KnowledgeObject                                    |
+| `AddRelation`              | Genesis  | Introduce a new CanonicalRelation                                  |
+| `RecordInference`          | Genesis  | Append a new `InferenceStep` (conclusion + premises)               |
+| `RemoveObject`             | Decay    | Remove a KnowledgeObject (and related relations)                   |
+| `RemoveRelation`           | Decay    | Remove a CanonicalRelation                                         |
+| `UpdateObject`             | Mutation | Update an object’s structure in place (`merge`/`replace` modes)    |
+| `RenameObject`             | Mutation | Change `identity.name` without invalidating relations              |
+| `ResolveInferenceConflict` | Mutation | Supersede every losing `InferenceStep` in favor of a chosen winner |
+
+Every operator exposes read-only introspection properties (`.obj`, `.object_id`, `.relation_id`, `.structure_patch`, `.mode`, `.new_name`) so callers can inspect a pending operator without depending on private attributes.
 
 ### Example
 
 [Section titled “Example”](#example-10)
 
 ```python
-from cks.evolution import AddObject, AddRelation, compose
+from cks.evolution import AddObject, AddRelation, RenameObject, compose
 
 
 ops = [
     AddObject(new_object),
     AddRelation(new_relation),
+    RenameObject("obj-1", "New Name"),
 ]
 
 
@@ -2085,6 +2110,71 @@ evolved = evolve(structure, ops)
 ```
 
 All operators are observationally pure — the original structure is never modified.
+
+***
+
+# Belief Revision Queries
+
+[Section titled “Belief Revision Queries”](#belief-revision-queries)
+
+Two pure query functions in `cks.constraints.reasoning` support reasoning over `InferenceStep` objects without mutating the structure. Neither produces a `Diagnostic`.
+
+## rank\_by\_entrenchment()
+
+[Section titled “rank\_by\_entrenchment()”](#rank_by_entrenchment)
+
+Ranks the active `InferenceStep`s sharing a conclusion by confidence (descending).
+
+```python
+rank_by_entrenchment(structure: KnowledgeStructure, conclusion_id: str) -> list[KnowledgeObject]
+```
+
+## explain\_inference()
+
+[Section titled “explain\_inference()”](#explain_inference)
+
+Walks every active `InferenceStep` chain concluding `object_id` back through its premises to base facts, reporting operator, confidence, justification, alternatives considered, and supersession history per step.
+
+```python
+explain_inference(
+    structure: KnowledgeStructure,
+    object_id: str,
+    *,
+    max_depth: int = 25,
+) -> dict
+```
+
+To resolve a detected conflict, apply `ResolveInferenceConflict` through `evolve()`:
+
+```python
+from cks.evolution import ResolveInferenceConflict
+
+
+winner = rank_by_entrenchment(structure, "concl-1")[0]
+resolved = evolve(structure, [ResolveInferenceConflict("concl-1", winner.identity.id)])
+```
+
+***
+
+# Subgraph Extraction
+
+[Section titled “Subgraph Extraction”](#subgraph-extraction)
+
+## query\_subgraph()
+
+[Section titled “query\_subgraph()”](#query_subgraph)
+
+k-hop subgraph extraction around a starting object, with an optional traversal budget and type-weighted ranking of candidates.
+
+```python
+query_subgraph(
+    structure: KnowledgeStructure,
+    start_id: str,
+    *,
+    k: int = 2,
+    budget: int | None = None,
+) -> SubgraphResult
+```
 
 ***
 
@@ -2107,8 +2197,12 @@ merge(
     base: KnowledgeStructure,
     branch_a: KnowledgeStructure,
     branch_b: KnowledgeStructure,
+    *,
+    resolutions: dict[str, str] | None = None,
 ) -> KnowledgeStructure
 ```
+
+`resolutions` maps a conflicting `object_id` to `"branch_a"` or `"branch_b"`, resolving that conflict instead of raising. Any conflict not covered by `resolutions` still raises `MergeConflictError`.
 
 ### Example
 
@@ -2128,13 +2222,17 @@ try:
 except MergeConflictError as e:
     for conflict in e.conflicts:
         print(f"Conflict on {conflict.object_id}")
+
+
+# Or resolve specific conflicts explicitly:
+merged = merge(base, branch_a, branch_b, resolutions={"obj-1": "branch_a"})
 ```
 
 ### MergeConflictError
 
 [Section titled “MergeConflictError”](#mergeconflicterror)
 
-Raised when `branch_a` and `branch_b` changed the same identity to different results. The `conflicts` attribute is a list of `MergeConflict` objects, each containing:
+Raised when `branch_a` and `branch_b` changed the same identity to different results and no `resolutions` entry covers it. The `conflicts` attribute is a list of `MergeConflict` objects, each containing:
 
 | Field      | Description                                 |
 | ---------- | ------------------------------------------- |
@@ -2480,11 +2578,36 @@ Constraints are organized into **Validation Domains** (CKS‑005):
 
 * `structural.py` — unique identity, referential integrity.
 * `semantic.py` — derivation arity, cycle detection.
-* `builtin.py` — manifest that instantiates and exports all built‑in constraints.
+* `contradiction.py` — hard, ERROR‑severity contradictions between facts.
+* `reasoning.py` — belief revision: `InferenceStep` integrity, confidence bounds, supersession chains, stale‑premise citations, and the inference‑conflict WARNING (see “Belief Revision” below).
+* `temporal.py` — `TemporalValidityConstraint` (ADR‑003): flags objects whose `valid_until` has passed.
+* `layering.py` — `LayeringRuleConstraint` (ADR‑004): enforces the ecosystem’s `cks-core < cks-runtime < cks-mcp` dependency direction.
+* `ontology.py`, `projection.py`, `verification.py` — additional opt‑in domains for ontology-, projection-, and verification-specific checks.
+* `builtin.py` — manifest that instantiates and exports all built‑in and optional constraints.
 
 Constraints execute after structural and semantic validation.
 
-Built‑in constraints are auto‑registered. Optional constraints, such as `EmbeddingProjectionIntegrityConstraint`, are not registered by default and must be opted‑in explicitly per validator instance or process‑wide (see the Plugin Development Guide).
+Built‑in constraints are auto‑registered. Optional constraints, such as `EmbeddingProjectionIntegrityConstraint`, `temporal_validity`, and `layering_rule`, are not registered by default and must be opted‑in explicitly per validator instance or process‑wide (see the Plugin Development Guide).
+
+***
+
+# Belief Revision & Reasoning
+
+[Section titled “Belief Revision & Reasoning”](#belief-revision--reasoning)
+
+```plaintext
+constraints/reasoning.py
+```
+
+Alongside plain facts, a Knowledge Structure can record `InferenceStep` objects — a conclusion, the premises it was drawn from, an operator, a confidence score, and an optional justification. This lets CKS represent not just what is known but *why*, and reason about disagreements between inference paths that reach the same conclusion.
+
+The reasoning domain provides:
+
+* **Constraints** — `InferenceReferentialIntegrityConstraint`, `ConfidenceBoundsConstraint`, `SupersessionChainConstraint` (rejects `superseded_by` cycles), `InferenceConfidenceConflictConstraint` (WARNING — active steps sharing a conclusion but disagreeing on confidence), `StalePremiseConstraint` (WARNING — a premise citing an already-superseded step).
+* **Pure queries** — `rank_by_entrenchment()` ranks competing steps by confidence; `explain_inference()` walks a conclusion’s inference chain back to base facts.
+* **Evolution operators** — `RecordInference` appends a new step; `ResolveInferenceConflict` atomically supersedes every losing step once a winner has been chosen.
+
+None of these mutate a structure except the two evolution operators, which follow the same observational-purity guarantees as the rest of `evolution.py`. See ADR‑001 and ADR‑002 for the design rationale.
 
 ***
 
@@ -2502,11 +2625,43 @@ It provides:
 
 * `StructuralOperator` — abstract base class for admissible transformations.
 * `OperatorContract` — formal contract specifying preconditions, postconditions, and invariants.
-* Genesis operators: `AddObject`, `AddRelation`.
+* Genesis operators: `AddObject`, `AddRelation`, `RecordInference`.
 * Decay operators: `RemoveObject`, `RemoveRelation`.
+* Mutation operators: `UpdateObject` (merge and replace modes), `RenameObject`, `ResolveInferenceConflict`.
 * `compose()` — apply a sequence of operators in order.
+* `merge()` — three‑way merge (base/branch/branch) with conflict detection and optional per‑identity `resolutions`.
+* `query_subgraph()` — k‑hop subgraph extraction with optional budget and type‑weighted ranking.
 
-All operators are observationally pure and preserve structural invariants.
+All operators are observationally pure and preserve structural invariants. Every operator also exposes documented, read‑only properties (`.obj`, `.object_id`, `.relation_id`, `.structure_patch`, `.mode`, `.new_name`) for safe introspection without reaching into private state.
+
+***
+
+# Import / Export Layer
+
+[Section titled “Import / Export Layer”](#import--export-layer)
+
+```plaintext
+adapters/
+```
+
+The adapters package converts between canonical structures and external RDF‑family formats, independent of the core semantic model:
+
+* `jsonld_to_cks.py` / `cks_to_jsonld.py` — JSON‑LD.
+* `rdf_to_cks.py` / `cks_to_rdf.py` — Turtle and RDF/XML.
+
+These are driven by the `cks convert` and `cks export` CLI commands. The RDF/XML reader rejects any DOCTYPE declaration to prevent entity‑expansion (“billion laughs”) attacks.
+
+***
+
+# Format Versioning
+
+[Section titled “Format Versioning”](#format-versioning)
+
+```plaintext
+serialization.py, cli/commands/migrate.py
+```
+
+Every serialized structure carries `_cks_format_version`, `_cks_min_reader_version`, and `_cks_metadata`. `parse()` checks the installed `cks-core` version against a file’s minimum reader requirement and raises `FormatVersionError` on mismatch. `is_legacy_format()` detects files written before this scheme (pre‑1.15.0); `cks migrate` re‑serializes them into the current format (`--in-place`, `--check`).
 
 ***
 
@@ -2676,25 +2831,51 @@ The Python reference implementation is organised as follows.
 src/
 └── cks/
     ├── __init__.py
+    ├── _version.py
     ├── interface.py
     ├── engine.py
     ├── core.py
     ├── serialization.py
+    ├── validation.py
     ├── validator.py
     ├── diagnostics.py
     ├── result.py
     ├── evolution.py
+    ├── plugin.py
+    ├── schema.py
+    ├── schemas/
+    ├── adapters/
+    │   ├── jsonld_to_cks.py
+    │   ├── cks_to_jsonld.py
+    │   ├── rdf_to_cks.py
+    │   └── cks_to_rdf.py
     ├── cli/
     │   ├── __init__.py
-    │   └── formatters.py
-    ├── constraints/
-    │   ├── __init__.py
-    │   ├── base.py
-    │   ├── builtin.py
-    │   ├── registry.py
-    │   ├── structural.py
-    │   └── semantic.py
-    └── ...
+    │   ├── formatters.py
+    │   └── commands/
+    │       ├── validate.py
+    │       ├── parse.py
+    │       ├── inspect.py
+    │       ├── evolve.py
+    │       ├── convert.py
+    │       ├── export.py
+    │       ├── migrate.py
+    │       ├── plugin.py
+    │       └── schema.py
+    └── constraints/
+        ├── __init__.py
+        ├── base.py
+        ├── builtin.py
+        ├── registry.py
+        ├── structural.py
+        ├── semantic.py
+        ├── contradiction.py
+        ├── reasoning.py
+        ├── temporal.py
+        ├── layering.py
+        ├── ontology.py
+        ├── projection.py
+        └── verification.py
 
 
 docs/
@@ -2715,14 +2896,15 @@ tests/
 
 The architecture is intentionally modular.
 
+Delivered through this extension model: the belief‑revision/reasoning domain, the temporal‑validity and layering‑rule optional constraints, the RDF‑family import/export adapters, and format versioning — none of which required changes to the Core layer’s semantic model.
+
 Future versions may introduce additional components such as:
 
-* constraint libraries;
+* semantic reasoning tools (pathfinding, concept similarity) beyond belief revision;
 * alternative serialization formats;
 * optimisation engines;
 * additional language bindings;
-* CLI extensions;
-* Reference Corpus (CKS‑009).
+* CLI extensions.
 
 These extensions should integrate through the existing canonical interfaces without modifying the semantic model.
 
@@ -3020,12 +3202,25 @@ Two fundamental classes of operators exist:
 
 * **Genesis** — introduces new Knowledge Objects or Canonical Relations, expanding the structure.
 * **Decay** — removes existing objects or relations, simplifying the structure.
+* **Mutation** — changes an existing object in place (updating its structure, renaming it, or resolving a conflict between competing inferences) without altering its identity or cascading deletions to dependent relations.
 
 All evolution operators are governed by **formal contracts** specifying preconditions, postconditions, and invariant obligations. Composition of operators yields complex developmental trajectories.
 
 Structural evolution ensures that knowledge can grow, adapt, and be refined while remaining canonically valid.
 
 The formal theory of structural evolution is defined in CKS‑004.
+
+***
+
+# Inference and Belief Revision
+
+[Section titled “Inference and Belief Revision”](#inference-and-belief-revision)
+
+Not every Knowledge Object is a base fact. An **`InferenceStep`** records a conclusion together with the premises it was drawn from, the operator used to derive it, a confidence score, and an optional justification — knowledge about *how a belief was reached*, not just the belief itself.
+
+Because independent inference paths can reach the same conclusion with different confidence, CKS treats this as an ordinary, resolvable disagreement rather than a structural error: it is reported at WARNING severity, ranked by entrenchment, and resolved by explicitly superseding the losing steps — never by silently overwriting them. The superseded steps remain in the structure, preserving the belief’s revision history.
+
+This principle — that conflicting beliefs are data, not errors — is what allows a Knowledge Structure to represent a reasoning process that changes its mind over time while staying canonically valid.
 
 ***
 
@@ -3115,7 +3310,7 @@ Every implementation should expose behaviour consistent with the CKS specificati
 
 [Section titled “CLI and Reference Corpus”](#cli-and-reference-corpus)
 
-The CKS ecosystem provides a **command-line interface (CLI)** for interacting with Knowledge Structures from the terminal. Commands include `validate`, `parse`, `inspect`, and `evolve`.
+The CKS ecosystem provides a **command-line interface (CLI)** for interacting with Knowledge Structures from the terminal. Commands include `validate`, `parse`, `inspect`, `evolve`, `convert`, `export`, `migrate`, `schema`, and `plugin`.
 
 A **Reference Corpus** of canonical examples (valid and invalid structures) is maintained under `examples/corpus/` to serve as a test suite and a learning resource.
 
@@ -3613,15 +3808,32 @@ src/
         interface.py
         engine.py
         validator.py
+        validation.py
         serialization.py
         diagnostics.py
         result.py
         evolution.py
         schema.py
         plugin.py
+        schemas/
+        adapters/
+            jsonld_to_cks.py
+            cks_to_jsonld.py
+            rdf_to_cks.py
+            cks_to_rdf.py
         cli/
             __init__.py
             formatters.py
+            commands/
+                validate.py
+                parse.py
+                inspect.py
+                evolve.py
+                convert.py
+                export.py
+                migrate.py
+                plugin.py
+                schema.py
         constraints/
             __init__.py
             base.py
@@ -3629,6 +3841,13 @@ src/
             registry.py
             structural.py
             semantic.py
+            contradiction.py
+            reasoning.py
+            temporal.py
+            layering.py
+            ontology.py
+            projection.py
+            verification.py
 
 
 docs/
@@ -18437,7 +18656,7 @@ cks-core       ← Semantic Layer: canonical structure, validation, evolution
 | [Tools Reference](tools/index.md)                                       | All 63 tools, grouped by function, with request/response examples                                                 |
 | [Architecture](architecture/ARCHITECTURE.md)                            | Layering, components, and the [request lifecycle](architecture/request-lifecycle.md)                              |
 | [Security Model](security.md)                                           | SSRF protection, provenance signing, defense in depth                                                             |
-| [Extension Model](extensions.md)                                        | The opt-in `extensions` parameter and what each of the six checks                                                 |
+| [Extension Model](extensions.md)                                        | The opt-in `extensions` parameter and what each of the eleven checks                                              |
 | [MCP Resources](protocol/resources.md) & [Prompts](protocol/prompts.md) | The two MCP-native features the server exposes beyond its 63 tools                                                |
 | [ADRs](adr/)                                                            | Why specific architectural decisions were made — thin translator, provenance signing, middleware, extension model |
 
@@ -18453,7 +18672,7 @@ cks-core       ← Semantic Layer: canonical structure, validation, evolution
 
 [Section titled “Current Status”](#current-status)
 
-The project is in active development (`v1.16.x` — see [CHANGELOG](../CHANGELOG.md) for the exact history and [ROADMAP](../ROADMAP.md) for what’s next). It ships with a persistent SQLite-backed runtime, real HuggingFace-embedding semantic search, and a test suite covering core functionality, security, and integrations.
+The project is production/stable (`v1.58.0` — see [CHANGELOG](../CHANGELOG.md) for the exact history and [ROADMAP](../ROADMAP.md) for what’s next). It ships with a persistent SQLite/PostgreSQL-backed runtime, real HuggingFace-embedding semantic search, an LLM abstraction layer (Ollama/Anthropic/OpenAI-compatible), five autonomous agents (Critic, Enrichment, Fork Resolution, Pipeline, plus in-process sweepers), and a test suite (879 tests: 873 passing, 6 skipped) covering core functionality, security, and integrations.
 
 ## License
 
@@ -18914,7 +19133,7 @@ Accepted. `cks_mcp/gossip.py`, off by default, wired into `server.py`’s `main(
 
 [Section titled “Gossip Conflict Arbitration: LLM-Assisted Merge Resolution”](#gossip-conflict-arbitration-llm-assisted-merge-resolution)
 
-**Status:** Proposed
+**Status:** Implemented (`resolve_gossip_conflict`, `arbitrate_inference_conflict`)
 
 **Date:** 2026-08-04
 
@@ -18954,7 +19173,7 @@ Add `resolve_gossip_conflict` as a new MCP tool, mirroring `arbitrate_inference_
 
 [Section titled “CKSAgentOrchestrator: Coordinating Researcher → Critic → Synthesizer → Arbiter”](#cksagentorchestrator-coordinating-researcher--critic--synthesizer--arbiter)
 
-**Status:** Proposed
+**Status:** Implemented (`cks_mcp/orchestrator.py`, `cks-pipeline-agent`)
 
 **Date:** 2026-08-07
 
@@ -19122,7 +19341,11 @@ class CKSAgentOrchestrator:
 
 > ADR-008
 
-**Status:** Proposed **Related:** cks-runtime ADR-014 (Standalone Agent Liveness Heartbeat — owns the `cks_agent_liveness` schema and the heartbeat-writer contract this ADR consumes), ADR-007 (CKSAgentOrchestrator)
+# ADR-008: Standalone Agent Process Visibility (`list_processes` / `process_status`)
+
+[Section titled “ADR-008: Standalone Agent Process Visibility (list\_processes / process\_status)”](#adr-008-standalone-agent-process-visibility-list_processes--process_status)
+
+**Status:** Implemented (`list_processes`, `process_status`) **Related:** cks-runtime ADR-014 (Standalone Agent Liveness Heartbeat — owns the `cks_agent_liveness` schema and the heartbeat-writer contract this ADR consumes), ADR-007 (CKSAgentOrchestrator)
 
 ## Context
 
@@ -19155,7 +19378,11 @@ Same process-locality caveat as `list_agents`/`agent_status` and `get_metrics`�
 
 > ADR-009
 
-**Status:** Proposed **Related:** cks-runtime ADR-015 (Sweeper Control — owns the `cks_sweeper_control` schema and the concurrency-lock contract this ADR consumes), ADR-007 (CKSAgentOrchestrator)
+# ADR-009: Sweeper Control Tools (`start_agent` / `stop_agent`)
+
+[Section titled “ADR-009: Sweeper Control Tools (start\_agent / stop\_agent)”](#adr-009-sweeper-control-tools-start_agent--stop_agent)
+
+**Status:** Implemented (`start_agent`, `stop_agent`) **Related:** cks-runtime ADR-015 (Sweeper Control — owns the `cks_sweeper_control` schema and the concurrency-lock contract this ADR consumes), ADR-007 (CKSAgentOrchestrator)
 
 ## Context
 
@@ -19188,7 +19415,7 @@ Neither tool is named `pause_agent`/`resume_agent` — see cks-runtime ADR-015 �
 
 > ADR-010: Process Control Tool (`request_process_stop`)
 
-**Status:** Proposed **Related:** cks-runtime ADR-016 (Standalone Agent Process Control — owns the `cks_agent_liveness.desired_state` column and the `LivenessReporter` wiring this ADR consumes), cks-mcp ADR-008 (Standalone Agent Process Visibility — the read side this ADR adds a write to)
+**Status:** Implemented (`request_process_stop`) **Related:** cks-runtime ADR-016 (Standalone Agent Process Control — owns the `cks_agent_liveness.desired_state` column and the `LivenessReporter` wiring this ADR consumes), cks-mcp ADR-008 (Standalone Agent Process Visibility — the read side this ADR adds a write to)
 
 ## Context
 
@@ -19220,7 +19447,7 @@ No `request_process_start` — cks-runtime ADR-016 §4 rules out tool-initiated 
 
 > ADR-011: `ai_chat` Tool
 
-**Status:** Proposed **Related:** cks-studio ADR-001 (AI Assistant Chat Panel — owns the client-side page/store design this tool serves), ADR-007 (CKSAgentOrchestrator — a longer-running multi-agent pipeline; `ai_chat` is a single synchronous chat turn, not that pipeline), ADR-009/ADR-010 (Sweeper/Process Control Tools — same split precedent: this ADR owns the server-side tool contract, cks-studio ADR-001 owns the UI)
+**Status:** Implemented (`ai_chat`) **Related:** cks-studio ADR-001 (AI Assistant Chat Panel — owns the client-side page/store design this tool serves), ADR-007 (CKSAgentOrchestrator — a longer-running multi-agent pipeline; `ai_chat` is a single synchronous chat turn, not that pipeline), ADR-009/ADR-010 (Sweeper/Process Control Tools — same split precedent: this ADR owns the server-side tool contract, cks-studio ADR-001 owns the UI)
 
 ## Context
 
@@ -19371,7 +19598,7 @@ The `TOOLS` dict: one entry per tool, assembled from that tool’s `tools/<name>
 
 [Section titled “tools/ — Operation Handlers”](#tools--operation-handlers)
 
-Each of the 24 tools lives in its own package under `tools/<name>/` (a small number of packages hold two closely related tools, e.g. `tools/revert/` has both `list_versions` and `revert_version`) — see [Tools Reference](../tools/index.md) for the full, grouped list with parameters and examples. Each package has:
+Each of the 63 tools lives in its own package under `tools/<name>/` (a small number of packages hold two closely related tools, e.g. `tools/revert/` has both `list_versions` and `revert_version`) — see [Tools Reference](../tools/index.md) for the full, grouped list with parameters and examples. Each package has:
 
 * `handler.py` — the async implementation, a standalone module implementing a single canonical operation.
 * `schema.py` — a plain Python dict with the tool’s MCP schema, kept separate from the implementation so it can be reviewed/edited on its own; shared description text lives in `tools/_shared.py`.
@@ -19419,13 +19646,49 @@ One `field_level_diff` implementation shared by `merge.py`’s conflict reportin
 
 Resolves `~/.cks-mcp` (or `CKS_MCP_DATA_DIR`) once, cwd-independent — the one place the SQLite database, the persisted provenance secret, and the optional `.env` file all live.
 
+### `llm/` and `llm_providers.py` — LLM Abstraction
+
+[Section titled “llm/ and llm\_providers.py — LLM Abstraction”](#llm-and-llm_providerspy--llm-abstraction)
+
+`llm/client.py`’s `LLMClient` is the single entry point every LLM-backed tool (`ai_chat`, `construct_knowledge`, `arbitrate_inference_conflict`, `resolve_gossip_conflict`) calls through, whether the configured provider is Ollama, Anthropic, or any OpenAI-compatible endpoint. `llm_providers.py` holds the per-provider request/response translation (e.g. Ollama’s `/api/chat` tool-calling shape normalised into the Anthropic content-block envelope), and `llm_telemetry.py` records token/cost usage for `get_metrics`.
+
+### `orchestrator.py` and `pipeline/` — Multi-Agent Pipeline (ADR-007)
+
+[Section titled “orchestrator.py and pipeline/ — Multi-Agent Pipeline (ADR-007)”](#orchestratorpy-and-pipeline--multi-agent-pipeline-adr-007)
+
+`CKSAgentOrchestrator` (`run_sequential` / `run_concurrent`) coordinates a sequence of `AgentStep` implementations through the persistent outbox and CRDT registers. `pipeline/researcher_step.py`, `synthesizer_step.py`, `reviewer_step.py`, and the terminal `arbiter_step.py` each commit their result via `evolve_knowledge` with provenance and a semantic edge from the previous step; shared helpers live in `pipeline/common.py` and pipeline status transitions in `pipeline/schema.py`. `pipeline_agent.py` is the `cks-pipeline-agent` console-script entry point that runs the pipeline autonomously.
+
+### `critic_agent.py`, `enrichment_agent.py`, `fork_resolution_agent.py` — Standalone Agents
+
+[Section titled “critic\_agent.py, enrichment\_agent.py, fork\_resolution\_agent.py — Standalone Agents”](#critic_agentpy-enrichment_agentpy-fork_resolution_agentpy--standalone-agents)
+
+Three companion processes, each following the same outbox-polling architecture: `cks-critic-agent` resolves gossip/inference/provenance/ temporal/contradiction/CRDT-fork conflicts; `cks-enrichment-agent` pulls external context (Wikipedia, arXiv) for objects marked via `request_enrichment`; `cks-fork-agent` resolves CRDT MV-Register forks, preferring the LCA Arbiter (see below) before falling back to a mechanical tie-break. `agent_loop.py` holds the shared poll/claim/complete/dead-letter loop all three build on; `conflict_inbox.py` is the outbox-backed queue `fork_resolution_agent.py` reads `crdt_fork` tasks from.
+
+### `lca_arbiter.py` — Topology-Aware Fork Resolution
+
+[Section titled “lca\_arbiter.py — Topology-Aware Fork Resolution”](#lca_arbiterpy--topology-aware-fork-resolution)
+
+A fork-resolution policy that analyses the Knowledge Graph structure before picking a winner: finds the lowest common ancestor of conflicting objects via `query_subgraph`, extracts each branch’s delta, and classifies the conflict as `non_overlapping`, `competing_claims`, or `erroneous_branch`. Disjoint branches merge automatically; otherwise a `Resolution` object is created for a human or the Critic Agent to review. Used by `fork_resolution_agent.py` when `use_lca` is enabled (the default).
+
+### `gossip.py` — Gossip Adapter Wiring
+
+[Section titled “gossip.py — Gossip Adapter Wiring”](#gossippy--gossip-adapter-wiring)
+
+Builds the CRDT store and gossip transport `cks-runtime` needs for distributed replication, and is the integration point the standalone agents and `plugins/gossip_plugin.py` share so they operate on the same underlying storage lock (see cks-runtime’s storage-layer thread safety).
+
+### `plugin.py` / `plugins/` — Plugin Framework
+
+[Section titled “plugin.py / plugins/ — Plugin Framework”](#pluginpy--plugins--plugin-framework)
+
+`plugin.py` defines `CksPlugin` and `PluginRegistry` with a fully async `setup()`/`teardown()` lifecycle, invoked from `server.py`’s startup and shutdown. `plugins/` holds the built-in plugins (e.g. `gossip_plugin.py`, the fastembed embedding plugin) discovered and reported via `list_plugins`.
+
 ## 5. Where to go next
 
 [Section titled “5. Where to go next”](#5-where-to-go-next)
 
 * [Request Lifecycle](request-lifecycle.md) — how a `validate_knowledge` call actually flows through these components.
 * [Security Model](../security.md) — the full SSRF and provenance story.
-* [Extension Model](../extensions.md) — the six opt-in validation extensions.
+* [Extension Model](../extensions.md) — the eleven opt-in validation extensions.
 * [ADRs](../adr/) — why specific components look the way they do.
 
 # Request Lifecycle
@@ -19472,22 +19735,29 @@ See [Architecture](ARCHITECTURE.md) for what each component in this flow is resp
 
 > Extension Model
 
-`cks-mcp` validates structures against a small, normative core rule set by default (unique identities, no dangling relations, derivation arity and acyclicity). Beyond that, six **opt-in extensions** add domain-specific checks — each one defined in `cks-core` as a `Constraint`, and activated per call via `validate_knowledge`’s `extensions` parameter:
+`cks-mcp` validates structures against a small, normative core rule set by default (unique identities, no dangling relations, derivation arity and acyclicity). Beyond that, **eleven opt-in extensions** add domain-specific checks — each one defined in `cks-core` as a `Constraint`, and activated per call via `validate_knowledge`’s (or `evolve_knowledge`’s) `extensions` parameter:
 
 ```json
 {"json_data": "...", "extensions": ["embedding_projection", "type_hierarchy"]}
 ```
 
-All six share one property: **additive by default**. A structure that doesn’t use the relevant Knowledge Object type (`EmbeddingProjection`, `TypeRule`, `MutualExclusionRule`, …) is entirely unaffected by the corresponding extension, whether or not you request it — the check only ever activates on structures that opt in *structurally*, by containing the declaration type it looks for.
+All eleven share one property: **additive by default**. A structure that doesn’t use the relevant Knowledge Object type (`EmbeddingProjection`, `TypeRule`, `MutualExclusionRule`, `InferenceStep`, …) is entirely unaffected by the corresponding extension, whether or not you request it — the check only ever activates on structures that opt in *structurally*, by containing the declaration type it looks for.
 
-| Name                   | Constraint identity            | Checks                                                                                                                       |
-| ---------------------- | ------------------------------ | ---------------------------------------------------------------------------------------------------------------------------- |
-| `embedding_projection` | `CKS-EXT-EMBEDDING-PROJECTION` | Every `EmbeddingProjection` object has exactly one `represents` link to a real object, and references its vector externally. |
-| `verification_record`  | `CKS-EXT-VERIFICATION-RECORD`  | Every `VerificationRecord` has the right shape and exactly one `verified_by` link. **Enforced unconditionally** — see below. |
-| `type_hierarchy`       | `CKS-EXT-TYPE-HIERARCHY-CYCLE` | `TypeDefinition.parent_type` chains don’t form a cycle.                                                                      |
-| `relation_type`        | `CKS-EXT-RELATION-TYPE`        | Relations connect object types allowed by any declared `TypeRule`.                                                           |
-| `mutual_exclusion`     | `CKS-EXT-MUTUAL-EXCLUSION`     | No pair of relation types declared mutually exclusive both connect the same source→target pair.                              |
-| `functional_relation`  | `CKS-EXT-FUNCTIONAL-RELATION`  | No source has more than one target via a relation type declared single-valued.                                               |
+| Name                              | Constraint identity                       | Checks                                                                                                                                                      |
+| --------------------------------- | ----------------------------------------- | ----------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| `embedding_projection`            | `CKS-EXT-EMBEDDING-PROJECTION`            | Every `EmbeddingProjection` object has exactly one `represents` link to a real object, and references its vector externally.                                |
+| `verification_record`             | `CKS-EXT-VERIFICATION-RECORD`             | Every `VerificationRecord` has the right shape and exactly one `verified_by` link. **Enforced unconditionally** — see below.                                |
+| `type_hierarchy`                  | `CKS-EXT-TYPE-HIERARCHY-CYCLE`            | `TypeDefinition.parent_type` chains don’t form a cycle.                                                                                                     |
+| `relation_type`                   | `CKS-EXT-RELATION-TYPE`                   | Relations connect object types allowed by any declared `TypeRule`.                                                                                          |
+| `mutual_exclusion`                | `CKS-EXT-MUTUAL-EXCLUSION`                | No pair of relation types declared mutually exclusive both connect the same source→target pair.                                                             |
+| `functional_relation`             | `CKS-EXT-FUNCTIONAL-RELATION`             | No source has more than one target via a relation type declared single-valued.                                                                              |
+| `inference_referential_integrity` | `CKS-EXT-INFERENCE-REFERENTIAL-INTEGRITY` | Every `InferenceStep` references premises/conclusion that actually exist (cks-core ADR-001).                                                                |
+| `confidence_bounds`               | `CKS-EXT-CONFIDENCE-BOUNDS`               | An `InferenceStep`’s confidence value stays within its declared bounds.                                                                                     |
+| `supersession_chain`              | `CKS-EXT-SUPERSESSION-CHAIN`              | A chain of superseding `InferenceStep`s doesn’t cycle or fork inconsistently.                                                                               |
+| `inference_confidence_conflict`   | `CKS-EXT-INFERENCE-CONFIDENCE-CONFLICT`   | Flags inference conflicts for `arbitrate_inference_conflict` / the reasoning sweepers (cks-runtime ADR-009) to resolve.                                     |
+| `temporal_validity`               | `CKS-EXT-TEMPORAL-VALIDITY`               | An object’s `valid_until` window hasn’t closed (cks-core ADR-003; feeds `resolve_temporal_conflict` and cks-runtime’s `TemporalStalenessSweeper`, ADR-011). |
+
+> **Not yet wired up:** cks-core’s `layering_rule` constraint (`LayeringRuleConstraint`, added in cks-core 1.21.0) has no entry in `cks-mcp`’s `EXTENSION_ALIASES` yet, so it cannot currently be requested by name through `validate_knowledge`/`evolve_knowledge`. This is a real gap in the code, not just in this document — tracked for a future release.
 
 ## `embedding_projection`
 
@@ -19530,6 +19800,18 @@ Multiple rule declarations of either kind accumulate (set union), unlike `TypeRu
 
 **Two ways to run these same two checks:** pass `mutual_exclusion`/ `functional_relation` to `validate_knowledge`’s `extensions` to get diagnostics as part of validation (and block the version from committing if they fail); or call [`detect_contradictions`](tools/verification.md#detect_contradictions) directly for a read-only report against the current state without attempting to validate or commit anything. Same rules, same rule objects — different tool depending on whether you want validation-time enforcement or an on-demand check.
 
+## Reasoning domain: `inference_referential_integrity`, `confidence_bounds`, `supersession_chain`, `inference_confidence_conflict`
+
+[Section titled “Reasoning domain: inference\_referential\_integrity, confidence\_bounds, supersession\_chain, inference\_confidence\_conflict”](#reasoning-domain-inference_referential_integrity-confidence_bounds-supersession_chain-inference_confidence_conflict)
+
+These four check the belief-revision machinery cks-core added for `InferenceStep` objects (cks-core ADR-001–004): that a step’s premises and conclusion actually exist, that its confidence value is well-formed, that a chain of superseding steps stays acyclic, and that unresolved confidence conflicts are flagged for `arbitrate_inference_conflict` or cks-runtime’s inference/provenance/temporal staleness sweepers to pick up. They were defined in `cks-core` well before `cks-mcp` could resolve them by name — see the CHANGELOG for the exact release that closed that gap.
+
+## `temporal_validity`
+
+[Section titled “temporal\_validity”](#temporal_validity)
+
+Checks an object’s optional `valid_until` field (ISO-8601) against the current time, flagging anything past its expiry window (cks-core ADR-003). This is the mechanical check behind `resolve_temporal_conflict` and cks-runtime’s `TemporalStalenessSweeper` (ADR-011) — the sweeper detects staleness proactively in the background; this extension lets a caller ask the same question synchronously at validation time.
+
 ## Why unconditional enforcement matters
 
 [Section titled “Why unconditional enforcement matters”](#why-unconditional-enforcement-matters)
@@ -19544,7 +19826,7 @@ Every other extension is opt-in *and* harmless if skipped — a structure that d
 
 [Section titled “What is cks-mcp?”](#what-is-cks-mcp)
 
-`cks-mcp` is an MCP server: it lets an LLM client (Claude Desktop, or any other MCP-speaking client) validate, evolve, branch, merge, and search a **Canonical Knowledge Structure** through 24 tools, instead of holding that knowledge loosely in its own context. See [the overview](index.md) for why that matters.
+`cks-mcp` is an MCP server: it lets an LLM client (Claude Desktop, or any other MCP-speaking client) validate, evolve, branch, merge, and search a **Canonical Knowledge Structure** through 63 tools, instead of holding that knowledge loosely in its own context. See [the overview](index.md) for why that matters.
 
 ## Installation
 
@@ -19609,7 +19891,7 @@ Instead of exporting these in your shell, you can drop them into `~/.cks-mcp/.en
    }
    ```
 
-3. Save and fully restart Claude Desktop (quit, then reopen). A connector icon for `cks-mcp` (24 tools) should appear.
+3. Save and fully restart Claude Desktop (quit, then reopen). A connector icon for `cks-mcp` (63 tools) should appear.
 
 Any other MCP client that speaks JSON-RPC over stdio works the same way — point it at the `cks-mcp` executable.
 
@@ -19766,7 +20048,7 @@ class CksPlugin(ABC):
 
 
     @abstractmethod
-    def setup(self, runtime: Runtime, config: RuntimeConfig) -> Any:
+    async def setup(self, runtime: Runtime, config: RuntimeConfig) -> Any:
         """
         Initialise the plugin.
 
@@ -19775,18 +20057,25 @@ class CksPlugin(ABC):
         Returns a *handle* (any object) passed later to teardown.
         Return None to signal "deps present but plugin decided not to start"
         (e.g. CKS_GOSSIP_ENABLED not set).
+
+
+        async because setup_all() already runs inside server.py's own
+        event loop — a plugin needing to await genuinely async work
+        (e.g. GossipPlugin starting a GossipService) can do so directly,
+        without spinning up a second event loop via asyncio.run().
         """
 
 
     @abstractmethod
-    def teardown(self, handle: Any) -> None:
+    async def teardown(self, handle: Any) -> None:
         """
         Stop the plugin.
 
 
         handle is whatever setup() returned.
         If handle is None the plugin was not started; implementations must
-        handle that case and do nothing.
+        handle that case and do nothing. async for the same reason as
+        setup() above.
         """
 ```
 
@@ -19801,12 +20090,12 @@ registry = PluginRegistry()
 registry.register(MyPlugin())
 
 
-# at startup
-handles = registry.setup_all(runtime, config)
+# at startup (inside an already-running event loop, e.g. server.py's main())
+handles = await registry.setup_all(runtime, config)
 
 
 # at shutdown
-registry.teardown_all(handles)
+await registry.teardown_all(handles)
 ```
 
 | Method                       | Description                                                                                    |
@@ -19841,14 +20130,14 @@ class FastEmbedPlugin(CksPlugin):
         ...
 
 
-    def setup(self, runtime, config):
+    async def setup(self, runtime, config):
         # Reads CKS_EMBEDDING_PROVIDER (fastembed | huggingface | stub)
         # Sets runtime.embedding_client
         # Returns True on success, None when provider == "stub"
         ...
 
 
-    def teardown(self, handle):
+    async def teardown(self, handle):
         # No-op: runtime falls back to StubEmbeddingClient automatically
         ...
 ```
@@ -19876,15 +20165,15 @@ class GossipPlugin(CksPlugin):
         ...
 
 
-    def setup(self, runtime, config):
+    async def setup(self, runtime, config):
         # Reads CKS_GOSSIP_* env vars
-        # Calls setup_gossip() and starts the handle
+        # Calls setup_gossip() and awaits handle.start()
         # Returns GossipHandle or None (when CKS_GOSSIP_ENABLED != "true")
         ...
 
 
-    def teardown(self, handle):
-        # Calls handle.stop() if handle is not None
+    async def teardown(self, handle):
+        # Awaits handle.stop() if handle is not None
         ...
 ```
 
@@ -19933,13 +20222,13 @@ class MyPlugin(CksPlugin):
             return False
 
 
-    def setup(self, runtime: Runtime, config: RuntimeConfig) -> Any:
+    async def setup(self, runtime: Runtime, config: RuntimeConfig) -> Any:
         import some_optional_dep  # noqa: PLC0415
         handle = some_optional_dep.start()
         return handle
 
 
-    def teardown(self, handle: Any) -> None:
+    async def teardown(self, handle: Any) -> None:
         if handle is None:
             return
         handle.stop()
@@ -20017,17 +20306,17 @@ def test_is_available_false():
         assert MyPlugin().is_available() is False
 
 
-def test_setup_calls_start():
+async def test_setup_calls_start():
     plugin = MyPlugin()
     runtime, config = MagicMock(), MagicMock()
     fake_handle = MagicMock()
     with patch("some_optional_dep.start", return_value=fake_handle):
-        handle = plugin.setup(runtime, config)
+        handle = await plugin.setup(runtime, config)
     assert handle is fake_handle
 
 
-def test_teardown_none_is_noop():
-    MyPlugin().teardown(None)  # must not raise
+async def test_teardown_none_is_noop():
+    await MyPlugin().teardown(None)  # must not raise
 ```
 
 # MCP Prompts
@@ -20036,7 +20325,7 @@ def test_teardown_none_is_noop():
 
 `cks-mcp` also exposes four **MCP Prompts** — ready-made workflow templates a client can list (`prompts/list`) and fill in (`prompts/get`) to get a concrete instruction back, without the user having to know which tools to chain together or in what order.
 
-A prompt doesn’t call any tools itself: `prompts/get` returns a single user-role text message, built from the prompt’s arguments, that the connected model then acts on normally — using whichever of the 24 tools that instruction implies.
+A prompt doesn’t call any tools itself: `prompts/get` returns a single user-role text message, built from the prompt’s arguments, that the connected model then acts on normally — using whichever of the 63 tools that instruction implies.
 
 ## Available prompts
 
@@ -20081,7 +20370,7 @@ Each prompt corresponds to one of the workflows [Getting Started](../getting-sta
 
 > MCP Resources
 
-Beyond its 24 tools, `cks-mcp` exposes every active session and its version history as **MCP Resources** — read-only, URI-addressable views a client can list and read directly, without a tool call. Useful for a client UI that wants to browse what exists without asking an LLM to call `list_versions` on its behalf.
+Beyond its 63 tools, `cks-mcp` exposes every active session and its version history as **MCP Resources** — read-only, URI-addressable views a client can list and read directly, without a tool call. Useful for a client UI that wants to browse what exists without asking an LLM to call `list_versions` on its behalf.
 
 ## URI structure
 
@@ -20135,7 +20424,7 @@ This covers two independent concerns: preventing the server from being used as a
 
 [Section titled “SSRF & DNS-Rebinding Protection”](#ssrf--dns-rebinding-protection)
 
-`verify_source` and `ingest_document` are the only two tools that make an outbound HTTP request on the server’s behalf, and both route through the same `_safe_request` implementation — the protection isn’t duplicated per-tool, and a new tool that needs to fetch a URL gets the same guarantees by construction.
+`verify_source`, `ingest_document`, and `check_component_versions` are the tools that make an outbound HTTP request directly on the server’s behalf, and the Enrichment Agent’s source adapters (`enrichment/adapters.py`, `enrichment/robots.py`) do the same when fetching from Wikipedia/arXiv. All of them route through the same `_safe_request` implementation — the protection isn’t duplicated per-caller, and a new tool or adapter that needs to fetch a URL gets the same guarantees by construction.
 
 The request goes through three checks, in order:
 
@@ -20162,6 +20451,12 @@ Two extra edge cases the check closes:
 * **Ambiguous references are rejected outright.** If more than one subject claims the same `VerificationRecord` via `verified_by`, that’s flagged as `CKS-MCP-AMBIGUOUS-VERIFICATION-REFERENCE` before the signature is even checked — an ambiguous claim isn’t something a signature check can resolve.
 
 **Nothing invalid is ever committed, even partially.** For a fresh `json_data` structure with a forged record, `validate_knowledge` doesn’t even register the session via `runtime.create_session()` — it dry-runs against a throwaway, unregistered `RuntimeSession` first. If it registered the session before the provenance check, the forged record would already be live and readable through `serialize_knowledge`, `query_subgraph`, or an MCP Resource on that `session_id`, regardless of what the validation response itself said. The same dry-run-before-commit shape is used by `evolve_knowledge`, `merge_branch`, and `merge_knowledge` for the same reason: a version is exactly what every downstream reader will treat as trustworthy, so nothing becomes a version unless it’s already known-good.
+
+## Optional HTTP Transport
+
+[Section titled “Optional HTTP Transport”](#optional-http-transport)
+
+When `CKS_MCP_HTTP_PORT` is set, `server.py` starts an `aiohttp` server alongside the default stdio transport, with CORS enabled for local development (e.g. `cks-studio` running in a browser). This transport is meant for local development and trusted-network integration — it carries no additional authentication of its own beyond whatever the network it’s bound to already provides, so it should not be exposed on an untrusted network. All the SSRF and provenance guarantees above apply identically regardless of which transport a request arrived through.
 
 ## Trust Boundary Summary
 
@@ -20220,20 +20515,18 @@ Tools that turn something unstructured — free text or a web page — into a va
 
 [Section titled “construct\_knowledge”](#construct_knowledge)
 
-Sends free‑form text to an LLM (a local Ollama model **by default**, or the Anthropic API if `CKS_LLM_PROVIDER=anthropic`), asks it to extract entities and relationships as CKS JSON, then parses and validates that output with `cks‑core` before persisting it as a new session. **Nothing is committed if the LLM’s output fails validation.**
+Sends free‑form text to an LLM (a local Ollama model **by default**, the Anthropic API if `CKS_LLM_PROVIDER=anthropic`, or any OpenAI-compatible endpoint if `CKS_LLM_PROVIDER=openai_compatible`), asks it to extract entities and relationships as CKS JSON, then parses and validates that output with `cks‑core` before persisting it as a new session. **Nothing is committed if the LLM’s output fails validation.**
 
-**No API key is needed** when a local Ollama server is reachable (default) — `construct_knowledge` auto‑detects it and uses `llama3.2`. Set `CKS_LLM_PROVIDER=anthropic` and `ANTHROPIC_API_KEY` to use the Anthropic API instead.
-
-**Requires** `ANTHROPIC_API_KEY` in the server’s environment.
+**No API key is needed** when a local Ollama server is reachable (default) — `construct_knowledge` auto‑detects it and uses `llama3.2`. Set `CKS_LLM_PROVIDER=anthropic` and `ANTHROPIC_API_KEY` to use the Anthropic API instead, or `CKS_LLM_PROVIDER=openai_compatible` with `CKS_OPENAI_API_KEY` (and optionally `CKS_OPENAI_BASE_URL` / `CKS_OPENAI_MODEL`) to point at OpenAI, Groq, DeepSeek, Together, LM Studio, vLLM, or any other OpenAI-compatible API.
 
 **Parameters**
 
-| Name         | Type    | Required | Description                                                                                                                                                              |
-| ------------ | ------- | -------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------ |
-| `text`       | string  | yes      | Free-form text to extract a structure from.                                                                                                                              |
-| `hint`       | string  | no       | Focus the extraction, e.g. `"focus on causal relations between diseases and symptoms"`.                                                                                  |
-| `model`      | string  | no       | Model name for whichever provider is selected (e.g. an Ollama model tag, or an Anthropic model). Defaults to `CKS_OLLAMA_MODEL` / `CKS_LLM_MODEL` depending on provider. |
-| `max_tokens` | integer | no       | Defaults to `CKS_LLM_MAX_TOKENS` env var, or `4096`.                                                                                                                     |
+| Name         | Type    | Required | Description                                                                                                                                                                                                               |
+| ------------ | ------- | -------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| `text`       | string  | yes      | Free-form text to extract a structure from.                                                                                                                                                                               |
+| `hint`       | string  | no       | Focus the extraction, e.g. `"focus on causal relations between diseases and symptoms"`.                                                                                                                                   |
+| `model`      | string  | no       | Model name for whichever provider is selected (e.g. an Ollama model tag, an Anthropic model, or an OpenAI-compatible model). Defaults to `CKS_OLLAMA_MODEL` / `CKS_LLM_MODEL` / `CKS_OPENAI_MODEL` depending on provider. |
+| `max_tokens` | integer | no       | Defaults to `CKS_LLM_MAX_TOKENS` env var, or `4096`.                                                                                                                                                                      |
 
 **Response**
 
@@ -20365,7 +20658,7 @@ The structure is entirely LLM‑generated from the extracted content; no determi
 
 > AI Chat (`ai_chat`)
 
-Send a chat turn to an LLM (currently Anthropic only) that has access to a restricted set of cks-mcp tools, scoped to a single session.
+Send a chat turn to an LLM (Ollama or Anthropic) that has access to a restricted set of cks-mcp tools, scoped to a single session.
 
 The LLM can call tools (`query_subgraph`, `evolve_knowledge`, …); the handler executes them server‑side and feeds results back to the LLM until it produces a final text reply or the iteration cap is hit.
 
@@ -20428,8 +20721,8 @@ The LLM can call tools (`query_subgraph`, `evolve_knowledge`, …); the handler 
 
 [Section titled “Limitations”](#limitations)
 
-* Supports both **Ollama** (local, no API key) and **Anthropic**.
-* Provider is selected via `CKS_LLM_PROVIDER` (auto/ollama/anthropic), same as `construct_knowledge`.
+* Supports both **Ollama** (local, no API key) and **Anthropic** for tool-calling. `construct_knowledge` additionally supports any OpenAI-compatible endpoint for single-shot calls via the shared `LLMClient` — `ai_chat` does not yet route through `LLMClient` and so does not support `openai_compatible` tool-calling.
+* Provider is selected via `CKS_LLM_PROVIDER` (auto/ollama/anthropic).
 * Maximum 8 tool‑calling iterations per turn.
 
 # Branching  Merging
@@ -21448,7 +21741,7 @@ Use `compare_versions` when you want a compact, replayable operations list; use 
 
 > The canonical operational environment for Canonical Knowledge Structures.
 
-`cks-runtime` provides the infrastructure to execute, manage, version, persist, and expose Canonical Knowledge Structures without becoming a semantic authority itself.
+`cks-runtime` provides the infrastructure to execute, manage, version, persist, and expose Canonical Knowledge Structures without becoming a semantic authority itself. Fully async, with PostgreSQL support alongside SQLite. Currently at **v1.49.2**.
 
 ## Why Runtime?
 
@@ -21463,20 +21756,28 @@ Canonical knowledge is immutable. Operational state is not.
 * **Version History** — every successful transaction creates an immutable snapshot.
 * **Time-Travel Operations** — list versions, compare them with `diff`, and safely revert to any previous state.
 * **Event System** — lifecycle events published via `EventBus` for reactive architectures.
+* **Distributed replication** — gossip-based multi-node sync with a CRDT storage layer underneath.
+* **Autonomous background agents** — sweepers that detect (never silently fix) contradictions, staleness, and graph health issues.
 
 ## Key Features
 
 [Section titled “Key Features”](#key-features)
 
-| Feature             | Description                                                                                    |
-| ------------------- | ---------------------------------------------------------------------------------------------- |
-| Session Manager     | Create, retrieve, and close isolated runtime sessions.                                         |
-| Transaction Manager | Begin, commit, rollback, and abort transactions.                                               |
-| Version Manager     | Create, retrieve, and list immutable runtime versions.                                         |
-| Storage Abstraction | Pluggable storage backends (in-memory, SQLite, PostgreSQL).                                    |
-| Execution Engine    | Canonical operations (Validate, Serialize, Explain, Evolve, Diff) via `CoreBridge`.            |
-| EventBus            | Publish and subscribe to `TransactionCommitted`, `VersionCreated`, and other lifecycle events. |
-| Plugin Architecture | Replaceable storage, core, and operation implementations via `CoreInterface`.                  |
+| Feature                                  | Description                                                                                                                                                                                                                     |
+| ---------------------------------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| Session Manager                          | Create, retrieve, and close isolated runtime sessions.                                                                                                                                                                          |
+| Transaction Manager                      | Begin, commit, rollback, and abort transactions.                                                                                                                                                                                |
+| Version Manager                          | Create, retrieve, and list immutable runtime versions.                                                                                                                                                                          |
+| Storage Abstraction                      | Pluggable storage backends (in-memory, SQLite, PostgreSQL with pgvector).                                                                                                                                                       |
+| Execution Engine                         | Canonical operations (Validate, Serialize, Explain, Evolve, Diff) via `CoreBridge`.                                                                                                                                             |
+| EventBus                                 | Publish and subscribe to `TransactionCommitted`, `VersionCreated`, and other lifecycle events.                                                                                                                                  |
+| Plugin Architecture                      | Replaceable storage, core, and operation implementations via `CoreInterface`.                                                                                                                                                   |
+| **Gossip Replication** (ADR-008)         | Peer-to-peer session exchange — HMAC-signed envelopes, replay protection, peer discovery, weighted peer selection, background anti-entropy service.                                                                             |
+| **CRDT Adapter** (ADR-013)               | Conflict-free replicated storage beneath gossip — grow-only set with a Merkle prefix tree, MV-Register with causal ordering and fork detection, quarantine validation on every incoming merge.                                  |
+| **Autonomous Sweepers**                  | Seven background, detection-only sweepers — contradiction, inference/provenance/temporal staleness, graph freshness, auto-update, and health — that escalate findings into a persistent outbox rather than acting unilaterally. |
+| **Agent Infrastructure**                 | Liveness tracking and stop signalling (ADR-016) for external standalone agents (Critic, Enrichment, Fork Resolution, Pipeline); remote sweeper start/stop control (ADR-015).                                                    |
+| **Graph Registry**                       | `register_graph`/`get_graph`/`list_graphs` — the storage foundation for `cks-mcp`’s Memory Agent and `cks-studio`’s Graph Gallery.                                                                                              |
+| **Backup & Disaster Recovery** (ADR-012) | `export_storage()`/`import_storage()` across every backend for full data dumps and clear/merge restores.                                                                                                                        |
 
 ## Quick Example
 
@@ -21505,6 +21806,7 @@ print(version.version_id)
 * [Runtime Charter](charter/CHARTER.md)
 * [Architecture](architecture/ARCH-001_Runtime_Architecture.md)
 * [Specifications](standards/runtime/SPEC-001_Runtime_Overview.md)
+* [Architecture Decision Records](adr/ADR-001%20Runtime%20Layering.md) — including gossip (ADR-008), CRDT (ADR-013), sweeper control (ADR-015), and agent process control (ADR-016)
 
 # ADR-001
 
@@ -23856,7 +24158,7 @@ Proposed. Not yet implemented. Filed here per the request to record the design b
 
 [Section titled “Gossip Replication for Distributed Runtime Nodes: Persistent Replica Identity and Operation-Log Exchange”](#gossip-replication-for-distributed-runtime-nodes-persistent-replica-identity-and-operation-log-exchange)
 
-**Status:** Partially Implemented
+**Status:** Implemented
 
 **Date:** 2026-08-01
 
@@ -23993,7 +24295,7 @@ Partially implemented as of the 2026-08-01 revision note above: persistent `repl
 
 [Section titled “Proactive Inference Staleness Detection: A Background Sweeper for Reasoning Conflicts”](#proactive-inference-staleness-detection-a-background-sweeper-for-reasoning-conflicts)
 
-**Status:** Proposed
+**Status:** Implemented (`cks_runtime/reasoning/inference_staleness_sweeper.py`)
 
 **Date:** 2026-08-03
 
@@ -24174,7 +24476,7 @@ Proposed. Not implemented. Depends on `cks-core`’s `InferenceConfidenceConflic
 
 > ADR-010: Proactive Provenance Staleness Detection
 
-**Status:** Proposed **Related:** ADR-009 (Proactive Inference Staleness Detection), ADR-002 (cks-mcp, Provenance Signing), ADR-008 (Gossip Replication)
+**Status:** Implemented (`cks_runtime/reasoning/provenance_staleness_sweeper.py`) **Related:** ADR-009 (Proactive Inference Staleness Detection), ADR-002 (cks-mcp, Provenance Signing), ADR-008 (Gossip Replication)
 
 ## Context
 
@@ -24221,7 +24523,7 @@ Add `cks_runtime.reasoning.provenance_staleness_sweeper`, structurally parallel 
 
 > ADR-011: Temporal Staleness Detection
 
-**Status:** Proposed **Related:** ADR-009 (Proactive Inference Staleness Detection), ADR-010 (Proactive Provenance Staleness Detection), cks-core ADR-003 (Temporal Validity Constraint)
+**Status:** Implemented (`cks_runtime/reasoning/temporal_staleness_sweeper.py`) **Related:** ADR-009 (Proactive Inference Staleness Detection), ADR-010 (Proactive Provenance Staleness Detection), cks-core ADR-003 (Temporal Validity Constraint)
 
 ## Context
 
@@ -24523,9 +24825,13 @@ Stage 1 answers “have I seen this object before” (a G-Set). Stage 2 answers 
 * `update_pointer` is called once per object per gossip round (same frequency as Stage 1’s `add_object`), each a small read (existing pointers for that key – normally 0 or 1 rows, 2+ only mid-fork) plus at most one insert and a handful of deletes. Cheap relative to the G-Set insert it accompanies.
 * A pointer that has forked stays forked – consuming zero, one, or many concurrent rows via `get_pointers` – until a Critic Agent (or direct `resolve_pointer` call) collapses it. Nothing else in this layer resolves a fork on its own; that is intentional, matching how `GossipConflictDetected`/`InferenceConflictDetected` are never silently auto-resolved by the runtime that raises them either.
 
+# ADR-014
+
+> ADR-014
+
 # ADR-014: Standalone Agent Liveness Heartbeat
 
-> ADR-014: Standalone Agent Liveness Heartbeat
+[Section titled “ADR-014: Standalone Agent Liveness Heartbeat”](#adr-014-standalone-agent-liveness-heartbeat)
 
 **Status:** Proposed **Related:** ADR-004 (Storage Abstraction), ADR-007 (Concurrent Multi-Agent Writes), cks-mcp ADR-007 (CKSAgentOrchestrator), cks-studio `AGENT_VISIBILITY.md` (v1 read-only sweeper panel, already shipped)
 
@@ -24633,6 +24939,10 @@ Rationale for separate tools over folding a `kind: "process"` variant into `list
 # ADR-015
 
 > ADR-015
+
+# ADR-015: Sweeper Control — Persistent Enable/Disable State and Concurrent-Caller Safety
+
+[Section titled “ADR-015: Sweeper Control — Persistent Enable/Disable State and Concurrent-Caller Safety”](#adr-015-sweeper-control--persistent-enabledisable-state-and-concurrent-caller-safety)
 
 **Status:** Proposed **Related:** ADR-014 (Standalone Agent Liveness Heartbeat — same “Control Panel blocked on a design doc” origin, see that ADR’s Consequences), cks-mcp ADR-009 (Sweeper Control Tools — thin tool layer consuming this ADR), `AGENT_VISIBILITY.md` (v1 read-only panel, already shipped)
 
@@ -24772,9 +25082,13 @@ Each sweep pass (`sweep_once()`) is one bounded, already-atomic-enough unit of w
 * **cks-mcp follow-up (out of scope here):** `start_agent(agent_id)` / `stop_agent(agent_id)` tools — see companion ADR-009 for the tool contract, error shape for an unknown `agent_id`, and how these compose with the existing read-only `list_agents`/`agent_status`.
 * **cks-studio follow-up (out of scope here):** Agent Panel (v1, still read-only per its own design note) gains actual buttons for the first time — a separate, later UI change, not decided by this ADR.
 
+# ADR-016
+
+> ADR-016
+
 # ADR-016: Standalone Agent Process Control — `desired_state` Signal on `cks_agent_liveness`
 
-> ADR-016: Standalone Agent Process Control — `desired_state` Signal on `cks_agent_liveness`
+[Section titled “ADR-016: Standalone Agent Process Control — desired\_state Signal on cks\_agent\_liveness”](#adr-016-standalone-agent-process-control--desired_state-signal-on-cks_agent_liveness)
 
 **Status:** Proposed **Related:** ADR-014 (Standalone Agent Liveness Heartbeat — owns the `cks_agent_liveness` schema this ADR extends), ADR-015 (Sweeper Control — the in-process counterpart of this ADR, same “blocked on a design doc” origin), cks-mcp ADR-010 (Process Control Tools — thin tool layer consuming this ADR)
 
@@ -25697,6 +26011,54 @@ Explanation sources may originate from:
 
 ***
 
+## 6.8 Event Bus
+
+[Section titled “6.8 Event Bus”](#68-event-bus)
+
+Responsible for publishing and dispatching Runtime lifecycle events (e.g. session/transaction lifecycle, `InferenceConflictDetected`, `CRDTForkDetected`, `AgentStepStarted`/`AgentStepCompleted`).
+
+Subscribers observe Runtime behaviour without coupling to the component that produced it. The Event Bus carries no semantic authority of its own — it only reports what already happened.
+
+***
+
+## 6.9 Execution Engine
+
+[Section titled “6.9 Execution Engine”](#69-execution-engine)
+
+Responsible for dispatching canonical operations (Validate, Serialize, Explain, Evolve, Diff, and others) against CKS Core through `CoreBridge`, using a registry-based Operation Dispatcher.
+
+The Execution Engine owns *how* an operation is routed and executed operationally; it never owns *what* the operation means semantically — that remains CKS Core’s responsibility.
+
+***
+
+## 6.10 Autonomous Sweeper Subsystem
+
+[Section titled “6.10 Autonomous Sweeper Subsystem”](#610-autonomous-sweeper-subsystem)
+
+Responsible for background, detection-only monitoring: contradiction detection, inference/provenance/temporal staleness, and graph freshness/auto-update/health. Sweepers escalate findings into the persistent Outbox for an external agent (e.g. a Critic Agent in `cks-mcp`) to act on — they never resolve a conflict themselves.
+
+Includes shared sweeper observability (last run, duration, result count, last error) and remote start/stop control through persisted overrides, so an operator or external control panel can pause a sweeper without restarting the Runtime process.
+
+***
+
+## 6.11 Replication Layer (Gossip & CRDT)
+
+[Section titled “6.11 Replication Layer (Gossip & CRDT)”](#611-replication-layer-gossip--crdt)
+
+Responsible for peer-to-peer synchronization of Runtime Sessions across distributed Runtime nodes: replica identity, signed gossip envelopes with replay protection, peer discovery and scheduling, and a conflict-free replicated (CRDT) storage layer beneath it — a Merkle-tree-backed grow-only set and an MV-Register with causal ordering and automatic fork detection.
+
+The Replication Layer is purely operational: it moves and reconciles already-valid Runtime state between nodes and never redefines canonical semantics. Every object admitted through it is re-validated via CKS Core before acceptance (quarantine).
+
+***
+
+## 6.12 Agent Infrastructure
+
+[Section titled “6.12 Agent Infrastructure”](#612-agent-infrastructure)
+
+Responsible for coordinating external, standalone agent processes (e.g. Critic, Enrichment, Fork Resolution, Pipeline agents) that consume the Outbox and Event Bus: liveness heartbeats, stop signalling, and pipeline-step events. Runtime tracks agent state; it never originates agent decisions or LLM calls itself. Currently realised within `storage/` (liveness/control persistence) and `events/` (`AgentStepStarted`/`AgentStepCompleted`) rather than a standalone package.
+
+***
+
 # 7. Dependency Rules
 
 [Section titled “7. Dependency Rules”](#7-dependency-rules)
@@ -25880,24 +26242,38 @@ Only the public semantic API forms the supported integration contract between th
 
 [Section titled “12. Reference Package Structure”](#12-reference-package-structure)
 
-A conformant Reference Runtime may be organised conceptually as:
+The Reference Runtime (`cks_runtime/`) is organised as:
 
 ```text
 cks_runtime/
-    runtime.py
-    api/
-    facade/
-    session/
-    transaction/
-    diagnostics/
-    versioning/
-    storage/
-    explainability/
-    core_api/
-    cks_runtime_core/    # concrete CoreInterface implementation
+    runtime.py          # Runtime facade — public entry point
+    config.py            # RuntimeConfig
+    session/              # Session Manager
+    transaction/          # Transaction Manager
+    diagnostics/          # Diagnostics Manager
+    versioning/           # Version Manager, time-travel operations
+    storage/              # Storage Manager (InMemory, SQLite, Postgres)
+    core_api/             # Core API Boundary (CoreInterface)
+    events/               # Event Bus
+    execution/            # Execution Engine (CoreBridge)
+    dispatcher/           # Registry-based Operation Dispatcher
+    operations/           # Operation types, patch codec
+    reasoning/             # Sweeper Subsystem (contradiction, staleness, graph)
+    gossip/                # Gossip transport, peer discovery, scheduling
+    crdt/                  # CRDT storage layer (G-Set, MV-Register, quarantine)
+    pipeline/              # Execution Pipeline — transaction/version orchestration
+    projection/            # Embedding/vector projection
+    embedding/             # Embedding clients (fastembed, etc.)
+    net/                   # Outbound-fetch safety (SSRF-safe HTTP)
+    gc/                    # Session garbage collection
+    metrics/               # Runtime metrics
+
+
+cks_runtime_plugins/
+    cks_core/              # Concrete CoreInterface implementation (CksCoreAdapter)
 ```
 
-Equivalent layouts are permitted provided architectural responsibilities remain preserved.
+Equivalent layouts are permitted provided architectural responsibilities remain preserved. The Explainability Coordinator (6.7) is currently realised through `execution/` and `core_api/` rather than a standalone package.
 
 ***
 
@@ -29679,11 +30055,66 @@ It stabilizes the `GossipEnvelope` wire format, the authenticity and replay-prot
 
 Gossip Replication reuses the Runtime’s existing merge mechanism. It provides distributed reconciliation, not a new conflict model.
 
+# cks-studio
+
+> cks-studio
+
+> Interactive visual workspace for the Canonical Knowledge Structure ecosystem.
+
+**CKS Studio** is the graphical interface of the CKS ecosystem — a single-page application where you can explore knowledge graphs, inspect inference chains, review CRDT forks, monitor agent pipelines, browse the public graph gallery, and chat with an LLM that can call tools and modify the graph, all connected to one or more `cks-mcp` servers over the Model Context Protocol. Currently at **v0.6.6**.
+
+It complements the backend repositories by providing a visual layer that makes the canonical knowledge immediately accessible to humans, while remaining fully driven by the same MCP tools available to LLMs.
+
+## Try It Now
+
+[Section titled “Try It Now”](#try-it-now)
+
+No install required — the [interactive demo](/cks-website/demo/) runs entirely in your browser, pre-loaded with the CKS ecosystem’s own knowledge graph (277 objects, 158 relations).
+
+## Key Features
+
+[Section titled “Key Features”](#key-features)
+
+| Feature                       | Description                                                                                                       |
+| ----------------------------- | ----------------------------------------------------------------------------------------------------------------- |
+| Graph Exploration             | Interactive canvas (React Flow + Dagre), Cmd/Ctrl+K search, type filtering, drill-down via `query_subgraph`.      |
+| 2D / 3D View                  | Toggle to a force-directed 3D canvas (Three.js) for wide graphs with many same-rank nodes.                        |
+| Inference Chain Inspector     | Trace `depends_on` edges from a conclusion back to its axioms.                                                    |
+| CRDT Fork Diff                | LCA-based side-by-side comparison of conflicting object versions.                                                 |
+| Pipeline Monitor              | Live status of objects moving through Researcher → Reviewer → Synthesizer → Arbiter.                              |
+| Agent Observability & Control | Real-time status of every background sweeper, plus start/stop/request-stop for sweepers and standalone agents.    |
+| Graph Gallery                 | Browse, search, and check the health of public graphs registered via `register_graph`.                            |
+| AI Chat                       | Built-in assistant, scoped to the current session, that can call the same MCP tools to read and mutate the graph. |
+| PWA                           | Installable as a standalone desktop app from Chrome/Edge/Safari.                                                  |
+
+## Architecture
+
+[Section titled “Architecture”](#architecture)
+
+CKS Studio is a thin, stateless frontend — all knowledge and logic live in the backend; the studio only reads and sends commands through MCP.
+
+```plaintext
+┌──────────────────┐       MCP (JSON-RPC)        ┌──────────────┐
+│   CKS Studio     │ ◄─────────────────────────► │   cks-mcp    │
+│  (React SPA)     │            HTTP              │  (Python)    │
+└──────────────────┘                              └──────────────┘
+```
+
+See [Architecture](architecture.md) for the full breakdown of routing, state management, the MCP client layer, and how the standalone demo is built.
+
+## Learn More
+
+[Section titled “Learn More”](#learn-more)
+
+* [Architecture](architecture.md)
+* [Architecture Decision Records](adr/ADR-001%20AI%20Assistant%20Chat%20Panel.md) — AI chat panel, 3D graph view, graph gallery, agent control, standalone demo
+* [GitHub repository](https://github.com/Deus-corp/cks-studio)
+
 # ADR-001: AI Assistant Chat Panel
 
 > ADR-001: AI Assistant Chat Panel
 
-**Status:** Proposed **Related:** cks-mcp ADR-007 (CKSAgentOrchestrator — a different, longer-running multi-agent pipeline; this ADR is a single interactive chat turn, not that pipeline), cks-mcp ADR-009/ADR-010 (Sweeper/Process Control Tools — the pattern this ADR follows: thin cks-mcp-side tool, cks-studio-side UI), companion cks-mcp ADR-011 (`ai_chat` Tool — owns the agentic loop and provider contract this ADR consumes)
+**Status:** Implemented — see `src/features/ai-chat/`, shipped v0.5.4–v0.5.5 (onboarding/error states, model selector). **Related:** cks-mcp ADR-007 (CKSAgentOrchestrator — a different, longer-running multi-agent pipeline; this ADR is a single interactive chat turn, not that pipeline), cks-mcp ADR-009/ADR-010 (Sweeper/Process Control Tools — the pattern this ADR follows: thin cks-mcp-side tool, cks-studio-side UI), companion cks-mcp ADR-011 (`ai_chat` Tool — owns the agentic loop and provider contract this ADR consumes)
 
 ## Context
 
@@ -30112,6 +30543,440 @@ export function useAiChat() {
 
 * Only if real usage shows the stateless-history tradeoff (Decision 2) actually hurts: a `cks_chat_history` table (own cks-runtime ADR, same split this feature has followed throughout — schema/persistence in cks-runtime, tool contract in cks-mcp) keyed by `session_id`, so reloading `cks-studio` or switching machines can resume a conversation rather than starting over.
 
+# ADR-002: 3D Graph View
+
+> ADR-002: 3D Graph View
+
+**Status:** Implemented — see `src/components/graph/GraphCanvas3D.tsx`, shipped v0.6.0–v0.6.4. **Related:** ADR-001 (AI Assistant Chat Panel — same “thin client, reuse existing stores” pattern), `docs/architecture.md` §6.
+
+## Context
+
+[Section titled “Context”](#context)
+
+The 2D canvas (`GraphCanvas.tsx`) lays out the graph with Dagre using a top-to-bottom or left-to-right `rankdir`. Dagre puts every node that shares a rank in a single row (or column). For CKS graphs specifically, this is a recurring shape: many `Tool` objects implementing one `ADR`, or many `Relation` objects attached to one `Component`, all land on the same rank. The result is a graph that reads as a very wide, very short ribbon — most of the canvas is empty vertical space, and the nodes that actually need to be compared are far apart horizontally.
+
+Node/edge counts in these graphs (hundreds of objects for something like the `cks-ecosystem` demo graph — 277 objects, 158 relations) are not the problem; the 2D layout’s inability to use more than one dimension for same-rank spreading is.
+
+## Decision
+
+[Section titled “Decision”](#decision)
+
+### 1. A second canvas, not a replacement
+
+[Section titled “1. A second canvas, not a replacement”](#1-a-second-canvas-not-a-replacement)
+
+`GraphCanvas3D.tsx` is a parallel implementation, not a mode of `GraphCanvas.tsx`. Both read from the same `graphExplorerStore` and accept the same `onNodeSelect` contract, so `GraphPage.tsx` only needs a `viewMode` toggle (`'2d' | '3d'`, persisted in `graphExplorerStore`) and a conditional render — no store or data-fetching duplication.
+
+### 2. `3d-force-graph` (Three.js) for rendering
+
+[Section titled “2. 3d-force-graph (Three.js) for rendering”](#2-3d-force-graph-threejs-for-rendering)
+
+Force-directed layout spreads nodes over a volume instead of a plane, so a “many nodes, one rank” graph becomes a roughly spherical cluster instead of a stretched ribbon. Node sizing is degree-based (more edges → larger sphere), so hub objects like `cks-mcp` or `cks-runtime` read as visually important without any manual annotation.
+
+### 3. Lazy-loaded, not in the main bundle
+
+[Section titled “3. Lazy-loaded, not in the main bundle”](#3-lazy-loaded-not-in-the-main-bundle)
+
+The Three.js dependency chain is large (\~500 kB gzipped). Since 2D is the default view and most sessions may never touch 3D, `GraphPage.tsx` imports `GraphCanvas3D` via `React.lazy()` behind a `Suspense` boundary that reuses the existing `GraphSkeleton` fallback — switching to 3D for the first time in a session pays a one-time chunk fetch; every other page load that stays in 2D pays nothing.
+
+### 4. Feature parity is maintained explicitly, not incidentally
+
+[Section titled “4. Feature parity is maintained explicitly, not incidentally”](#4-feature-parity-is-maintained-explicitly-not-incidentally)
+
+Because the two canvases don’t share rendering code, parity between them is a deliberate, tracked list rather than automatic:
+
+| Capability                                     | 2D                       | 3D                                                |
+| ---------------------------------------------- | ------------------------ | ------------------------------------------------- |
+| Always-visible labels                          | ✅                        | ✅                                                 |
+| Degree-based node sizing                       | — (fixed size)           | ✅                                                 |
+| Hover neighbour-highlighting                   | ✅                        | ✅                                                 |
+| Path highlighting (Shift+click)                | ✅                        | ✅                                                 |
+| Drag-and-drop `.json` subgraph import          | ✅                        | ✅                                                 |
+| Relation-draft participant picking             | ✅                        | ✅                                                 |
+| Cmd/Ctrl+K search palette                      | ✅ (`GraphSearchPalette`) | ✅ (`GraphSearchPalette3D`, separate component)    |
+| MiniMap                                        | ✅                        | ❌ not ported                                      |
+| Manual node drag-to-reposition                 | ✅                        | ❌ not applicable — 3D nodes are simulation-driven |
+| Soft clustering by containing Component/Module | —                        | ✅                                                 |
+| Layout direction toggle (TB/LR)                | ✅                        | — not applicable (force-directed, no rank axis)   |
+
+Each new capability added to one canvas should be triaged against this table rather than assumed to transfer.
+
+### 5. Clustering derived from `contains` edges, not a separate call
+
+[Section titled “5. Clustering derived from contains edges, not a separate call”](#5-clustering-derived-from-contains-edges-not-a-separate-call)
+
+`GraphCanvas3D` computes each node’s nearest containing Component/Module by walking `contains` edges already present in the fetched subgraph (see `computeClusters` in the component) — no additional `cks-mcp` tool call is made to support clustering. Nodes with no containing ancestor (most `ADR`s, `Relation`s) are simply left out of the clustering force and still participate in the normal charge/link forces.
+
+## Consequences
+
+[Section titled “Consequences”](#consequences)
+
+* Two renderers to keep in sync (§4’s table) is real, ongoing maintenance cost — a new 2D-only feature is easy to ship without noticing the 3D gap until someone files it.
+* The lazy-load boundary means the first 3D toggle in a session has a visible load delay; this is treated as an acceptable trade against never taxing the 2D-only majority of sessions.
+* 3D mode has no minimap and no manual repositioning by design, not oversight — both are 2D-specific interaction patterns without a faithful 3D-force-graph equivalent.
+
+# ADR-003: Graph Gallery
+
+> ADR-003: Graph Gallery
+
+**Status:** Implemented — see `src/features/graph-gallery/`, shipped before v0.5.1 and stable since; health-score badge added alongside. **Related:** cks-mcp Memory Agent tools (`list_graphs`, `search_graphs`, `register_graph`, `check_graph_health`), `docs/architecture.md` §2.
+
+## Context
+
+[Section titled “Context”](#context)
+
+A `session_id` on its own is an opaque string — there was no way to discover which graphs existed on a given `cks-mcp` server, whether a graph was meant to be shared, or how healthy it was, short of already knowing the id and calling `query_subgraph` blind. `cks-mcp`’s Memory Agent already exposes a graph registry (`register_graph`, `list_graphs`, `search_graphs`, `check_graph_health`) for exactly this purpose, but nothing in the studio surfaced it.
+
+## Decision
+
+[Section titled “Decision”](#decision)
+
+### 1. A dedicated feature + store, read-only against the registry
+
+[Section titled “1. A dedicated feature + store, read-only against the registry”](#1-a-dedicated-feature--store-read-only-against-the-registry)
+
+`GraphGallery.tsx` + `galleryStore.ts` own gallery state independently of `sessionStore` — browsing the gallery does not require an active session, and selecting a graph card only calls `sessionStore`’s `setSessionId()` once, on open, rather than keeping the two stores in sync continuously.
+
+### 2. Query vs. list is resolved client-side, not by always searching
+
+[Section titled “2. Query vs. list is resolved client-side, not by always searching”](#2-query-vs-list-is-resolved-client-side-not-by-always-searching)
+
+`galleryStore.load()` calls `searchGraphs()` when there’s a non-empty query string and `listGraphs()` otherwise, both parameterised by the same `tag`/`publicOnly` filters. This keeps the empty-query “browse everything public” case a plain list call instead of a search over an empty string.
+
+### 3. Health score is lazy, per-card, not eager for the whole list
+
+[Section titled “3. Health score is lazy, per-card, not eager for the whole list”](#3-health-score-is-lazy-per-card-not-eager-for-the-whole-list)
+
+`check_graph_health` is a separate call per graph name and is not cheap to run for every card on page load. `loadHealth(name)` is only triggered by an explicit user action per card (see `HealthBadge` / `HealthIndicator`), tracked independently in `health: Record<name, result>` and `healthLoading: Record<name, boolean>` so one card’s health check in flight doesn’t block or reset another’s.
+
+### 4. Opening a graph is a session-store handoff, not a gallery-owned view
+
+[Section titled “4. Opening a graph is a session-store handoff, not a gallery-owned view”](#4-opening-a-graph-is-a-session-store-handoff-not-a-gallery-owned-view)
+
+`GraphCard`’s “Open in Graph” sets `sessionStore.sessionId` to the selected `graph.session_id` and navigates to `/` (`GraphPage`) — the gallery does not render any graph preview itself. This keeps exactly one code path responsible for turning a `session_id` into a rendered graph (`GraphPage` + `graphExplorerStore`), whether the id came from a URL, a typed input, or a gallery card.
+
+## Consequences
+
+[Section titled “Consequences”](#consequences)
+
+* Health scores can go stale between a user’s checks — there’s no polling or invalidation; a “Refresh” re-check is a repeat of the same manual action, not an automatic background job (unlike agent/process status, see ADR-004).
+* The `tag`/`publicOnly` filters are the only structured filters today; ROADMAP.md’s “Graph Gallery: Clone & Fork” P1 item adds category/date/popularity filtering on top of this same store shape.
+
+# ADR-004: Agent Observability & Control Panel
+
+> ADR-004: Agent Observability & Control Panel
+
+**Status:** Implemented — see `src/features/agent-panel/`, shipped before v0.5.1. **Related:** cks-runtime ADR-015 (Sweeper Control), cks-runtime ADR-016 (Agent Process Control), cks-mcp’s `list_agents`/`agent_status`/ `start_agent`/`stop_agent`/`list_processes`/`process_status`/ `request_process_stop` tools, ADR-001 §1 (same “background agents the Agent Panel already controls” reference point).
+
+## Context
+
+[Section titled “Context”](#context)
+
+`cks-mcp` runs two different kinds of background agent, and before this feature neither was visible or controllable from the studio at all:
+
+1. **In-process sweepers** (Contradiction, Inference/Provenance/Temporal Staleness, Graph Freshness, Graph Health, …) — run inside the `cks-mcp` server process itself, on a periodic schedule.
+2. **Standalone processes** (Critic, Enrichment, Fork Resolution, Pipeline Agent) — separate long-running processes started manually, reporting liveness via heartbeat.
+
+Both needed the same three things a human operator wants: “is it running”, “what did it just do”, and “can I stop/start it from here instead of a terminal”. They needed it via different `cks-mcp` tool pairs (`list_agents`/`start_agent`/`stop_agent` vs. `list_processes`/ `request_process_stop`) because they’re different subsystems on the backend (see cks-runtime ADR-015 vs ADR-016).
+
+## Decision
+
+[Section titled “Decision”](#decision)
+
+### 1. One page, two sections, two tool families — not unified into one
+
+[Section titled “1. One page, two sections, two tool families — not unified into one”](#1-one-page-two-sections-two-tool-families--not-unified-into-one)
+
+`AgentPanel.tsx` renders sweepers and standalone processes as two distinct sections rather than merging them into a single list. This mirrors the backend split instead of hiding it: sweepers support `start_agent`/`stop_agent` (they can be toggled), standalone processes only support `request_process_stop` (graceful shutdown request — they are “started manually” outside the studio, noted directly in the UI copy, and the studio cannot start one).
+
+### 2. Polling, not push — with a shared, duplicated-by-design pattern
+
+[Section titled “2. Polling, not push — with a shared, duplicated-by-design pattern”](#2-polling-not-push--with-a-shared-duplicated-by-design-pattern)
+
+Live status uses `useAgentsPolling` / `useProcessesPolling`, two near-identical hooks (10s interval, `document.visibilityState`-gated — polling pauses when the tab isn’t visible so a backgrounded tab doesn’t keep hammering the server for nothing) rather than a single generic polling hook, because the two feeds have different response shapes (`AgentStatus[]` vs `ProcessStatus[]`) and independent race-guard sequence numbers. See `docs/architecture.md` — this predates any WebSocket/SSE push mechanism; ROADMAP.md’s “Real MCP Session Presence” P0 item covers replacing this polling pattern for the graph canvas, and would apply here too if extended.
+
+### 3. Request-response race protection via a sequence counter
+
+[Section titled “3. Request-response race protection via a sequence counter”](#3-request-response-race-protection-via-a-sequence-counter)
+
+Both polling hooks guard against out-of-order responses (a slower earlier request resolving after a faster later one) with a local `requestSeq` ref incremented per call; a response is only applied if its sequence still matches the latest issued request. This matters specifically because polling plus manual “Refresh” clicks plus start/stop actions can all trigger overlapping in-flight requests.
+
+### 4. Errors are three-way, not binary
+
+[Section titled “4. Errors are three-way, not binary”](#4-errors-are-three-way-not-binary)
+
+Both the UI and the polling hooks distinguish three states that a naive `error: string | null` would conflate: **not yet loaded** (empty array, no fetch completed), **loaded and genuinely empty** (no sweepers enabled, or no process has ever sent a heartbeat), and **fetch/protocol error** (network failure, bad response). Collapsing these would make “no sweepers configured” indistinguishable from “the studio can’t reach cks-mcp”.
+
+## Consequences
+
+[Section titled “Consequences”](#consequences)
+
+* Two hooks with \~90% identical bodies is accepted duplication, not an oversight — see §2. A shared generic polling hook was considered and rejected because the race-guard and response-shape differences would need generics or a type union either way, for little real reduction in code.
+* Sweeper status here can lag up to the poll interval (10s) behind reality; this is acceptable for an operator dashboard, not acceptable for anything safety-critical — no such use is made of this data.
+
+# ADR-005: Standalone Static Demo
+
+> ADR-005: Standalone Static Demo
+
+**Status:** Implemented — see `demo.html`, `src/demo.tsx`, `src/services/mockClient.ts`, `src/services/mockData.ts`; shipped v0.6.5–v0.6.6. **Related:** `docs/architecture.md` §7, README.md “Live demo” banner.
+
+## Context
+
+[Section titled “Context”](#context)
+
+Trying CKS Studio previously required running a local `cks-mcp` server first — `npm install`, configure a provider, `npm run mcp`, then `npm run dev`. That’s a reasonable bar for a contributor but too high for anyone just evaluating whether the ecosystem is worth the setup at all. The project already had a ready-made answer for what to show: `scripts/import-ecosystem-graph.*` builds a real knowledge graph of the CKS project itself (277 objects, 158 relations) that the README already recommends as the first thing to explore locally.
+
+## Decision
+
+[Section titled “Decision”](#decision)
+
+### 1. A second Vite entry point, not a separate deployment
+
+[Section titled “1. A second Vite entry point, not a separate deployment”](#1-a-second-vite-entry-point-not-a-separate-deployment)
+
+`vite.config.ts` builds two HTML entry points from one codebase — `index.html` (the real studio) and `demo.html` (the static demo) — in the same `npm run build`. `demo.tsx` reuses the actual page components (`GraphPage`, `GraphGallery`, `PipelineMonitor`) rather than building demo-specific views, so the demo cannot visually drift from the real studio the way a hand-maintained screenshot or separate mini-app would.
+
+### 2. The mock lives at the transport seam, not scattered through pages
+
+[Section titled “2. The mock lives at the transport seam, not scattered through pages”](#2-the-mock-lives-at-the-transport-seam-not-scattered-through-pages)
+
+`mcpClient.ts` exposes `setDemoCallTool()` as the single point where every `callTool()` invocation can be redirected. `demo.tsx` calls this once, before any page mounts, to route all traffic to `mockClient.ts` — an in-memory MCP client serving the bundled `mockData.ts` ecosystem graph. No page or feature component has any awareness that it’s running in demo mode; they call the same `mcpTools.ts` functions either way.
+
+### 3. Navigation and pages that need a live server are pared down, not hidden entirely
+
+[Section titled “3. Navigation and pages that need a live server are pared down, not hidden entirely”](#3-navigation-and-pages-that-need-a-live-server-are-pared-down-not-hidden-entirely)
+
+Chat, Agents, Diff, and Settings all depend on real-time server state (LLM provider status, live sweeper heartbeats, session-scoped version history) that a static mock can’t fabricate meaningfully, so the demo’s nav only exposes Graph / Gallery / Pipeline. Gallery and Pipeline *are* kept in the nav — but since they also need live data the mock can’t produce, they render a static placeholder (`UnavailableInDemo`) instead of an empty or broken page, so the demo still reads as “the full studio interface, with some sections clearly marked as needing a server” rather than a cut-down preview product.
+
+### 4. Relative asset base, because the demo is mounted under a subpath
+
+[Section titled “4. Relative asset base, because the demo is mounted under a subpath”](#4-relative-asset-base-because-the-demo-is-mounted-under-a-subpath)
+
+`base: './'` in `vite.config.ts` — the demo is embedded under `cks-website`’s GitHub Pages deployment at `/cks-website/demo/demo.html`, not domain root. An absolute base bakes root-relative asset URLs into the built HTML, which 404s the instant the page isn’t served from the domain root; this was an actual production incident (see the `demo.tsx` comment on the leftover service-worker cleanup, item below) before the fix. The relative base keeps every asset URL resolved against `demo.html`’s own location, so one build works at any mount point — the real studio’s `index.html` included, whatever origin it ends up deployed at.
+
+### 5. PWA service worker is registered only on the real app, not the demo
+
+[Section titled “5. PWA service worker is registered only on the real app, not the demo”](#5-pwa-service-worker-is-registered-only-on-the-real-app-not-the-demo)
+
+`vite-plugin-pwa`’s default `injectRegister: 'auto'` would inject a service-worker registration `<script>` into *every* HTML entry, including `demo.html`. A stale worker from a previous (possibly broken) deploy takes over the page via `skipWaiting()`/ `clientsClaim()` and keeps serving its own cached assets straight past later redeploys — this is exactly what happened once the absolute-base bug above shipped, and the fix required a `serviceWorker.getRegistrations()` self-cleanup on the demo entry point for anyone who’d hit the broken build to self-heal on their next visit. Registration (`injectRegister: false` in the plugin config, manual `<script>` in `index.html` only) is now scoped to the real app; the offline-install PWA experience isn’t meaningful for a demo the user isn’t installing.
+
+## Consequences
+
+[Section titled “Consequences”](#consequences)
+
+* The demo will silently go stale relative to `mockData.ts` if the real `cks-ecosystem` graph structure changes significantly and nobody re-runs `scripts/import-ecosystem-graph.*` to refresh the bundled snapshot — there’s no automated sync between the live registry graph and the demo’s static copy.
+* Any new page added to the real studio needs an explicit decision (nav-visible + real, nav-visible + placeholder, or hidden) for the demo — there’s no default; §3’s three-way split has to be applied by hand each time.
+
+# CKS Studio Architecture
+
+> CKS Studio Architecture
+
+This document describes how CKS Studio is actually built, sync’d against `src/` as of **v0.6.6**. It is the frontend counterpart to [`cks-mcp/docs/architecture/ARCHITECTURE.md`](https://github.com/Deus-corp/cks-mcp/blob/main/docs/architecture/ARCHITECTURE.md) and [`cks-runtime/docs/architecture/ARCH-001_Runtime_Architecture.md`](https://github.com/Deus-corp/cks-runtime/blob/main/docs/architecture/ARCH-001_Runtime_Architecture.md) — those describe the backend that owns all knowledge and logic; this one describes the thin, stateless client that reads and commands it.
+
+***
+
+## 1. High-Level Shape
+
+[Section titled “1. High-Level Shape”](#1-high-level-shape)
+
+```plaintext
+┌──────────────────────────┐       MCP (JSON-RPC over HTTP)      ┌──────────────┐
+│        CKS Studio        │ ◄──────────────────────────────────► │   cks-mcp    │
+│   (React 19 SPA, Vite)   │         POST /mcp, tools/call        │  (Python)    │
+└─────────────┬─────────────┘                                    └──────┬───────┘
+              │                                                          │
+              │ demo mode only                                          ▼
+              ▼                                                  cks-runtime / cks-core
+      mockClient.ts (in-memory,
+      bundled ecosystem graph)
+```
+
+CKS Studio holds **no canonical knowledge and no business logic**. Every piece of state that matters (objects, relations, versions, agent status, LLM provider) is fetched from `cks-mcp` on demand and re-fetched or optimistically reconciled after each mutation. The two exceptions — `themeStore` (a UI preference) and `mockClient.ts` (the static demo’s fake backend) — are both explicitly local and never touch real CKS data.
+
+***
+
+## 2. Directory Structure
+
+[Section titled “2. Directory Structure”](#2-directory-structure)
+
+```plaintext
+src/
+├── App.tsx                  Router + top nav (7 routes, see §3)
+├── main.tsx                 Real entry point — mounts <App/>
+├── demo.tsx                 Static-demo entry point — mounts a
+│                             restricted <App/> wired to mockClient
+│                             (second Vite build target, see §7)
+│
+├── pages/                   One file per route, thin — wires a feature
+│   ├── GraphPage.tsx           component to session/graph state
+│   ├── PipelinePage.tsx
+│   ├── GalleryPage.tsx
+│   ├── DiffPage.tsx
+│   ├── AgentsPage.tsx
+│   ├── ChatsPage.tsx
+│   └── SettingsPage.tsx
+│
+├── features/                 One directory per capability: component(s)
+│   │                          + local Zustand store + hooks, colocated
+│   ├── graph-explorer/          node/relation creation, layout, the
+│   │                             graph's own Zustand store
+│   ├── ai-chat/                  ChatPanel, chatStore, useAiChat
+│   ├── agent-panel/              sweeper + standalone-process control
+│   ├── graph-gallery/            public graph browser, galleryStore
+│   ├── fork-diff/                CRDT fork comparison view
+│   ├── version-diff/             explain_diff-based version comparison
+│   ├── pipeline-monitor/         Researcher→Reviewer→Synthesizer→Arbiter
+│   │                             live status
+│   └── llm-status/               get_llm_status / list_llm_models hooks
+│
+├── components/
+│   ├── graph/                2D (React Flow + Dagre) and 3D
+│   │   │                     (3d-force-graph / Three.js) canvases,
+│   │   │                     search palettes, legend, empty/skeleton
+│   │   │                     states, node renderer, PNG/SVG export
+│   │   └── nodes/CksNode.tsx    single generic node component, styled
+│   │                             per CKS type via shared/constants
+│   ├── layout/SidePanel.tsx  node inspector / property panel
+│   ├── mcp/ConnectionStatus.tsx server/session connection indicator
+│   └── common/                ErrorBoundary, LoadingSpinner,
+│                               StatusBadge, HealthIndicator
+│
+├── services/                  Cross-feature infrastructure, not tied to
+│   │                           any one page
+│   ├── mcpClient.ts              raw JSON-RPC transport (callTool())
+│   ├── mcpTools.ts                typed wrapper per cks-mcp tool used
+│   │                               by the UI (~25 functions, see §5)
+│   ├── sessionStore.ts            server URL + session id (Zustand,
+│   │                               persisted, shared across all pages)
+│   ├── connectionConfig.ts        localStorage read/write helpers for
+│   │                               sessionStore + recent-sessions list
+│   ├── mockClient.ts              demo-only fake callTool(), see §7
+│   └── mockData.ts                the bundled ecosystem graph the
+│                                   static demo serves
+│
+└── shared/                    Truly generic, feature-agnostic code
+    ├── constants/                node type → colour/icon maps
+    ├── stores/themeStore.ts      dark/light theme (Zustand, persisted)
+    ├── types/                    graph.ts, pipeline.ts — CKS object/
+    │                              tool-response shapes shared by 2+
+    │                              features
+    └── utils/                    graphUtils (CKS↔React Flow mapping,
+                                   inference-chain tracing), graphExport
+                                   (PNG/SVG), colorUtils, formatUtils
+```
+
+***
+
+## 3. Routing & Navigation
+
+[Section titled “3. Routing & Navigation”](#3-routing--navigation)
+
+`App.tsx` owns a single `BrowserRouter` with seven top-level routes, each mapping directly to a `pages/*.tsx` file and a nav link:
+
+| Route       | Page           | Feature(s) used                              |
+| ----------- | -------------- | -------------------------------------------- |
+| `/`         | `GraphPage`    | `graph-explorer`, `components/graph` (2D/3D) |
+| `/pipeline` | `PipelinePage` | `pipeline-monitor`                           |
+| `/gallery`  | `GalleryPage`  | `graph-gallery`                              |
+| `/diff`     | `DiffPage`     | `version-diff`, `fork-diff`                  |
+| `/agents`   | `AgentsPage`   | `agent-panel`                                |
+| `/chat`     | `ChatsPage`    | `ai-chat`, `llm-status`                      |
+| `/settings` | `SettingsPage` | `llm-status`, `shared/stores/themeStore`     |
+
+The static demo (`demo.tsx`) mounts a **restricted** version of the same router: only `/`, `/gallery`, `/pipeline` are exposed (see §7) — Chat, Agents, Diff, and Settings all require a live `cks-mcp` server and are not reachable from the standalone build.
+
+***
+
+## 4. State Management
+
+[Section titled “4. State Management”](#4-state-management)
+
+CKS Studio uses **Zustand**, one store per concern, no global store. All stores follow the same shape: a `create<State>((set, get) => ({...}))` call exported as a hook. None use Redux-style actions/reducers or middleware beyond plain `set`/`get`.
+
+| Store                | Scope                                                                                              | Persisted?                                                                                      |
+| -------------------- | -------------------------------------------------------------------------------------------------- | ----------------------------------------------------------------------------------------------- |
+| `sessionStore`       | server URL, session id, connection status, recent sessions                                         | ✅ localStorage (`connectionConfig.ts`)                                                          |
+| `themeStore`         | dark/light preference                                                                              | ✅ localStorage, falls back to `prefers-color-scheme`                                            |
+| `graphExplorerStore` | canvas nodes/edges, selection, highlight set, optimistic pending nodes/edges, relation-draft state | ❌ in-memory only                                                                                |
+| `galleryStore`       | gallery query/filter state, loaded graphs, per-graph health (lazy)                                 | ❌ in-memory only                                                                                |
+| `chatStore`          | chat turns, raw `ai_chat` message history, selected model                                          | ❌ in-memory only (module-level, so it survives page switches within a session but not a reload) |
+
+**Why per-feature stores instead of one global store:** each store maps to exactly one feature directory and is only imported by that feature’s components plus the one page that hosts it. This mirrors the `features/` directory split and keeps a change to, say, the gallery’s filter state from needing to touch anything outside `features/graph-gallery/`.
+
+**Optimistic updates:** `graphExplorerStore` is the one store with non-trivial mutation logic — `addPendingNode`/`commitPendingNode`/ `rollbackPendingNode` (and the edge equivalents) implement the dashed-edge “pending” treatment mentioned in the ROADMAP: a locally created node/edge renders immediately, then is committed (solid) or rolled back (removed) once the corresponding `cks-mcp` call resolves. This is local-only reconciliation against the studio’s *own* mutations; it does not yet reconcile against state changed by other sessions or agents (see ROADMAP.md, “Real MCP Session Presence”, P0).
+
+***
+
+## 5. MCP Client Layer
+
+[Section titled “5. MCP Client Layer”](#5-mcp-client-layer)
+
+Two-layer design, both in `services/`:
+
+1. **`mcpClient.ts`** — the only file that knows the wire format. A single `callTool(toolName, args)` function POSTs a JSON-RPC 2.0 `tools/call` envelope to `{serverUrl}/mcp`, unwraps `result.content[0].text`, and `JSON.parse`s it. Also owns `setDemoCallTool()`, the seam the static demo uses to redirect every call to `mockClient.ts` instead of the network (see §7) — nothing outside `demo.tsx` calls this.
+
+2. **`mcpTools.ts`** — one typed async function per `cks-mcp` tool the UI actually calls (\~25 of the server’s 63 tools; the rest are used only by LLMs directly, not by any studio page). Each wraps `callTool()` with a specific tool name, typed args, and a typed return shape — e.g. `querySubgraph()`, `evolveKnowledge()`, `listAgents()`, `startAgent()`, `aiChat()`, `getLLMStatus()`. Pages and feature hooks call these, never `callTool()` directly, so a change to one tool’s response shape is a one-file fix.
+
+No page or component holds a raw `fetch()` call to `cks-mcp` — everything funnels through this layer, which is what makes the static demo’s single-seam swap (`setDemoCallTool`) possible in the first place.
+
+***
+
+## 6. Graph Rendering: 2D and 3D
+
+[Section titled “6. Graph Rendering: 2D and 3D”](#6-graph-rendering-2d-and-3d)
+
+`components/graph/` has two parallel canvas implementations sharing one data-mapping layer:
+
+* **2D — `GraphCanvas.tsx`**: React Flow for rendering/interaction, Dagre for automatic layout (`useGraphLayout.ts`, supports both top-to-bottom and left-to-right `rankdir`). This is the default and is always in the main bundle.
+* **3D — `GraphCanvas3D.tsx`**: `3d-force-graph` (Three.js), force-directed layout, soft clustering by containing Component/Module, click-to-focus camera. **Lazy-loaded** via `React.lazy`/`Suspense` from `GraphPage.tsx` — the \~500 kB gzipped Three.js dependency is only fetched if the user switches to 3D mode.
+
+Both canvases consume the same `Node[]`/`Edge[]` shape out of `graphExplorerStore`, produced by `cksToReactFlow()` in `shared/utils/graphUtils.ts` from a raw `query_subgraph`/`get_full_graph` response. Feature parity between the two modes (path highlighting, drag-and-drop import, Cmd/Ctrl+K search, relation-draft participant picking) is maintained by routing both through this same shared utility rather than duplicating the CKS→visual mapping per renderer.
+
+***
+
+## 7. Standalone Static Demo
+
+[Section titled “7. Standalone Static Demo”](#7-standalone-static-demo)
+
+`demo.tsx` is a **second Vite entry point** (see `vite.config.ts`), built alongside the main app and deployed as `demo.html` under `cks-website`’s GitHub Pages (`/cks-website/demo/demo.html` — the link in the README’s “Live demo” banner). It reuses the real page components (`GraphPage`, `GraphGallery`, `PipelineMonitor`) so the demo cannot drift from the actual studio UI; it differs from `main.tsx` only in:
+
+* `mcpClient.setDemoCallTool()` redirects every `callTool()` to `mockClient.ts`, an in-memory MCP client serving the bundled ecosystem graph (`mockData.ts`) — no network call ever leaves the browser.
+* `sessionStore` is pre-seeded with a fixed demo session so pages render connected immediately, instead of showing the “enter a session id” empty state.
+* Navigation is restricted to Graph / Gallery / Pipeline — Chat, Agents, Diff, and Settings need a live `cks-mcp` server and are hidden.
+* Gallery and Pipeline, which need live server data the mock client can’t fabricate, render a static placeholder instead of an empty page.
+* A floating “Back to Docs” link (`BackToDocsLink`) returns to the `cks-website` documentation root.
+
+***
+
+## 8. Design Tokens & Theming
+
+[Section titled “8. Design Tokens & Theming”](#8-design-tokens--theming)
+
+A single Tailwind v4 `@theme` block in `styles/index.css` defines `surface-0`…`surface-3`, `border`, `text`, and `accent` scales. Components reference these tokens exclusively — no component hardcodes a colour. `[data-theme="light"]` overrides the same variable names, so `themeStore.applyTheme()` only ever needs to set one `data-theme` attribute on `<html>` for the whole app to re-theme.
+
+***
+
+## 9. Tech Stack Reference
+
+[Section titled “9. Tech Stack Reference”](#9-tech-stack-reference)
+
+| Layer                | Technology                                                                                                          |
+| -------------------- | ------------------------------------------------------------------------------------------------------------------- |
+| Language             | TypeScript (strict)                                                                                                 |
+| UI framework         | React 19                                                                                                            |
+| Build tool           | Vite (two entry points: `main.tsx`, `demo.tsx`)                                                                     |
+| Routing              | react-router-dom                                                                                                    |
+| Graph renderer (2D)  | React Flow + Dagre                                                                                                  |
+| Graph renderer (3D)  | `3d-force-graph` (Three.js), lazy-loaded                                                                            |
+| State management     | Zustand (one store per feature, no global store)                                                                    |
+| Styling              | Tailwind CSS v4, single design-token block                                                                          |
+| Testing              | Vitest + React Testing Library                                                                                      |
+| Linting / formatting | Biome                                                                                                               |
+| MCP transport        | Hand-rolled JSON-RPC over `fetch` (`mcpClient.ts`); no `@modelcontextprotocol/sdk` dependency in the browser bundle |
+| PWA                  | `vite-plugin-pwa` (web manifest, asset caching)                                                                     |
+
+> Note: `@modelcontextprotocol/sdk` appears in `package.json` but is not imported anywhere in `src/` — the actual browser transport is the hand-rolled `fetch`-based client in `mcpClient.ts` described in §5. `README.md`’s Tech Stack table has been corrected to match.
+
 # Demo
 
 > Explore the CKS ecosystem graph directly in your browser.
@@ -30149,7 +31014,7 @@ Then point [cks-studio](https://github.com/Deus-corp/cks-studio) at your local s
 
 Source
 
-The demo page itself lives in the cks-studio repository at `public/demo.html` / `src/demo.tsx`, built alongside the main studio bundle and published here as a static file.
+The demo page itself lives in the cks-studio repository at `demo.html` / `src/demo.tsx` (at the repo root, next to `index.html` — not under `public/`, so Vite bundles it as a second build entry point rather than copying it verbatim), built alongside the main studio bundle and published here as a static file.
 
 # Quick Start
 
@@ -30240,7 +31105,7 @@ Claude will call `validate_knowledge` and report back whether the structure is v
 * Explore the [cks-core](cks-core/index.md) semantic engine.
 * Learn about [cks-runtime](cks-runtime/index.md) sessions and version history.
 * Read the [Architecture](cks-mcp/architecture/ARCHITECTURE.md) and [Security Model](cks-mcp/security.md) of the MCP server.
-* Set up [cks-studio](https://github.com/Deus-corp/cks-studio) for a visual, browser-based workspace on top of the same backend.
+* Set up [cks-studio](cks-studio/index.md) for a visual, browser-based workspace on top of the same backend.
 
 ***
 
