@@ -22,6 +22,13 @@
 	--cks-seal-dim: #a66f1f;
 	--cks-slate: #7c8798;
 
+	/* Body text: softened off-black/off-white rather than pure black-on-
+	   white or white-on-black, matching cks-studio's --color-text-primary
+	   (a warm, slightly creamy grey) so long-form docs don't read as
+	   starker/higher-contrast than the demo app right next to them. */
+	--cks-text: #e9e7e2;
+	--cks-text-dim: #a29c92;
+
 	--sl-color-accent-low: #2b2109;
 	--sl-color-accent: var(--cks-seal);
 	--sl-color-accent-high: #f6d9a3;
@@ -60,6 +67,11 @@
 	--sl-color-hairline-light: #232a37;
 
 	--cks-surface-raised: var(--cks-ink-raised);
+
+	--sl-color-white: var(--cks-text);
+	--sl-color-text: var(--cks-text);
+	--sl-color-gray-1: var(--cks-text);
+	--sl-color-gray-2: var(--cks-text-dim);
 }
 
 :root[data-theme='light'] {
@@ -78,6 +90,18 @@
 	--sl-color-hairline-light: color-mix(in srgb, var(--cks-paper) 80%, black);
 
 	--cks-surface-raised: var(--cks-paper-raised);
+
+	/* Same softening as the dark theme above, mixed toward the paper tone
+	   instead of pure black so body copy stops reading as harsher/higher-
+	   contrast than the studio's own light theme (--color-text-primary
+	   #16181d there is already a soft near-black, not literal #000). */
+	--cks-text: #26241f;
+	--cks-text-dim: #57534a;
+
+	--sl-color-black: var(--cks-text);
+	--sl-color-text: var(--cks-text);
+	--sl-color-gray-1: var(--cks-text);
+	--sl-color-gray-2: var(--cks-text-dim);
 }
 
 /* -- Typography ------------------------------------------------------------ */
