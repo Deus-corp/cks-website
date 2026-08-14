@@ -194,12 +194,11 @@ kbd {
 }
 
 /* -- Cards (Starlight <Card>/<CardGrid>, used on the home page) --------
-   Give cards the amber "seal" fill called for by the brand, with white
-   text on top of it so the content stays legible instead of vanishing
-   into a black-on-black default. */
+   Per-theme fill + text, tuned separately for light and dark rather than
+   one fixed amber-on-white for both: a soft cream card with amber text in
+   light mode, a dark ember card with brighter amber text in dark mode. */
 
 .sl-markdown-content .card {
-	background: var(--cks-seal);
 	border-color: var(--cks-seal-dim);
 }
 
@@ -207,15 +206,29 @@ kbd {
 .sl-markdown-content .card .icon,
 .sl-markdown-content .card p,
 .sl-markdown-content .card a {
-	color: #ffffff;
+	color: var(--cks-card-text);
+}
+
+.sl-markdown-content .card {
+	background: var(--cks-card-bg);
 }
 
 .sl-markdown-content .card a {
-	text-decoration-color: color-mix(in srgb, #ffffff 55%, transparent);
+	text-decoration-color: color-mix(in srgb, var(--cks-card-text) 55%, transparent);
 }
 
 .sl-markdown-content .card a:hover {
-	text-decoration-color: #ffffff;
+	text-decoration-color: var(--cks-card-text);
+}
+
+:root[data-theme='light'] {
+	--cks-card-bg: #fcf3e8;
+	--cks-card-text: #ebae59;
+}
+
+:root[data-theme='dark'] {
+	--cks-card-bg: #261f1b;
+	--cks-card-text: #e8a13f;
 }
 
 /* -- Links ------------------------------------------------------------- */
