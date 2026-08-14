@@ -331,3 +331,124 @@ starlight-sidebar-group-toggle,
 		transition: none;
 	}
 }
+
+/* -- Home page hero extras ------------------------------------------------
+   Pills row (package/status badges), install command block, and the FAQ
+   <details> accordion below. All theme-aware via the same --cks- and
+   --sl- prefixed tokens as the rest of the site, no new colors
+   introduced. */
+
+.cks-pill-row {
+	display: flex;
+	flex-wrap: wrap;
+	justify-content: center;
+	gap: 0.6rem;
+	margin: 0 auto 2rem;
+	max-width: 46rem;
+}
+
+.cks-pill {
+	display: inline-flex;
+	align-items: center;
+	gap: 0.4rem;
+	padding: 0.35rem 0.85rem;
+	border-radius: 999px;
+	border: 1px solid var(--sl-color-hairline);
+	background: var(--cks-surface-raised);
+	color: var(--cks-text-dim);
+	font-family: var(--sl-font-mono);
+	font-size: 0.75rem;
+	letter-spacing: 0.01em;
+	text-decoration: none;
+	transition: border-color 0.15s ease, color 0.15s ease;
+}
+
+a.cks-pill:hover {
+	border-color: var(--cks-seal);
+	color: var(--cks-text);
+}
+
+.cks-pill-static {
+	cursor: default;
+}
+
+.cks-pill-dot {
+	width: 0.5rem;
+	height: 0.5rem;
+	border-radius: 50%;
+	background: var(--cks-seal);
+	flex-shrink: 0;
+}
+
+.cks-install {
+	max-width: 28rem;
+	margin: 0 auto;
+}
+
+.cks-install pre {
+	text-align: left;
+}
+
+.cks-install-note {
+	max-width: 34rem;
+	margin: 0.9rem auto 0;
+	text-align: center;
+	color: var(--cks-text-dim);
+	font-size: 0.92rem;
+}
+
+.cks-install-note code {
+	background: color-mix(in srgb, var(--cks-seal) 12%, transparent);
+	color: var(--cks-seal);
+	border: 1px solid color-mix(in srgb, var(--cks-seal) 25%, transparent);
+	border-radius: 4px;
+	padding: 0.1em 0.4em;
+}
+
+/* -- FAQ accordion --------------------------------------------------------
+   Native <details>/<summary>, styled to match the rest of the site's
+   panel language (raised surface, hairline border, seal accent) with no
+   JS required. */
+
+.sl-markdown-content details {
+	background: var(--cks-surface-raised);
+	border: 1px solid var(--sl-color-hairline);
+	border-left: 3px solid var(--cks-seal-dim);
+	border-radius: 6px;
+	padding: 0.15rem 1rem;
+	margin: 0.9rem 0;
+}
+
+.sl-markdown-content details + details {
+	margin-top: 0.9rem;
+}
+
+.sl-markdown-content details summary {
+	cursor: pointer;
+	padding: 0.7rem 0;
+	font-weight: 700;
+	color: var(--cks-text);
+	list-style: revert;
+}
+
+.sl-markdown-content details summary::marker {
+	color: var(--cks-seal);
+}
+
+.sl-markdown-content details summary:hover {
+	color: var(--cks-seal-dim);
+}
+
+:root[data-theme='dark'] .sl-markdown-content details summary:hover {
+	color: var(--cks-seal);
+}
+
+.sl-markdown-content details[open] summary {
+	margin-bottom: 0.3rem;
+	border-bottom: 1px solid var(--sl-color-hairline-light);
+	padding-bottom: 0.7rem;
+}
+
+.sl-markdown-content details :last-child {
+	margin-bottom: 0.9rem;
+}

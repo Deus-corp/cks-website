@@ -25,6 +25,7 @@ export default defineConfig({
 			],
 			sidebar: [
 				{ label: 'Home', link: '/' },
+				{ label: 'FAQ / Troubleshooting', link: '/faq/' },
 				{ label: 'Quick Start', link: '/quickstart/' },
 				{ label: 'Demo', link: '/demo/' },
 				{

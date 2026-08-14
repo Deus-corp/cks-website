@@ -4,6 +4,19 @@ All notable changes to CKS Website will be documented in this file.
 
 ---
 
+## [0.1.5] - 2026-08-14
+
+### Added
+- **Landing/hero home page** – home page rebuilt as a splash-style landing with hero, call-to-action buttons, package/status badges, one-line install command, and a card grid of the five ecosystem projects.
+- **FAQ / Troubleshooting page** – new native `details`-accordion FAQ covering installation, model providers, HTTP transport, search/storage, demo, and core concepts.
+
+### Changed
+- Updated navigation order: Home → FAQ / Troubleshooting → Quick Start → Demo.
+- Added custom styles for landing pills, install block, and FAQ accordion.
+- Corrected tool count references from 63 to 64.
+
+---
+
 ## [0.1.4] - 2026-08-14
 
 ### Changed

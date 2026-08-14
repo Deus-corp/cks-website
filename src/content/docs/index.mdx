@@ -1,0 +1,162 @@
+---
+title: "Canonical Knowledge Structure"
+description: "Verifiable, self-maintaining knowledge for LLMs — an open ecosystem of five projects: cks-core, cks-runtime, cks-mcp, cks-studio, and this documentation site."
+template: splash
+hero:
+  title: "The canonical knowledge backbone for LLMs"
+  tagline: "Verifiable, self-maintaining knowledge structures — validated against formal constraints, traceable to their source, and auditable end to end. No more citation hallucinations."
+  actions:
+    - text: Get Started
+      link: /quickstart/
+      icon: right-arrow
+      variant: primary
+    - text: Open Interactive Demo
+      link: /demo/
+      icon: external
+      variant: secondary
+    - text: View on GitHub
+      link: https://github.com/Deus-corp
+      icon: github
+      variant: minimal
+---
+
+import { Card, CardGrid } from '@astrojs/starlight/components';
+
+<div class="cks-pill-row">
+	<a class="cks-pill" href="https://pypi.org/project/cks-core/" target="_blank" rel="noopener">
+		<span class="cks-pill-dot" /> PyPI · cks-core
+	</a>
+	<a class="cks-pill" href="https://pypi.org/project/cks-runtime/" target="_blank" rel="noopener">
+		<span class="cks-pill-dot" /> PyPI · cks-runtime
+	</a>
+	<a class="cks-pill" href="https://pypi.org/project/cks-mcp/" target="_blank" rel="noopener">
+		<span class="cks-pill-dot" /> PyPI · cks-mcp
+	</a>
+	<a class="cks-pill" href="https://github.com/Deus-corp/cks-core/stargazers" target="_blank" rel="noopener">
+		★ GitHub Stars
+	</a>
+	<span class="cks-pill cks-pill-static">
+		✓ 2,000+ tests across five repos
+	</span>
+</div>
+
+<div class="cks-install">
+
+```bash
+pip install cks-mcp
+```
+
+</div>
+
+<p class="cks-install-note">
+	Installs <code>cks-mcp</code>, plus <code>cks-runtime</code> and{' '}
+	<code>cks-core</code> as dependencies — one command, the whole backend.
+	Then connect it to Claude Desktop with the{' '}
+	<a href="/quickstart/">5‑minute Quick Start</a>.
+</p>
+
+---
+
+## What's inside
+
+Five repositories, one canonical knowledge layer — a semantic engine at the
+bottom, an operational runtime on top of it, an MCP server that exposes it
+to LLMs, a visual workspace for humans, and this documentation site tying
+it together.
+
+<CardGrid stagger>
+	<Card title="cks-core" icon="puzzle">
+		The immutable semantic engine — canonical knowledge objects,
+		validation against formal constraints, structural evolution.
+		[Docs →](/cks-core/) · [Source ↗](https://github.com/Deus-corp/cks-core)
+	</Card>
+	<Card title="cks-runtime" icon="setting">
+		The operational environment — sessions, transactions, branching,
+		three-way merges, and full version history on top of cks-core.
+		[Docs →](/cks-runtime/) · [Source ↗](https://github.com/Deus-corp/cks-runtime)
+	</Card>
+	<Card title="cks-mcp" icon="rocket">
+		The MCP server — exposes CKS to Claude Desktop and other MCP
+		clients via 63 tools, plus MCP Resources and Prompts.
+		[Docs →](/cks-mcp/) · [Source ↗](https://github.com/Deus-corp/cks-mcp)
+	</Card>
+	<Card title="cks-studio" icon="open-book">
+		The visual workspace — a graph canvas, session gallery, agent
+		pipeline monitor, and an in-browser AI chat panel that calls the
+		same tools an LLM would.
+		[Docs →](/cks-studio/) · [Source ↗](https://github.com/Deus-corp/cks-studio)
+	</Card>
+	<Card title="cks-website" icon="document">
+		This documentation site — guides, API references, ADRs, and the
+		[static interactive demo](/demo/), built with Astro + Starlight.
+		[Source ↗](https://github.com/Deus-corp/cks-website)
+	</Card>
+</CardGrid>
+
+---
+
+## Key capabilities
+
+<CardGrid>
+	<Card title="No citation hallucinations" icon="approve-check-circle">
+		Mechanically detect references to non-existent sources before they
+		ever reach a user.
+	</Card>
+	<Card title="Verification integrity" icon="seti:lock">
+		Cryptographic signing guarantees that source checks actually
+		happened — not just that a field says so.
+	</Card>
+	<Card title="Full audit trail" icon="seti:db">
+		Every operation is captured in an immutable version history you can
+		list, diff, and roll back.
+	</Card>
+	<Card title="Branch, merge, sandbox" icon="github">
+		Isolate an experiment from the main line, reconcile it with a
+		three-way merge, or throw it away.
+	</Card>
+	<Card title="Real semantic search" icon="magnifier">
+		Find knowledge by meaning, not keywords — HuggingFace embeddings, or
+		fully local with fastembed and no API keys.
+	</Card>
+	<Card title="LLM-native API" icon="seti:config">
+		A native MCP server with 63 tools, fully compatible with Claude
+		Desktop and other MCP clients.
+	</Card>
+</CardGrid>
+
+---
+
+## How it works
+
+An LLM and a human can drive the *same* knowledge graph at the same time —
+one over MCP through Claude Desktop, the other clicking around the graph
+canvas in `cks-studio` — because both go through the same `cks-mcp` tool
+surface into the same `cks-runtime` session.
+
+```
+Your LLM (Claude Desktop, etc.)      cks-studio (visual workspace)
+        │                                     │
+        └───────────────┬─────────────────────┘
+                         ▼
+                     cks-mcp ─── Model Context Protocol server
+                         │
+                         ▼
+                  cks-runtime ─── Sessions, transactions, version history
+                         │
+                         ▼
+                    cks-core ─── Immutable semantic engine
+```
+
+---
+
+## Why CKS?
+
+Today, the same knowledge exists in many incompatible forms — documents,
+databases, JSON, source code, AI prompts. CKS separates **knowledge
+itself** from every representation. Representations may change, but
+canonical knowledge remains the same.
+
+Not sure where to start? The [Quick Start guide](/quickstart/) gets you
+from `pip install` to your first validated knowledge structure in under
+five minutes, and the [FAQ](/faq/) covers the questions that come up
+along the way.
