@@ -48,7 +48,7 @@ Add `cks-mcp` to your MCP servers.
 
 3. Save and restart Claude Desktop (Cmd+Q, then reopen).
 
-After restart, a connector icon will appear — **cks-mcp** with 63 tools is
+After restart, a connector icon will appear — **cks-mcp** with 64 tools is
 ready to use.
 
 ---
@@ -88,7 +88,7 @@ If you're in `cks-studio`, watch the graph canvas update live as each tool call 
 
 ## What's Next
 
-- Browse the [Tools Reference](cks-mcp/tools/index.md) — all 63 tools,
+- Browse the [Tools Reference](cks-mcp/tools/index.md) — all 64 tools,
   grouped by what they're for, with request/response examples.
 - Explore the [cks-core](cks-core/index.md) semantic engine.
 - Learn about [cks-runtime](cks-runtime/index.md) sessions and version history.

@@ -193,6 +193,31 @@ kbd {
 	border-radius: 6px;
 }
 
+/* -- Cards (Starlight <Card>/<CardGrid>, used on the home page) --------
+   Give cards the amber "seal" fill called for by the brand, with white
+   text on top of it so the content stays legible instead of vanishing
+   into a black-on-black default. */
+
+.sl-markdown-content .card {
+	background: var(--cks-seal);
+	border-color: var(--cks-seal-dim);
+}
+
+.sl-markdown-content .card .card-title,
+.sl-markdown-content .card .icon,
+.sl-markdown-content .card p,
+.sl-markdown-content .card a {
+	color: #ffffff;
+}
+
+.sl-markdown-content .card a {
+	text-decoration-color: color-mix(in srgb, #ffffff 55%, transparent);
+}
+
+.sl-markdown-content .card a:hover {
+	text-decoration-color: #ffffff;
+}
+
 /* -- Links ------------------------------------------------------------- */
 
 .sl-markdown-content a:not(:where(.card, .not-content *)) {

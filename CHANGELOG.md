@@ -4,6 +4,18 @@ All notable changes to CKS Website will be documented in this file.
 
 ---
 
+## [0.1.6] - 2026-08-14
+
+### Fixed
+- **Absolute link paths** – corrected internal links to include the `/cks-website/` base path across 404, FAQ, and home page, fixing navigation when hosted under GitHub Pages.
+- **Hero demo link** – interactive demo button now points to the actual demo URL.
+
+### Changed
+- **Card styling** – Starlight `Card`/`CardGrid` components on the home page now use the amber brand fill with white text and adjusted link colors for better readability.
+- Updated tool count references from 63 to 64.
+
+---
+
 ## [0.1.5] - 2026-08-14
 
 ### Added

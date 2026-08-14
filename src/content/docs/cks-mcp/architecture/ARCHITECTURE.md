@@ -102,7 +102,7 @@ managing its own validation stack.
 
 ### `tools/` — Operation Handlers
 
-Each of the 63 tools lives in its own package under `tools/<name>/`
+Each of the 64 tools lives in its own package under `tools/<name>/`
 (a small number of packages hold two closely related tools, e.g.
 `tools/revert/` has both `list_versions` and `revert_version`) — see
 [Tools Reference](../tools/index.md) for the full, grouped list with

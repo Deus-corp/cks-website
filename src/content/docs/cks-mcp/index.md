@@ -9,7 +9,7 @@ description: "cks-mcp"
 versioned, verifiable place to put structured knowledge, instead of holding
 it — and quietly forgetting or hallucinating it — in a context window.
 
-It exposes **63 tools** over MCP, backed by the deterministic, immutable
+It exposes **64 tools** over MCP, backed by the deterministic, immutable
 semantics of [`cks-core`](https://github.com/Deus-corp/cks-core) and the
 async operational management of
 [`cks-runtime`](https://github.com/Deus-corp/cks-runtime). Every tool call
@@ -65,11 +65,11 @@ for the full picture.
 | Page | Covers |
 |------|--------|
 | [Getting Started](getting-started.md) | Install, connect to Claude Desktop, first session |
-| [Tools Reference](tools/index.md) | All 63 tools, grouped by function, with request/response examples |
+| [Tools Reference](tools/index.md) | All 64 tools, grouped by function, with request/response examples |
 | [Architecture](architecture/ARCHITECTURE.md) | Layering, components, and the [request lifecycle](architecture/request-lifecycle.md) |
 | [Security Model](security.md) | SSRF protection, provenance signing, defense in depth |
 | [Extension Model](extensions.md) | The opt-in `extensions` parameter and what each of the eleven checks |
-| [MCP Resources](protocol/resources.md) & [Prompts](protocol/prompts.md) | The two MCP-native features the server exposes beyond its 63 tools |
+| [MCP Resources](protocol/resources.md) & [Prompts](protocol/prompts.md) | The two MCP-native features the server exposes beyond its 64 tools |
 | [ADRs](adr/) | Why specific architectural decisions were made — thin translator, provenance signing, middleware, extension model |
 
 ## Learning Path

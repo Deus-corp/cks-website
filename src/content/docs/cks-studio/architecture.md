@@ -174,7 +174,7 @@ Two-layer design, both in `services/`:
    outside `demo.tsx` calls this.
 
 2. **`mcpTools.ts`** — one typed async function per `cks-mcp` tool the
-   UI actually calls (~25 of the server's 63 tools; the rest are used
+   UI actually calls (~25 of the server's 64 tools; the rest are used
    only by LLMs directly, not by any studio page). Each wraps
    `callTool()` with a specific tool name, typed args, and a typed
    return shape — e.g. `querySubgraph()`, `evolveKnowledge()`,
