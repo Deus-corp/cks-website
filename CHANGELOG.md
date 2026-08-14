@@ -4,6 +4,14 @@ All notable changes to CKS Website will be documented in this file.
 
 ---
 
+## [0.1.4] - 2026-08-14
+
+### Changed
+- **Design token sync with cks-studio** – aligned dark/light text colors, border hairlines, and font stacks. The site now matches studio’s exact light-theme `--color-text-primary` / `--color-text-secondary` and border values.
+- **Self-hosted fonts** – Manrope and JetBrains Mono are now loaded from local `@fontsource` packages instead of a CDN, matching cks-studio’s self-hosted font setup.
+
+---
+
 ## [0.1.3] - 2026-08-12
 
 ### Fixed
