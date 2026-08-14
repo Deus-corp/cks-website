@@ -1,10 +1,14 @@
 <SYSTEM>This is the abridged developer documentation for CKS</SYSTEM>
 
-# Canonical Knowledge Structure
+# The canonical knowledge backbone for LLMs
 
-> Canonical Knowledge Structure
+> Verifiable, self-maintaining knowledge structures — validated against formal constraints, traceable to their source, and auditable end to end. No more citation hallucinations.
 
-> A universal, representation-independent foundation for verifiable AI knowledge. CKS is an open ecosystem that gives LLMs a **canonical knowledge backbone**. Every piece of information must be explicitly structured, validated against formal constraints, and traceable to its origin. This eliminates hallucinations and makes AI-generated knowledge auditable. *** ## How It Works [Section titled “How It Works”](#how-it-works) 
+[PyPI · cks-core](https://pypi.org/project/cks-core/) [PyPI · cks-runtime](https://pypi.org/project/cks-runtime/) [PyPI · cks-mcp](https://pypi.org/project/cks-mcp/) [★ GitHub Stars](https://github.com/Deus-corp/cks-core/stargazers) ✓ 2,000+ tests across five repos 
+```bash
+pip install cks-mcp
+```
+ Installs `cks-mcp`, plus `cks-runtime` and `cks-core` as dependencies — one command, the whole backend. Then connect it to Claude Desktop with the [5‑minute Quick Start](/quickstart/). *** ## What’s inside [Section titled “What’s inside”](#whats-inside) Five repositories, one canonical knowledge layer — a semantic engine at the bottom, an operational runtime on top of it, an MCP server that exposes it to LLMs, a visual workspace for humans, and this documentation site tying it together. cks-core The immutable semantic engine — canonical knowledge objects, validation against formal constraints, structural evolution. [Docs →](/cks-core/) · [Source ↗](https://github.com/Deus-corp/cks-core) cks-runtime The operational environment — sessions, transactions, branching, three-way merges, and full version history on top of cks-core. [Docs →](/cks-runtime/) · [Source ↗](https://github.com/Deus-corp/cks-runtime) cks-mcp The MCP server — exposes CKS to Claude Desktop and other MCP clients via 63 tools, plus MCP Resources and Prompts. [Docs →](/cks-mcp/) · [Source ↗](https://github.com/Deus-corp/cks-mcp) cks-studio The visual workspace — a graph canvas, session gallery, agent pipeline monitor, and an in-browser AI chat panel that calls the same tools an LLM would. [Docs →](/cks-studio/) · [Source ↗](https://github.com/Deus-corp/cks-studio) cks-website This documentation site — guides, API references, ADRs, and the [static interactive demo](/demo/), built with Astro + Starlight. [Source ↗](https://github.com/Deus-corp/cks-website) *** ## Key capabilities [Section titled “Key capabilities”](#key-capabilities) No citation hallucinations Mechanically detect references to non-existent sources before they ever reach a user. Verification integrity Cryptographic signing guarantees that source checks actually happened — not just that a field says so. Full audit trail Every operation is captured in an immutable version history you can list, diff, and roll back. Branch, merge, sandbox Isolate an experiment from the main line, reconcile it with a three-way merge, or throw it away. Real semantic search Find knowledge by meaning, not keywords — HuggingFace embeddings, or fully local with fastembed and no API keys. LLM-native API A native MCP server with 63 tools, fully compatible with Claude Desktop and other MCP clients. *** ## How it works [Section titled “How it works”](#how-it-works) An LLM and a human can drive the *same* knowledge graph at the same time — one over MCP through Claude Desktop, the other clicking around the graph canvas in `cks-studio` — because both go through the same `cks-mcp` tool surface into the same `cks-runtime` session. 
 ```plaintext
 Your LLM (Claude Desktop, etc.)      cks-studio (visual workspace)
         │                                     │
@@ -18,11 +22,7 @@ Your LLM (Claude Desktop, etc.)      cks-studio (visual workspace)
                          ▼
                     cks-core ─── Immutable semantic engine
 ```
- An LLM and a human can drive the *same* knowledge graph at the same time — one over MCP through Claude Desktop, the other clicking around the graph canvas in `cks-studio` — because both go through the same `cks-mcp` tool surface into the same `cks-runtime` session. ## Key Capabilities [Section titled “Key Capabilities”](#key-capabilities) * **Eliminate citation hallucinations** – mechanically detect references to non-existent sources. * **Ensure verification integrity** – cryptographic signing guarantees that source checks actually happened. * **Full audit trail** – every operation is captured in an immutable version history. * **Time-travel debugging** – list versions, compare them, and safely roll back to any previous state. * **Branch, merge, and sandbox** – isolate an experiment from the main line, reconcile it with a three-way merge, or throw it away. * **Real semantic search** – find knowledge by meaning, not keywords, via HuggingFace embeddings. * **LLM-friendly API** – native MCP server with 63 tools, plus MCP Resources and Prompts, fully compatible with Claude Desktop and other MCP clients. * **Visual workspace** – explore graphs, inspect inference chains, review CRDT forks, and monitor agent pipelines from `cks-studio`, without leaving the browser. ## Projects [Section titled “Projects”](#projects) | Project | Description | Status | | ----------------------------------- | ------------------------------------------------------------------------------------------------------------- | ------- | | [cks-core](cks-core/index.md) | Semantic engine – immutable knowledge objects, validation, evolution | v1.21.1 | | [cks-runtime](cks-runtime/index.md) | Operational environment – sessions, transactions, versioning, events | v1.49.2 | | [cks-mcp](cks-mcp/index.md) | MCP server – exposes CKS to LLMs via 63 tools | v1.58.0 | | [cks-studio](cks-studio/index.md) | Visual workspace – graph canvas, gallery, agent monitoring, and an AI chat panel that can call the same tools | v0.6.6 | ## Get Started in 5 Minutes [Section titled “Get Started in 5 Minutes”](#get-started-in-5-minutes) 
-```bash
-pip install cks-core cks-runtime cks-mcp
-```
- Then connect to Claude Desktop – see the [Quick Start guide](quickstart.md). Prefer a visual, click-around interface instead? `cks-studio` runs alongside `cks-mcp` and gives you a graph canvas, session gallery, and an in-browser AI chat panel that can call the same tools an LLM would — see its [repository](https://github.com/Deus-corp/cks-studio) for setup. For a deeper dive into the MCP server specifically: its [tools reference](cks-mcp/tools/index.md), [security model](cks-mcp/security.md), and [architecture](cks-mcp/architecture/ARCHITECTURE.md) each have their own page under [cks-mcp](cks-mcp/index.md). *** ## Why CKS? [Section titled “Why CKS?”](#why-cks) Today, the same knowledge exists in many incompatible forms – documents, databases, JSON, source code, AI prompts. CKS separates **knowledge itself** from every representation. Representations may change, but canonical knowledge remains the same.
+ *** ## Why CKS? [Section titled “Why CKS?”](#why-cks) Today, the same knowledge exists in many incompatible forms — documents, databases, JSON, source code, AI prompts. CKS separates **knowledge itself** from every representation. Representations may change, but canonical knowledge remains the same. Not sure where to start? The [Quick Start guide](/quickstart/) gets you from `pip install` to your first validated knowledge structure in under five minutes, and the [FAQ](/faq/) covers the questions that come up along the way.
 
 # 404: Unverifiable Reference
 
@@ -4643,6 +4643,12 @@ pip install cks-mcp
 cks-mcp serve
 ```
  Then point [cks-studio](https://github.com/Deus-corp/cks-studio) at your local server and connect with a real session.
+
+# FAQ / Troubleshooting
+
+> Common questions and fixes for installing and running cks-mcp, cks-studio, and the rest of the CKS ecosystem.
+
+Short, practical answers to the questions that come up most when installing and running CKS. If something isn’t covered here, check the [Quick Start guide](/quickstart/) or open an issue on [GitHub](https://github.com/Deus-corp/cks-core/issues). ## Installation [Section titled “Installation”](#installation) ## Model providers [Section titled “Model providers”](#model-providers) ## Networking & transport [Section titled “Networking & transport”](#networking--transport) ## Search & storage [Section titled “Search & storage”](#search--storage) ## Demo & concepts [Section titled “Demo & concepts”](#demo--concepts)
 
 # Quick Start
 
