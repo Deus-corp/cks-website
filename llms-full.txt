@@ -18,7 +18,7 @@
 pip install cks-mcp
 ```
 
-Installs `cks-mcp`, plus `cks-runtime` and `cks-core` as dependencies — one command, the whole backend. Then connect it to Claude Desktop with the [5‑minute Quick Start](/quickstart/).
+Installs `cks-mcp`, plus `cks-runtime` and `cks-core` as dependencies — one command, the whole backend. Then connect it to Claude Desktop with the [5‑minute Quick Start](/cks-website/quickstart/).
 
 ***
 
@@ -30,23 +30,23 @@ Five repositories, one canonical knowledge layer — a semantic engine at the bo
 
 cks-core
 
-The immutable semantic engine — canonical knowledge objects, validation against formal constraints, structural evolution. [Docs →](/cks-core/) · [Source ↗](https://github.com/Deus-corp/cks-core)
+The immutable semantic engine — canonical knowledge objects, validation against formal constraints, structural evolution. [Docs →](/cks-website/cks-core/) · [Source ↗](https://github.com/Deus-corp/cks-core)
 
 cks-runtime
 
-The operational environment — sessions, transactions, branching, three-way merges, and full version history on top of cks-core. [Docs →](/cks-runtime/) · [Source ↗](https://github.com/Deus-corp/cks-runtime)
+The operational environment — sessions, transactions, branching, three-way merges, and full version history on top of cks-core. [Docs →](/cks-website/cks-runtime/) · [Source ↗](https://github.com/Deus-corp/cks-runtime)
 
 cks-mcp
 
-The MCP server — exposes CKS to Claude Desktop and other MCP clients via 63 tools, plus MCP Resources and Prompts. [Docs →](/cks-mcp/) · [Source ↗](https://github.com/Deus-corp/cks-mcp)
+The MCP server — exposes CKS to Claude Desktop and other MCP clients via 64 tools, plus MCP Resources and Prompts. [Docs →](/cks-website/cks-mcp/) · [Source ↗](https://github.com/Deus-corp/cks-mcp)
 
 cks-studio
 
-The visual workspace — a graph canvas, session gallery, agent pipeline monitor, and an in-browser AI chat panel that calls the same tools an LLM would. [Docs →](/cks-studio/) · [Source ↗](https://github.com/Deus-corp/cks-studio)
+The visual workspace — a graph canvas, session gallery, agent pipeline monitor, and an in-browser AI chat panel that calls the same tools an LLM would. [Docs →](/cks-website/cks-studio/) · [Source ↗](https://github.com/Deus-corp/cks-studio)
 
 cks-website
 
-This documentation site — guides, API references, ADRs, and the [static interactive demo](/demo/), built with Astro + Starlight. [Source ↗](https://github.com/Deus-corp/cks-website)
+This documentation site — guides, API references, ADRs, and the [static interactive demo](/cks-website/demo/), built with Astro + Starlight. [Source ↗](https://github.com/Deus-corp/cks-website)
 
 ***
 
@@ -76,7 +76,7 @@ Find knowledge by meaning, not keywords — HuggingFace embeddings, or fully loc
 
 LLM-native API
 
-A native MCP server with 63 tools, fully compatible with Claude Desktop and other MCP clients.
+A native MCP server with 64 tools, fully compatible with Claude Desktop and other MCP clients.
 
 ***
 
@@ -108,7 +108,7 @@ Your LLM (Claude Desktop, etc.)      cks-studio (visual workspace)
 
 Today, the same knowledge exists in many incompatible forms — documents, databases, JSON, source code, AI prompts. CKS separates **knowledge itself** from every representation. Representations may change, but canonical knowledge remains the same.
 
-Not sure where to start? The [Quick Start guide](/quickstart/) gets you from `pip install` to your first validated knowledge structure in under five minutes, and the [FAQ](/faq/) covers the questions that come up along the way.
+Not sure where to start? The [Quick Start guide](/cks-website/quickstart/) gets you from `pip install` to your first validated knowledge structure in under five minutes, and the [FAQ](/cks-website/faq/) covers the questions that come up along the way.
 
 # 404: Unverifiable Reference
 
@@ -119,14 +119,14 @@ Not sure where to start? The [Quick Start guide](/quickstart/) gets you from `pi
 This URL doesn’t resolve to any node in the knowledge graph. Possible causes:
 
 * The page was **evolved** into something else and the old path wasn’t redirected.
-* The link came from a **stale version** — try [the current docs](/) instead.
+* The link came from a **stale version** — try [the current docs](/cks-website/) instead.
 * It never existed, and something (a bot, a human, an LLM) is **hallucinating** this reference.
 
 No amount of retries will make this URL canonical. Here’s what does exist:
 
-* [Documentation home](/)
-* [Quick Start](/quickstart/)
-* [Live Demo](/demo/)
+* [Documentation home](/cks-website/)
+* [Quick Start](/cks-website/quickstart/)
+* [Live Demo](/cks-website/demo/)
 
 # Case Studies
 
@@ -18647,7 +18647,7 @@ The Python Reference Binding therefore serves as the behavioural reference imple
 
 `cks-mcp` gives LLMs a **canonical knowledge backbone**: a persistent, versioned, verifiable place to put structured knowledge, instead of holding it — and quietly forgetting or hallucinating it — in a context window.
 
-It exposes **63 tools** over MCP, backed by the deterministic, immutable semantics of [`cks-core`](https://github.com/Deus-corp/cks-core) and the async operational management of [`cks-runtime`](https://github.com/Deus-corp/cks-runtime). Every tool call that mutates state runs inside a Runtime **Session** and **Transaction**, producing an immutable **Version** — so every change is reproducible and auditable after the fact.
+It exposes **64 tools** over MCP, backed by the deterministic, immutable semantics of [`cks-core`](https://github.com/Deus-corp/cks-core) and the async operational management of [`cks-runtime`](https://github.com/Deus-corp/cks-runtime). Every tool call that mutates state runs inside a Runtime **Session** and **Transaction**, producing an immutable **Version** — so every change is reproducible and auditable after the fact.
 
 ## Why cks-mcp?
 
@@ -18687,11 +18687,11 @@ cks-core       ← Semantic Layer: canonical structure, validation, evolution
 | Page                                                                    | Covers                                                                                                            |
 | ----------------------------------------------------------------------- | ----------------------------------------------------------------------------------------------------------------- |
 | [Getting Started](getting-started.md)                                   | Install, connect to Claude Desktop, first session                                                                 |
-| [Tools Reference](tools/index.md)                                       | All 63 tools, grouped by function, with request/response examples                                                 |
+| [Tools Reference](tools/index.md)                                       | All 64 tools, grouped by function, with request/response examples                                                 |
 | [Architecture](architecture/ARCHITECTURE.md)                            | Layering, components, and the [request lifecycle](architecture/request-lifecycle.md)                              |
 | [Security Model](security.md)                                           | SSRF protection, provenance signing, defense in depth                                                             |
 | [Extension Model](extensions.md)                                        | The opt-in `extensions` parameter and what each of the eleven checks                                              |
-| [MCP Resources](protocol/resources.md) & [Prompts](protocol/prompts.md) | The two MCP-native features the server exposes beyond its 63 tools                                                |
+| [MCP Resources](protocol/resources.md) & [Prompts](protocol/prompts.md) | The two MCP-native features the server exposes beyond its 64 tools                                                |
 | [ADRs](adr/)                                                            | Why specific architectural decisions were made — thin translator, provenance signing, middleware, extension model |
 
 ## Learning Path
@@ -19632,7 +19632,7 @@ The `TOOLS` dict: one entry per tool, assembled from that tool’s `tools/<name>
 
 [Section titled “tools/ — Operation Handlers”](#tools--operation-handlers)
 
-Each of the 63 tools lives in its own package under `tools/<name>/` (a small number of packages hold two closely related tools, e.g. `tools/revert/` has both `list_versions` and `revert_version`) — see [Tools Reference](../tools/index.md) for the full, grouped list with parameters and examples. Each package has:
+Each of the 64 tools lives in its own package under `tools/<name>/` (a small number of packages hold two closely related tools, e.g. `tools/revert/` has both `list_versions` and `revert_version`) — see [Tools Reference](../tools/index.md) for the full, grouped list with parameters and examples. Each package has:
 
 * `handler.py` — the async implementation, a standalone module implementing a single canonical operation.
 * `schema.py` — a plain Python dict with the tool’s MCP schema, kept separate from the implementation so it can be reviewed/edited on its own; shared description text lives in `tools/_shared.py`.
@@ -19860,7 +19860,7 @@ Every other extension is opt-in *and* harmless if skipped — a structure that d
 
 [Section titled “What is cks-mcp?”](#what-is-cks-mcp)
 
-`cks-mcp` is an MCP server: it lets an LLM client (Claude Desktop, or any other MCP-speaking client) validate, evolve, branch, merge, and search a **Canonical Knowledge Structure** through 63 tools, instead of holding that knowledge loosely in its own context. See [the overview](index.md) for why that matters.
+`cks-mcp` is an MCP server: it lets an LLM client (Claude Desktop, or any other MCP-speaking client) validate, evolve, branch, merge, and search a **Canonical Knowledge Structure** through 64 tools, instead of holding that knowledge loosely in its own context. See [the overview](index.md) for why that matters.
 
 ## Installation
 
@@ -19925,7 +19925,7 @@ Instead of exporting these in your shell, you can drop them into `~/.cks-mcp/.en
    }
    ```
 
-3. Save and fully restart Claude Desktop (quit, then reopen). A connector icon for `cks-mcp` (63 tools) should appear.
+3. Save and fully restart Claude Desktop (quit, then reopen). A connector icon for `cks-mcp` (64 tools) should appear.
 
 Any other MCP client that speaks JSON-RPC over stdio works the same way — point it at the `cks-mcp` executable.
 
@@ -20359,7 +20359,7 @@ async def test_teardown_none_is_noop():
 
 `cks-mcp` also exposes four **MCP Prompts** — ready-made workflow templates a client can list (`prompts/list`) and fill in (`prompts/get`) to get a concrete instruction back, without the user having to know which tools to chain together or in what order.
 
-A prompt doesn’t call any tools itself: `prompts/get` returns a single user-role text message, built from the prompt’s arguments, that the connected model then acts on normally — using whichever of the 63 tools that instruction implies.
+A prompt doesn’t call any tools itself: `prompts/get` returns a single user-role text message, built from the prompt’s arguments, that the connected model then acts on normally — using whichever of the 64 tools that instruction implies.
 
 ## Available prompts
 
@@ -20404,7 +20404,7 @@ Each prompt corresponds to one of the workflows [Getting Started](../getting-sta
 
 > MCP Resources
 
-Beyond its 63 tools, `cks-mcp` exposes every active session and its version history as **MCP Resources** — read-only, URI-addressable views a client can list and read directly, without a tool call. Useful for a client UI that wants to browse what exists without asking an LLM to call `list_versions` on its behalf.
+Beyond its 64 tools, `cks-mcp` exposes every active session and its version history as **MCP Resources** — read-only, URI-addressable views a client can list and read directly, without a tool call. Useful for a client UI that wants to browse what exists without asking an LLM to call `list_versions` on its behalf.
 
 ## URI structure
 
@@ -20508,7 +20508,7 @@ See [`SECURITY.md`](../SECURITY.md) for how to report a vulnerability, and [Exte
 
 > Tools Reference
 
-`cks-mcp` exposes **63 tools** over the Model Context Protocol. Every tool call is a canonical operation: it runs inside a `RuntimeSession`, and any call that mutates state does so through a `Transaction`, producing an immutable `Version` (see [Architecture](../architecture/ARCHITECTURE.md)).
+`cks-mcp` exposes **64 tools** over the Model Context Protocol. Every tool call is a canonical operation: it runs inside a `RuntimeSession`, and any call that mutates state does so through a `Transaction`, producing an immutable `Version` (see [Architecture](../architecture/ARCHITECTURE.md)).
 
 This reference is split by function, mirroring how the tools are actually used together rather than their declaration order in the registry:
 
@@ -30949,7 +30949,7 @@ Two-layer design, both in `services/`:
 
 1. **`mcpClient.ts`** — the only file that knows the wire format. A single `callTool(toolName, args)` function POSTs a JSON-RPC 2.0 `tools/call` envelope to `{serverUrl}/mcp`, unwraps `result.content[0].text`, and `JSON.parse`s it. Also owns `setDemoCallTool()`, the seam the static demo uses to redirect every call to `mockClient.ts` instead of the network (see §7) — nothing outside `demo.tsx` calls this.
 
-2. **`mcpTools.ts`** — one typed async function per `cks-mcp` tool the UI actually calls (\~25 of the server’s 63 tools; the rest are used only by LLMs directly, not by any studio page). Each wraps `callTool()` with a specific tool name, typed args, and a typed return shape — e.g. `querySubgraph()`, `evolveKnowledge()`, `listAgents()`, `startAgent()`, `aiChat()`, `getLLMStatus()`. Pages and feature hooks call these, never `callTool()` directly, so a change to one tool’s response shape is a one-file fix.
+2. **`mcpTools.ts`** — one typed async function per `cks-mcp` tool the UI actually calls (\~25 of the server’s 64 tools; the rest are used only by LLMs directly, not by any studio page). Each wraps `callTool()` with a specific tool name, typed args, and a typed return shape — e.g. `querySubgraph()`, `evolveKnowledge()`, `listAgents()`, `startAgent()`, `aiChat()`, `getLLMStatus()`. Pages and feature hooks call these, never `callTool()` directly, so a change to one tool’s response shape is a one-file fix.
 
 No page or component holds a raw `fetch()` call to `cks-mcp` — everything funnels through this layer, which is what makes the static demo’s single-seam swap (`setDemoCallTool`) possible in the first place.
 
@@ -31054,7 +31054,7 @@ The demo page itself lives in the cks-studio repository at `demo.html` / `src/de
 
 > Common questions and fixes for installing and running cks-mcp, cks-studio, and the rest of the CKS ecosystem.
 
-Short, practical answers to the questions that come up most when installing and running CKS. If something isn’t covered here, check the [Quick Start guide](/quickstart/) or open an issue on [GitHub](https://github.com/Deus-corp/cks-core/issues).
+Short, practical answers to the questions that come up most when installing and running CKS. If something isn’t covered here, check the [Quick Start guide](/cks-website/quickstart/) or open an issue on [GitHub](https://github.com/Deus-corp/cks-core/issues).
 
 ## Installation
 
@@ -31074,7 +31074,7 @@ Verify it installed correctly:
 cks-mcp --version
 ```
 
-See the [Quick Start guide](/quickstart/) for connecting it to Claude Desktop or `cks-studio` afterwards.
+See the [Quick Start guide](/cks-website/quickstart/) for connecting it to Claude Desktop or `cks-studio` afterwards.
 
 The \`cks-mcp\` command is not found — what do I do?
 
@@ -31146,7 +31146,7 @@ By default `cks-mcp` speaks stdio (used by Claude Desktop). To let `cks-studio` 
 cks-mcp serve
 ```
 
-`cks-studio` talks to this HTTP endpoint from the browser, so the server needs permissive CORS for your studio’s origin (default `http://localhost:5173` in dev). If requests are being blocked, check the CORS/allowed-origins setting documented in the [cks-mcp security model](/cks-mcp/security/) and make sure it includes your studio’s actual origin (including port).
+`cks-studio` talks to this HTTP endpoint from the browser, so the server needs permissive CORS for your studio’s origin (default `http://localhost:5173` in dev). If requests are being blocked, check the CORS/allowed-origins setting documented in the [cks-mcp security model](/cks-website/cks-mcp/security/) and make sure it includes your studio’s actual origin (including port).
 
 How do I set CKS\_MCP\_HTTP\_PORT?
 
@@ -31172,11 +31172,11 @@ Then point `cks-studio`’s `.env.local` at that same port.
 
 Can I use semantic search without any API keys?
 
-Yes. `cks-mcp` supports [fastembed](https://github.com/qdrant/fastembed) for fully local embeddings — no HuggingFace or provider API key required and no data leaves your machine. It’s the default fallback when no embedding provider key is configured; see [Local Embeddings](/case-studies/local-embeddings/) for the case study and setup details.
+Yes. `cks-mcp` supports [fastembed](https://github.com/qdrant/fastembed) for fully local embeddings — no HuggingFace or provider API key required and no data leaves your machine. It’s the default fallback when no embedding provider key is configured; see [Local Embeddings](/cks-website/case-studies/local-embeddings/) for the case study and setup details.
 
 Do I need PostgreSQL, or is SQLite enough?
 
-SQLite is the default and is enough for local use, single-user setups, and trying things out — no setup required. Use PostgreSQL if you need concurrent multi-writer access, a shared/networked deployment, or larger graphs. Point `cks-runtime` at a Postgres instance via its storage connection string/environment variable; see the [storage specification](/cks-runtime/standards/runtime/spec-006_storage/) for the exact configuration keys.
+SQLite is the default and is enough for local use, single-user setups, and trying things out — no setup required. Use PostgreSQL if you need concurrent multi-writer access, a shared/networked deployment, or larger graphs. Point `cks-runtime` at a Postgres instance via its storage connection string/environment variable; see the [storage specification](/cks-website/cks-runtime/standards/runtime/spec-006_storage/) for the exact configuration keys.
 
 How do I reset the SQLite database or change the storage path?
 
@@ -31188,7 +31188,7 @@ rm ~/.cks/storage.db   # default path — confirm yours via config/env
 cks-mcp serve
 ```
 
-A fresh, empty database is created automatically on next start. To use a different path instead of resetting, set the storage path environment variable/config value before starting `cks-mcp` — see the [storage specification](/cks-runtime/standards/runtime/spec-006_storage/).
+A fresh, empty database is created automatically on next start. To use a different path instead of resetting, set the storage path environment variable/config value before starting `cks-mcp` — see the [storage specification](/cks-website/cks-runtime/standards/runtime/spec-006_storage/).
 
 ## Demo & concepts
 
@@ -31196,7 +31196,7 @@ A fresh, empty database is created automatically on next start. To use a differe
 
 How do I run the static demo?
 
-No install needed — open the [Demo page](/demo/) and click **Open Demo**, or embed it locally. It runs `cks-studio` entirely client-side against a bundled snapshot of the ecosystem graph, so Graph, Gallery, and Pipeline Monitor all work out of the box. AI Chat, Agents, and Evolve are disabled in the static demo since they need a live `cks-mcp` server — for those, follow the [Quick Start](/quickstart/) to run the real backend.
+No install needed — open the [Demo page](/cks-website/demo/) and click **Open Demo**, or embed it locally. It runs `cks-studio` entirely client-side against a bundled snapshot of the ecosystem graph, so Graph, Gallery, and Pipeline Monitor all work out of the box. AI Chat, Agents, and Evolve are disabled in the static demo since they need a live `cks-mcp` server — for those, follow the [Quick Start](/cks-website/quickstart/) to run the real backend.
 
 What's the difference between cks-core, cks-runtime, and cks-mcp?
 
@@ -31204,7 +31204,7 @@ They’re three layers of the same stack:
 
 * **cks-core** — the immutable semantic engine. Defines canonical knowledge objects, validates them against formal constraints, and applies structural evolution. No sessions, no server, just the data model and its rules.
 * **cks-runtime** — the operational layer on top of cks-core. Adds sessions, transactions, branching/merging, and version history — the stateful parts.
-* **cks-mcp** — the MCP server that exposes cks-runtime (and therefore cks-core) to LLMs like Claude, via 63 tools plus MCP Resources and Prompts.
+* **cks-mcp** — the MCP server that exposes cks-runtime (and therefore cks-core) to LLMs like Claude, via 64 tools plus MCP Resources and Prompts.
 
 `cks-studio` is a fourth, separate piece — a browser UI that talks to `cks-mcp` the same way an LLM does.
 
@@ -31255,7 +31255,7 @@ If `cks-mcp` was installed into a virtual environment rather than your global Py
 
 3. Save and restart Claude Desktop (Cmd+Q, then reopen).
 
-After restart, a connector icon will appear — **cks-mcp** with 63 tools is ready to use.
+After restart, a connector icon will appear — **cks-mcp** with 64 tools is ready to use.
 
 ***
 
@@ -31293,7 +31293,7 @@ Claude will call `validate_knowledge` and report back whether the structure is v
 
 [Section titled “What’s Next”](#whats-next)
 
-* Browse the [Tools Reference](cks-mcp/tools/index.md) — all 63 tools, grouped by what they’re for, with request/response examples.
+* Browse the [Tools Reference](cks-mcp/tools/index.md) — all 64 tools, grouped by what they’re for, with request/response examples.
 * Explore the [cks-core](cks-core/index.md) semantic engine.
 * Learn about [cks-runtime](cks-runtime/index.md) sessions and version history.
 * Read the [Architecture](cks-mcp/architecture/ARCHITECTURE.md) and [Security Model](cks-mcp/security.md) of the MCP server.
