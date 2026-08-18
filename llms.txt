@@ -4,8 +4,8 @@
 
 ## Documentation Sets
 
-- [Abridged documentation](https://deus-corp.github.io/cks-website/llms-small.txt): a compact version of the documentation for CKS, with non-essential content removed
-- [Complete documentation](https://deus-corp.github.io/cks-website/llms-full.txt): the full documentation for CKS
+- [Abridged documentation](https://punctumactus.github.io/cks-website/llms-small.txt): a compact version of the documentation for CKS, with non-essential content removed
+- [Complete documentation](https://punctumactus.github.io/cks-website/llms-full.txt): the full documentation for CKS
 
 ## Notes
 

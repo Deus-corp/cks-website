@@ -10,7 +10,7 @@
 
 [PyPI · cks-mcp](https://pypi.org/project/cks-mcp/)
 
-[★ GitHub Stars](https://github.com/Deus-corp/cks-core/stargazers)
+[★ GitHub Stars](https://github.com/PunctumActus/cks-core/stargazers)
 
 ✓ 2,000+ tests across five repos
 
@@ -30,23 +30,23 @@ Five repositories, one canonical knowledge layer — a semantic engine at the bo
 
 cks-core
 
-The immutable semantic engine — canonical knowledge objects, validation against formal constraints, structural evolution. [Docs →](/cks-website/cks-core/) · [Source ↗](https://github.com/Deus-corp/cks-core)
+The immutable semantic engine — canonical knowledge objects, validation against formal constraints, structural evolution. [Docs →](/cks-website/cks-core/) · [Source ↗](https://github.com/PunctumActus/cks-core)
 
 cks-runtime
 
-The operational environment — sessions, transactions, branching, three-way merges, and full version history on top of cks-core. [Docs →](/cks-website/cks-runtime/) · [Source ↗](https://github.com/Deus-corp/cks-runtime)
+The operational environment — sessions, transactions, branching, three-way merges, and full version history on top of cks-core. [Docs →](/cks-website/cks-runtime/) · [Source ↗](https://github.com/PunctumActus/cks-runtime)
 
 cks-mcp
 
-The MCP server — exposes CKS to Claude Desktop and other MCP clients via 64 tools, plus MCP Resources and Prompts. [Docs →](/cks-website/cks-mcp/) · [Source ↗](https://github.com/Deus-corp/cks-mcp)
+The MCP server — exposes CKS to Claude Desktop and other MCP clients via 64 tools, plus MCP Resources and Prompts. [Docs →](/cks-website/cks-mcp/) · [Source ↗](https://github.com/PunctumActus/cks-mcp)
 
 cks-studio
 
-The visual workspace — a graph canvas, session gallery, agent pipeline monitor, and an in-browser AI chat panel that calls the same tools an LLM would. [Docs →](/cks-website/cks-studio/) · [Source ↗](https://github.com/Deus-corp/cks-studio)
+The visual workspace — a graph canvas, session gallery, agent pipeline monitor, and an in-browser AI chat panel that calls the same tools an LLM would. [Docs →](/cks-website/cks-studio/) · [Source ↗](https://github.com/PunctumActus/cks-studio)
 
 cks-website
 
-This documentation site — guides, API references, ADRs, and the [static interactive demo](/cks-website/demo/), built with Astro + Starlight. [Source ↗](https://github.com/Deus-corp/cks-website)
+This documentation site — guides, API references, ADRs, and the [static interactive demo](/cks-website/demo/), built with Astro + Starlight. [Source ↗](https://github.com/PunctumActus/cks-website)
 
 ***
 
@@ -3631,7 +3631,7 @@ pip install canonical-ks
 Or from source:
 
 ```bash
-git clone https://github.com/Deus-corp/CKS.git
+git clone https://github.com/PunctumActus/CKS.git
 cd CKS
 pip install -e .
 ```
@@ -18647,7 +18647,7 @@ The Python Reference Binding therefore serves as the behavioural reference imple
 
 `cks-mcp` gives LLMs a **canonical knowledge backbone**: a persistent, versioned, verifiable place to put structured knowledge, instead of holding it — and quietly forgetting or hallucinating it — in a context window.
 
-It exposes **64 tools** over MCP, backed by the deterministic, immutable semantics of [`cks-core`](https://github.com/Deus-corp/cks-core) and the async operational management of [`cks-runtime`](https://github.com/Deus-corp/cks-runtime). Every tool call that mutates state runs inside a Runtime **Session** and **Transaction**, producing an immutable **Version** — so every change is reproducible and auditable after the fact.
+It exposes **64 tools** over MCP, backed by the deterministic, immutable semantics of [`cks-core`](https://github.com/PunctumActus/cks-core) and the async operational management of [`cks-runtime`](https://github.com/PunctumActus/cks-runtime). Every tool call that mutates state runs inside a Runtime **Session** and **Transaction**, producing an immutable **Version** — so every change is reproducible and auditable after the fact.
 
 ## Why cks-mcp?
 
@@ -20028,7 +20028,7 @@ If a peer is unreachable, gossip rounds against it back off automatically and re
 [Section titled “Running the Test Suite”](#running-the-test-suite)
 
 ```bash
-git clone https://github.com/Deus-corp/cks-mcp.git
+git clone https://github.com/PunctumActus/cks-mcp.git
 cd cks-mcp
 pip install -e ".[dev]"
 python -m pytest -v
@@ -30142,7 +30142,7 @@ See [Architecture](architecture.md) for the full breakdown of routing, state man
 
 * [Architecture](architecture.md)
 * [Architecture Decision Records](adr/ADR-001%20AI%20Assistant%20Chat%20Panel.md) — AI chat panel, 3D graph view, graph gallery, agent control, standalone demo
-* [GitHub repository](https://github.com/Deus-corp/cks-studio)
+* [GitHub repository](https://github.com/PunctumActus/cks-studio)
 
 # ADR-001: AI Assistant Chat Panel
 
@@ -30805,7 +30805,7 @@ Chat, Agents, Diff, and Settings all depend on real-time server state (LLM provi
 
 > CKS Studio Architecture
 
-This document describes how CKS Studio is actually built, sync’d against `src/` as of **v0.6.6**. It is the frontend counterpart to [`cks-mcp/docs/architecture/ARCHITECTURE.md`](https://github.com/Deus-corp/cks-mcp/blob/main/docs/architecture/ARCHITECTURE.md) and [`cks-runtime/docs/architecture/ARCH-001_Runtime_Architecture.md`](https://github.com/Deus-corp/cks-runtime/blob/main/docs/architecture/ARCH-001_Runtime_Architecture.md) — those describe the backend that owns all knowledge and logic; this one describes the thin, stateless client that reads and commands it.
+This document describes how CKS Studio is actually built, sync’d against `src/` as of **v0.6.6**. It is the frontend counterpart to [`cks-mcp/docs/architecture/ARCHITECTURE.md`](https://github.com/PunctumActus/cks-mcp/blob/main/docs/architecture/ARCHITECTURE.md) and [`cks-runtime/docs/architecture/ARCH-001_Runtime_Architecture.md`](https://github.com/PunctumActus/cks-runtime/blob/main/docs/architecture/ARCH-001_Runtime_Architecture.md) — those describe the backend that owns all knowledge and logic; this one describes the thin, stateless client that reads and commands it.
 
 ***
 
@@ -31044,7 +31044,7 @@ pip install cks-mcp
 cks-mcp serve
 ```
 
-Then point [cks-studio](https://github.com/Deus-corp/cks-studio) at your local server and connect with a real session.
+Then point [cks-studio](https://github.com/PunctumActus/cks-studio) at your local server and connect with a real session.
 
 Source
 
@@ -31054,7 +31054,7 @@ The demo page itself lives in the cks-studio repository at `demo.html` / `src/de
 
 > Common questions and fixes for installing and running cks-mcp, cks-studio, and the rest of the CKS ecosystem.
 
-Short, practical answers to the questions that come up most when installing and running CKS. If something isn’t covered here, check the [Quick Start guide](/cks-website/quickstart/) or open an issue on [GitHub](https://github.com/Deus-corp/cks-core/issues).
+Short, practical answers to the questions that come up most when installing and running CKS. If something isn’t covered here, check the [Quick Start guide](/cks-website/quickstart/) or open an issue on [GitHub](https://github.com/PunctumActus/cks-core/issues).
 
 ## Installation
 
@@ -31266,14 +31266,14 @@ After restart, a connector icon will appear — **cks-mcp** with 64 tools is rea
 Prefer clicking around a graph to typing prompts? `cks-studio` is a single-page app that connects to `cks-mcp` over HTTP and gives you a graph canvas, a session gallery, agent-pipeline monitoring, and its own AI chat panel that can call the same tools:
 
 ```bash
-git clone https://github.com/Deus-corp/cks-studio.git
+git clone https://github.com/PunctumActus/cks-studio.git
 cd cks-studio
 npm install
 cp .env.example .env.local   # point it at your cks-mcp server
 npm run dev
 ```
 
-Open `http://localhost:5173`. See the [cks-studio repository](https://github.com/Deus-corp/cks-studio) for the full setup, including the one-command ecosystem demo graph and free-tier AI chat via OpenRouter.
+Open `http://localhost:5173`. See the [cks-studio repository](https://github.com/PunctumActus/cks-studio) for the full setup, including the one-command ecosystem demo graph and free-tier AI chat via OpenRouter.
 
 ***
 
@@ -31305,5 +31305,5 @@ Claude will call `validate_knowledge` and report back whether the structure is v
 
 [Section titled “Need Help?”](#need-help)
 
-* [GitHub Issues](https://github.com/Deus-corp/cks-core/issues)
-* [Discussions](https://github.com/Deus-corp/cks-core/discussions)
+* [GitHub Issues](https://github.com/PunctumActus/cks-core/issues)
+* [Discussions](https://github.com/PunctumActus/cks-core/discussions)
