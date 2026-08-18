@@ -23,18 +23,18 @@ CKS Website completes the CKS toolchain:
 
 | Project | Description | Repository |
 |---------|-------------|------------|
-| **cks-core** | Canonical semantic engine – the single source of canonical truth. | [Deus-corp/cks-core](https://github.com/Deus-corp/cks-core) |
-| **cks-runtime** | Operational environment – sessions, transactions, persistence. | [Deus-corp/cks-runtime](https://github.com/Deus-corp/cks-runtime) |
-| **cks-mcp** | MCP server – exposes CKS to LLMs and autonomous agents. | [Deus-corp/cks-mcp](https://github.com/Deus-corp/cks-mcp) |
-| **cks-studio** | Visual workspace – explore, monitor, and manage graphs. | [Deus-corp/cks-studio](https://github.com/Deus-corp/cks-studio) |
-| **cks-website** | Documentation & demo site. | [Deus-corp/cks-website](https://github.com/Deus-corp/cks-website) |
+| **cks-core** | Canonical semantic engine – the single source of canonical truth. | [Deus-corp/cks-core](https://github.com/PunctumActus/cks-core) |
+| **cks-runtime** | Operational environment – sessions, transactions, persistence. | [Deus-corp/cks-runtime](https://github.com/PunctumActus/cks-runtime) |
+| **cks-mcp** | MCP server – exposes CKS to LLMs and autonomous agents. | [Deus-corp/cks-mcp](https://github.com/PunctumActus/cks-mcp) |
+| **cks-studio** | Visual workspace – explore, monitor, and manage graphs. | [Deus-corp/cks-studio](https://github.com/PunctumActus/cks-studio) |
+| **cks-website** | Documentation & demo site. | [Deus-corp/cks-website](https://github.com/PunctumActus/cks-website) |
 
 ---
 
 # Quick Start
 
 ```bash
-git clone https://github.com/Deus-corp/cks-website.git
+git clone https://github.com/PunctumActus/cks-website.git
 cd cks-website
 npm install
 npm run dev
@@ -55,20 +55,20 @@ The output is written to `dist/`.
 # Interactive Demo
 
 The website includes a fully functional demo of
-[`cks-studio`](https://github.com/Deus-corp/cks-studio) running entirely
+[`cks-studio`](https://github.com/PunctumActus/cks-studio) running entirely
 in the browser — no server required. The demo is pre‑loaded with the CKS
 ecosystem graph and supports graph exploration, gallery browsing, and the
 pipeline monitor.
 
-[Open the interactive demo &rarr;](https://deus-corp.github.io/cks-website/demo/)
+[Open the interactive demo &rarr;](https://punctumactus.github.io/cks-website/demo/)
 
 ---
 
 # Contributing
 
 Contributions are welcome! Please open an issue or pull request in the
-[GitHub repository](https://github.com/Deus-corp/cks-website). See the
-[CKS Core repository](https://github.com/Deus-corp/cks-core) for overall
+[GitHub repository](https://github.com/PunctumActus/cks-website). See the
+[CKS Core repository](https://github.com/PunctumActus/cks-core) for overall
 project conventions.
 
 ---

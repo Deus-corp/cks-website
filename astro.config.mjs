@@ -5,7 +5,7 @@ import starlightLlmsTxt from 'starlight-llms-txt';
 
 // https://astro.build/config
 export default defineConfig({
-	site: 'https://deus-corp.github.io',
+	site: 'https://punctumactus.github.io',
 	base: '/cks-website/',
 	integrations: [
 		starlight({
@@ -21,7 +21,7 @@ export default defineConfig({
 				replacesTitle: false,
 			},
 			social: [
-				{ icon: 'github', label: 'GitHub', href: 'https://github.com/Deus-corp' },
+				{ icon: 'github', label: 'GitHub', href: 'https://github.com/PunctumActus' },
 			],
 			sidebar: [
 				{ label: 'Home', link: '/' },
@@ -104,7 +104,7 @@ export default defineConfig({
 					tag: 'meta',
 					attrs: {
 						property: 'og:image',
-						content: 'https://deus-corp.github.io/cks-website/og-card.png',
+						content: 'https://punctumactus.github.io/cks-website/og-card.png',
 					},
 				},
 				{
@@ -124,7 +124,7 @@ export default defineConfig({
 					tag: 'meta',
 					attrs: {
 						name: 'twitter:image',
-						content: 'https://deus-corp.github.io/cks-website/og-card.png',
+						content: 'https://punctumactus.github.io/cks-website/og-card.png',
 					},
 				},
 				// Theme color for browser UI (matches --cks-ink from custom.css)

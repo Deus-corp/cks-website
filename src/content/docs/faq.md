@@ -6,7 +6,7 @@ description: "Common questions and fixes for installing and running cks-mcp, cks
 Short, practical answers to the questions that come up most when installing
 and running CKS. If something isn't covered here, check the
 [Quick Start guide](/cks-website/quickstart/) or open an issue on
-[GitHub](https://github.com/Deus-corp/cks-core/issues).
+[GitHub](https://github.com/PunctumActus/cks-core/issues).
 
 ## Installation
 

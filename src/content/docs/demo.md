@@ -43,7 +43,7 @@ pip install cks-mcp
 cks-mcp serve
 ```
 
-Then point [cks-studio](https://github.com/Deus-corp/cks-studio) at your
+Then point [cks-studio](https://github.com/PunctumActus/cks-studio) at your
 local server and connect with a real session.
 
 :::note[Source]

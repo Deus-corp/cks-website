@@ -5,8 +5,8 @@ description: "CKS Studio Architecture"
 
 This document describes how CKS Studio is actually built, sync'd against
 `src/` as of **v0.6.6**. It is the frontend counterpart to
-[`cks-mcp/docs/architecture/ARCHITECTURE.md`](https://github.com/Deus-corp/cks-mcp/blob/main/docs/architecture/ARCHITECTURE.md)
-and [`cks-runtime/docs/architecture/ARCH-001_Runtime_Architecture.md`](https://github.com/Deus-corp/cks-runtime/blob/main/docs/architecture/ARCH-001_Runtime_Architecture.md) —
+[`cks-mcp/docs/architecture/ARCHITECTURE.md`](https://github.com/PunctumActus/cks-mcp/blob/main/docs/architecture/ARCHITECTURE.md)
+and [`cks-runtime/docs/architecture/ARCH-001_Runtime_Architecture.md`](https://github.com/PunctumActus/cks-runtime/blob/main/docs/architecture/ARCH-001_Runtime_Architecture.md) —
 those describe the backend that owns all knowledge and logic; this one
 describes the thin, stateless client that reads and commands it.
 

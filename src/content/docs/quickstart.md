@@ -61,7 +61,7 @@ canvas, a session gallery, agent-pipeline monitoring, and its own AI chat
 panel that can call the same tools:
 
 ```bash
-git clone https://github.com/Deus-corp/cks-studio.git
+git clone https://github.com/PunctumActus/cks-studio.git
 cd cks-studio
 npm install
 cp .env.example .env.local   # point it at your cks-mcp server
@@ -69,7 +69,7 @@ npm run dev
 ```
 
 Open `http://localhost:5173`. See the
-[cks-studio repository](https://github.com/Deus-corp/cks-studio) for the
+[cks-studio repository](https://github.com/PunctumActus/cks-studio) for the
 full setup, including the one-command ecosystem demo graph and free-tier
 AI chat via OpenRouter.
 
@@ -101,5 +101,5 @@ If you're in `cks-studio`, watch the graph canvas update live as each tool call 
 
 ## Need Help?
 
-- [GitHub Issues](https://github.com/Deus-corp/cks-core/issues)
-- [Discussions](https://github.com/Deus-corp/cks-core/discussions)
+- [GitHub Issues](https://github.com/PunctumActus/cks-core/issues)
+- [Discussions](https://github.com/PunctumActus/cks-core/discussions)

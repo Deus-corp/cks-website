@@ -56,4 +56,4 @@ built.
 
 - [Architecture](architecture.md)
 - [Architecture Decision Records](adr/ADR-001%20AI%20Assistant%20Chat%20Panel.md) — AI chat panel, 3D graph view, graph gallery, agent control, standalone demo
-- [GitHub repository](https://github.com/Deus-corp/cks-studio)
+- [GitHub repository](https://github.com/PunctumActus/cks-studio)
