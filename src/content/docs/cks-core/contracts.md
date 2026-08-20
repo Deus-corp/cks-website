@@ -1,7 +1,12 @@
 ---
 title: "Contracts"
-description: "Contracts"
 ---
+
+:::note[Синхронизировано автоматически]
+Эта страница подтягивается раз в сутки из [`docs/contracts.md`](https://github.com/PunctumActus/cks-core/blob/main/docs/contracts.md) репозитория `cks-core`. Вносите правки в исходном репозитории — изменения прямо здесь будут перезаписаны при следующей синхронизации.
+:::
+
+# Contracts
 
 This document describes the formal contract that connects every major
 component of the Canonical Knowledge Structure (CKS) ecosystem.

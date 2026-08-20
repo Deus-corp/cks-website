@@ -1,7 +1,12 @@
 ---
 title: "ADR-005: Standalone Static Demo"
-description: "ADR-005: Standalone Static Demo"
 ---
+
+:::note[Синхронизировано автоматически]
+Эта страница подтягивается раз в сутки из [`docs/adr/ADR-005 Standalone Static Demo.md`](https://github.com/PunctumActus/cks-studio/blob/main/docs/adr/ADR-005 Standalone Static Demo.md) репозитория `cks-studio`. Вносите правки в исходном репозитории — изменения прямо здесь будут перезаписаны при следующей синхронизации.
+:::
+
+# ADR-005: Standalone Static Demo
 
 **Status:** Implemented — see `demo.html`, `src/demo.tsx`,
 `src/services/mockClient.ts`, `src/services/mockData.ts`; shipped

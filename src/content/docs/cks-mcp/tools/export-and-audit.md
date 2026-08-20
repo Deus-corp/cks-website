@@ -1,7 +1,12 @@
 ---
-title: "Export  Observability"
-description: "Export  Observability"
+title: "Export & Observability"
 ---
+
+:::note[Синхронизировано автоматически]
+Эта страница подтягивается раз в сутки из [`docs/tools/export-and-audit.md`](https://github.com/PunctumActus/cks-mcp/blob/main/docs/tools/export-and-audit.md) репозитория `cks-mcp`. Вносите правки в исходном репозитории — изменения прямо здесь будут перезаписаны при следующей синхронизации.
+:::
+
+# Export & Observability
 
 Getting data out of a session, in the format the destination expects — and
 seeing how the server itself is performing.
@@ -99,7 +104,35 @@ and metadata, or `{"found": false}` if no graph is registered under that name.
 
 **Parameters:** `name` (required).
 
-**Response:** `{"found": true, "name": "my-graph", "session_id": "...", "description": "...", "tags": "...", "public": false, "created_at": "...", "updated_at": "..."}`.
+**Response:** `{"found": true, "name": "my-graph", "session_id": "...", "description": "...", "tags": "...", "public": false, "lifecycle_state": "draft", "created_at": "...", "updated_at": "..."}`.
+
+## `update_graph_lifecycle`
+
+Transitions a registered graph's `lifecycle_state` -- one of `draft`,
+`published`, `active`, `stale`, `under_review`, `archived`. Only
+registered graphs have a lifecycle state; a first-time registration
+defaults to `published` if `public`/`visibility='public'` is set,
+otherwise `draft`. Not every transition is allowed:
+
+| From           | Allowed to                              |
+|----------------|------------------------------------------|
+| `draft`        | `published`, `archived`                   |
+| `published`    | `active`, `under_review`, `archived`      |
+| `active`       | `stale`, `under_review`, `archived`       |
+| `stale`        | `under_review`, `active`, `archived`      |
+| `under_review` | `active`, `published`, `archived`         |
+| `archived`     | *(none -- terminal)*                      |
+
+Requesting the state the graph is already in is a no-op (returns
+`{"updated": false, "reason": "already in requested state", ...}`
+rather than an error). Requesting a disallowed transition returns
+`{"error": "invalid_state_transition", "allowed": [...], ...}`
+without changing anything.
+
+**Parameters:** `name` (required), `state` (required, one of the six
+lifecycle states above).
+
+**Response:** `{"updated": true, "name": "my-graph", "previous_state": "draft", "new_state": "published"}`.
 
 ## `list_graphs`
 
@@ -161,6 +194,59 @@ accessible to any LLM or person without parsing raw JSON.
 **Parameters:** `name` (required — registered graph name).
 
 **Response:** `{"found": true, "name": "cks-ecosystem", "session_id": "...", "report": "<markdown text>"}`.
+
+## `compare_graphs`
+
+Read-only diff of two graphs (registered or bare sessions): which
+objects/relations they share by identity id, which are unique to
+each side, and structural differences between shared objects.
+
+**Parameters:** `graph_a_name` / `graph_a_session_id` (one required for
+side A — session id takes precedence), `graph_b_name` /
+`graph_b_session_id` (one required for side B), `include_relations`
+(optional boolean, default `true`).
+
+**Response:** `{"graph_a": "...", "graph_b": "...", "shared_object_count": 5, "only_in_a_count": 3, "only_in_b_count": 2, "shared_object_ids": [...], "only_in_a": [...], "only_in_b": [...], "differences": [{"id": "obj-1", "action": "modified", "type": "...", "name": "...", "changes": {"field": {"from": ..., "to": ...}}}, ...]}` — `differences` only lists shared objects whose structure actually diverges.
+
+## `merge_graphs`
+
+Three-way merges two graphs into a **new** session using
+`KnowledgeStructure.merge()`, the same primitive `merge_knowledge`
+uses. Neither source session is modified. Without a
+`base_graph_name`/`base_session_id`, the merge base is an empty
+structure — every object present in both sides will surface as a
+conflict candidate unless a `resolutions` mapping resolves it.
+
+**Parameters:** `graph_a_name` / `graph_a_session_id` (side A),
+`graph_b_name` / `graph_b_session_id` (side B), `base_graph_name` /
+`base_session_id` (optional common ancestor), `resolutions` (optional
+per-object resolution mapping, same shape as `merge_knowledge`),
+`register_as` (optional name to register the merged result under).
+
+**Response on success:** `{"merged": true, "session_id": "...", "version_id": "...", "registered_as": "..."}`.
+**Response on conflict:** `{"merged": false, "conflicts": [...]}` — no
+new session is created.
+
+## `link_graphs`
+
+Creates a relation between an object in graph A and an object in
+graph B, writing it to **both** source sessions so the link is
+discoverable from either graph. Because a relation's participants
+must exist in the same structure, a copy of each remote participant
+is added alongside the relation on the side it's missing from (skipped
+if already present, e.g. from a prior link between the same graphs).
+
+**Parameters:** `graph_a_name` / `graph_a_session_id`, `graph_b_name` /
+`graph_b_session_id`, `object_a_id` (required), `object_b_id`
+(required), `relation_type` (required), `relation_name` (optional).
+
+**Response:** `{"linked": true, "relation_id": "cross-link:<a>:<objA>:<b>:<objB>:<type>", "graph_a_version": "...", "graph_b_version": "..."}`.
+Errors: `object_not_found`, `relation_already_exists` (the derived id
+is deterministic, so re-linking the same pair/type is a no-op error),
+`duplicate_object_conflict` (an id collision with different content),
+or `partial_failure: true` if graph A's write committed but graph B's
+did not (the id scheme makes a retry idempotent on the already-written
+side).
 
 ## `export_storage`
 

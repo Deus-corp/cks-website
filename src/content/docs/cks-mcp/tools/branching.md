@@ -1,7 +1,12 @@
 ---
-title: "Branching  Merging"
-description: "Branching  Merging"
+title: "Branching & Merging"
 ---
+
+:::note[Синхронизировано автоматически]
+Эта страница подтягивается раз в сутки из [`docs/tools/branching.md`](https://github.com/PunctumActus/cks-mcp/blob/main/docs/tools/branching.md) репозитория `cks-mcp`. Вносите правки в исходном репозитории — изменения прямо здесь будут перезаписаны при следующей синхронизации.
+:::
+
+# Branching & Merging
 
 Tools for isolating an experiment from a session's main line, and later
 reconciling it — either by promoting it back in, or discarding it.

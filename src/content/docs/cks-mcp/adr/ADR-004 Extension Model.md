@@ -1,7 +1,12 @@
 ---
 title: "ADR-004"
-description: "ADR-004"
 ---
+
+:::note[Синхронизировано автоматически]
+Эта страница подтягивается раз в сутки из [`docs/adr/ADR-004 Extension Model.md`](https://github.com/PunctumActus/cks-mcp/blob/main/docs/adr/ADR-004 Extension Model.md) репозитория `cks-mcp`. Вносите правки в исходном репозитории — изменения прямо здесь будут перезаписаны при следующей синхронизации.
+:::
+
+# ADR-004
 
 # Opt-in Extension Model
 

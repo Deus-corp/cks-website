@@ -1,7 +1,12 @@
 ---
 title: "ADR-011: Temporal Staleness Detection"
-description: "ADR-011: Temporal Staleness Detection"
 ---
+
+:::note[Синхронизировано автоматически]
+Эта страница подтягивается раз в сутки из [`docs/adr/ADR-011 Temporal Staleness Detection.md`](https://github.com/PunctumActus/cks-runtime/blob/main/docs/adr/ADR-011 Temporal Staleness Detection.md) репозитория `cks-runtime`. Вносите правки в исходном репозитории — изменения прямо здесь будут перезаписаны при следующей синхронизации.
+:::
+
+# ADR-011: Temporal Staleness Detection
 
 **Status:** Implemented (`cks_runtime/reasoning/temporal_staleness_sweeper.py`)
 **Related:** ADR-009 (Proactive Inference Staleness Detection), ADR-010 (Proactive Provenance Staleness Detection), cks-core ADR-003 (Temporal Validity Constraint)

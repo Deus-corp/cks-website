@@ -1,7 +1,12 @@
 ---
 title: "ADR-005"
-description: "ADR-005"
 ---
+
+:::note[Синхронизировано автоматически]
+Эта страница подтягивается раз в сутки из [`docs/adr/ADR-005 Gossip Integration.md`](https://github.com/PunctumActus/cks-mcp/blob/main/docs/adr/ADR-005 Gossip Integration.md) репозитория `cks-mcp`. Вносите правки в исходном репозитории — изменения прямо здесь будут перезаписаны при следующей синхронизации.
+:::
+
+# ADR-005
 
 # Gossip Integration (Multi-Instance Session Sync)
 

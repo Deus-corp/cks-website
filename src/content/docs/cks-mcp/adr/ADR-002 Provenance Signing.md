@@ -1,7 +1,12 @@
 ---
 title: "ADR-002"
-description: "ADR-002"
 ---
+
+:::note[Синхронизировано автоматически]
+Эта страница подтягивается раз в сутки из [`docs/adr/ADR-002 Provenance Signing.md`](https://github.com/PunctumActus/cks-mcp/blob/main/docs/adr/ADR-002 Provenance Signing.md) репозитория `cks-mcp`. Вносите правки в исходном репозитории — изменения прямо здесь будут перезаписаны при следующей синхронизации.
+:::
+
+# ADR-002
 
 # Provenance via HMAC Signing
 

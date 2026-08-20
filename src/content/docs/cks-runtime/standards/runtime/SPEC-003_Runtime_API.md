@@ -1,7 +1,12 @@
 ---
 title: "SPEC-003"
-description: "SPEC-003"
 ---
+
+:::note[Синхронизировано автоматически]
+Эта страница подтягивается раз в сутки из [`docs/standards/runtime/SPEC-003_Runtime_API.md`](https://github.com/PunctumActus/cks-runtime/blob/main/docs/standards/runtime/SPEC-003_Runtime_API.md) репозитория `cks-runtime`. Вносите правки в исходном репозитории — изменения прямо здесь будут перезаписаны при следующей синхронизации.
+:::
+
+# SPEC-003
 
 # Runtime API
 

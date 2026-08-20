@@ -1,12 +1,17 @@
 ---
-title: "Gossip  Conflict Resolution"
-description: "Gossip  Conflict Resolution"
+title: "Gossip & Conflict Resolution"
 ---
+
+:::note[Синхронизировано автоматически]
+Эта страница подтягивается раз в сутки из [`docs/tools/gossip-and-conflicts.md`](https://github.com/PunctumActus/cks-mcp/blob/main/docs/tools/gossip-and-conflicts.md) репозитория `cks-mcp`. Вносите правки в исходном репозитории — изменения прямо здесь будут перезаписаны при следующей синхронизации.
+:::
+
+# Gossip & Conflict Resolution
 
 Tools for surfacing conflicts a background process found with no caller
 waiting on it: a multi-agent deployment where several `cks-mcp` processes
 gossip-replicate sessions to each other (`CKS_GOSSIP_ENABLED=true` — see
-[Architecture](../architecture/ARCHITECTURE.mdx)), or a single deployment's
+[Architecture](../architecture/ARCHITECTURE.md)), or a single deployment's
 `InferenceStalenessSweeper` (runs by default — see
 `RuntimeConfig.inference_sweep_interval`) re-checking sessions nobody has
 touched in a while. Either way, something needs to resolve what comes out
@@ -228,8 +233,9 @@ the persistent outbox directly through the shared `cks_outbox_tasks` table.
 | `fail_conflict_task` | Reschedules a task as `PENDING` with exponential backoff for a later retry |
 | `dead_letter_conflict_task` | Moves a task to `DEAD` status after the retry limit is exhausted |
 | `list_dead_lettered_conflicts` | Lists every dead-lettered task for manual audit |
+| `retry_dead_letter` | Returns a `DEAD` task to `PENDING` so it can be claimed again, once the root cause has been fixed |
 
-All five return `"supported": false` on storage backends that do not
+All six return `"supported": false` on storage backends that do not
 implement the outbox (e.g. the default `InMemoryStorage`).
 
 ---

@@ -1,7 +1,12 @@
 ---
 title: "SPEC-002"
-description: "SPEC-002"
 ---
+
+:::note[Синхронизировано автоматически]
+Эта страница подтягивается раз в сутки из [`docs/standards/runtime/SPEC-002_Session_Model.md`](https://github.com/PunctumActus/cks-runtime/blob/main/docs/standards/runtime/SPEC-002_Session_Model.md) репозитория `cks-runtime`. Вносите правки в исходном репозитории — изменения прямо здесь будут перезаписаны при следующей синхронизации.
+:::
+
+# SPEC-002
 
 # Session Model
 

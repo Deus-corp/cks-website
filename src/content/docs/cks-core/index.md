@@ -1,7 +1,12 @@
 ---
 title: "Canonical Knowledge Structure (CKS)"
-description: "Canonical Knowledge Structure (CKS)"
 ---
+
+:::note[Синхронизировано автоматически]
+Эта страница подтягивается раз в сутки из [`docs/index.md`](https://github.com/PunctumActus/cks-core/blob/main/docs/index.md) репозитория `cks-core`. Вносите правки в исходном репозитории — изменения прямо здесь будут перезаписаны при следующей синхронизации.
+:::
+
+# Canonical Knowledge Structure (CKS)
 
 > **A universal, representation-independent semantic foundation for knowledge.**
 

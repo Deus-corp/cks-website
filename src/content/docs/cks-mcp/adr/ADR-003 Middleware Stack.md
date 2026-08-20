@@ -1,7 +1,12 @@
 ---
 title: "ADR-003"
-description: "ADR-003"
 ---
+
+:::note[Синхронизировано автоматически]
+Эта страница подтягивается раз в сутки из [`docs/adr/ADR-003 Middleware Stack.md`](https://github.com/PunctumActus/cks-mcp/blob/main/docs/adr/ADR-003 Middleware Stack.md) репозитория `cks-mcp`. Вносите правки в исходном репозитории — изменения прямо здесь будут перезаписаны при следующей синхронизации.
+:::
+
+# ADR-003
 
 # Composable Middleware Stack
 

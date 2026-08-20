@@ -9,75 +9,55 @@
     "src/content/docs/quickstart.mdx",
     "src/content/docs/demo.md",
     "src/content/docs/404.md",
-    "src/content/docs/case-studies/**"
+    "src/content/docs/case-studies/**",
+    "src/content/docs/cks-runtime/index.mdx",
+    "src/content/docs/cks-studio/index.mdx"
   ],
 
   "sources": {
     "cks-core": {
       "repo": "cks-core",
       "include": [
-        "README.md",
-        "CHANGELOG.md",
-        "ROADMAP.md",
-        "SECURITY.md",
-        "CONTRIBUTING.md",
         "docs/**"
       ],
       "exclude": [
         "docs/internal/**"
       ],
-      "dest": "src/content/docs/ecosystem/cks-core"
+      "strip_prefix": "docs/",
+      "dest": "src/content/docs/cks-core"
     },
     "cks-runtime": {
       "repo": "cks-runtime",
       "include": [
-        "README.md",
-        "CHANGELOG.md",
-        "ROADMAP.md",
-        "SECURITY.md",
-        "CONTRIBUTING.md",
         "docs/**"
       ],
       "exclude": [
         "docs/internal/**"
       ],
-      "dest": "src/content/docs/ecosystem/cks-runtime"
+      "strip_prefix": "docs/",
+      "dest": "src/content/docs/cks-runtime"
     },
     "cks-mcp": {
       "repo": "cks-mcp",
       "include": [
-        "README.md",
-        "CHANGELOG.md",
-        "ROADMAP.md",
-        "SECURITY.md",
-        "CONTRIBUTING.md",
         "docs/**"
       ],
       "exclude": [
         "docs/internal/**"
       ],
-      "dest": "src/content/docs/ecosystem/cks-mcp"
+      "strip_prefix": "docs/",
+      "dest": "src/content/docs/cks-mcp"
     },
     "cks-studio": {
       "repo": "cks-studio",
       "include": [
-        "README.md",
-        "CHANGELOG.md",
-        "ROADMAP.md",
-        "SECURITY.md",
-        "CONTRIBUTING.md",
         "docs/**"
       ],
       "exclude": [
-        "docs/internal/**",
-        "public/**",
-        "src/**",
-        ".github/**",
-        "package.json",
-        "package-lock.json",
-        "pyproject.toml"
+        "docs/internal/**"
       ],
-      "dest": "src/content/docs/ecosystem/cks-studio"
+      "strip_prefix": "docs/",
+      "dest": "src/content/docs/cks-studio"
     }
   }
 }

@@ -1,7 +1,12 @@
 ---
 title: "Version Control"
-description: "Version Control"
 ---
+
+:::note[Синхронизировано автоматически]
+Эта страница подтягивается раз в сутки из [`docs/tools/versioning.md`](https://github.com/PunctumActus/cks-mcp/blob/main/docs/tools/versioning.md) репозитория `cks-mcp`. Вносите правки в исходном репозитории — изменения прямо здесь будут перезаписаны при следующей синхронизации.
+:::
+
+# Version Control
 
 Every committed change to a session (`validate_knowledge`, `evolve_knowledge`,
 a merge, a revert, ...) creates a new immutable `Version`. These four tools

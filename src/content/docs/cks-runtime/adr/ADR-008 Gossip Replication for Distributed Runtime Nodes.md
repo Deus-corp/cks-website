@@ -1,7 +1,12 @@
 ---
 title: "ADR-008"
-description: "ADR-008"
 ---
+
+:::note[Синхронизировано автоматически]
+Эта страница подтягивается раз в сутки из [`docs/adr/ADR-008 Gossip Replication for Distributed Runtime Nodes.md`](https://github.com/PunctumActus/cks-runtime/blob/main/docs/adr/ADR-008 Gossip Replication for Distributed Runtime Nodes.md) репозитория `cks-runtime`. Вносите правки в исходном репозитории — изменения прямо здесь будут перезаписаны при следующей синхронизации.
+:::
+
+# ADR-008
 
 # Gossip Replication for Distributed Runtime Nodes: Persistent Replica Identity and Operation-Log Exchange
 

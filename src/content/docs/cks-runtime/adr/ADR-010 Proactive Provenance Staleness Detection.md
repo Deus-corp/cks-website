@@ -1,7 +1,12 @@
 ---
 title: "ADR-010: Proactive Provenance Staleness Detection"
-description: "ADR-010: Proactive Provenance Staleness Detection"
 ---
+
+:::note[Синхронизировано автоматически]
+Эта страница подтягивается раз в сутки из [`docs/adr/ADR-010 Proactive Provenance Staleness Detection.md`](https://github.com/PunctumActus/cks-runtime/blob/main/docs/adr/ADR-010 Proactive Provenance Staleness Detection.md) репозитория `cks-runtime`. Вносите правки в исходном репозитории — изменения прямо здесь будут перезаписаны при следующей синхронизации.
+:::
+
+# ADR-010: Proactive Provenance Staleness Detection
 
 **Status:** Implemented (`cks_runtime/reasoning/provenance_staleness_sweeper.py`)
 **Related:** ADR-009 (Proactive Inference Staleness Detection), ADR-002 (cks-mcp, Provenance Signing), ADR-008 (Gossip Replication)

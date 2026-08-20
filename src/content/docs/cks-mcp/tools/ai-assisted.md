@@ -1,7 +1,12 @@
 ---
-title: "AI-Assisted  Ingestion"
-description: "AI-Assisted  Ingestion"
+title: "AI-Assisted & Ingestion"
 ---
+
+:::note[Синхронизировано автоматически]
+Эта страница подтягивается раз в сутки из [`docs/tools/ai-assisted.md`](https://github.com/PunctumActus/cks-mcp/blob/main/docs/tools/ai-assisted.md) репозитория `cks-mcp`. Вносите правки в исходном репозитории — изменения прямо здесь будут перезаписаны при следующей синхронизации.
+:::
+
+# AI-Assisted & Ingestion
 
 Tools that turn something unstructured — free text or a web page — into a
 validated Knowledge Structure, and one that helps an LLM propose a correct

@@ -1,7 +1,12 @@
 ---
 title: "Extension Model"
-description: "Extension Model"
 ---
+
+:::note[Синхронизировано автоматически]
+Эта страница подтягивается раз в сутки из [`docs/extensions.md`](https://github.com/PunctumActus/cks-mcp/blob/main/docs/extensions.md) репозитория `cks-mcp`. Вносите правки в исходном репозитории — изменения прямо здесь будут перезаписаны при следующей синхронизации.
+:::
+
+# Extension Model
 
 `cks-mcp` validates structures against a small, normative core rule set by
 default (unique identities, no dangling relations, derivation arity and

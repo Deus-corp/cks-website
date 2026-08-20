@@ -1,7 +1,12 @@
 ---
 title: "ADR-002"
-description: "ADR-002"
 ---
+
+:::note[Синхронизировано автоматически]
+Эта страница подтягивается раз в сутки из [`docs/adr/ADR-002 Belief Revision Support.md`](https://github.com/PunctumActus/cks-core/blob/main/docs/adr/ADR-002 Belief Revision Support.md) репозитория `cks-core`. Вносите правки в исходном репозитории — изменения прямо здесь будут перезаписаны при следующей синхронизации.
+:::
+
+# ADR-002
 
 # Belief Revision Support: Cascading Staleness and Entrenchment Ranking for InferenceStep
 

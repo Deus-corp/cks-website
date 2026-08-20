@@ -1,7 +1,10 @@
 ---
-title: "ADR-015"
-description: "ADR-015"
+title: "ADR-015: Sweeper Control — Persistent Enable/Disable State and Concurrent-Caller Safety"
 ---
+
+:::note[Синхронизировано автоматически]
+Эта страница подтягивается раз в сутки из [`docs/adr/ADR-015 Sweeper Control.md`](https://github.com/PunctumActus/cks-runtime/blob/main/docs/adr/ADR-015 Sweeper Control.md) репозитория `cks-runtime`. Вносите правки в исходном репозитории — изменения прямо здесь будут перезаписаны при следующей синхронизации.
+:::
 
 # ADR-015: Sweeper Control — Persistent Enable/Disable State and Concurrent-Caller Safety
 

@@ -1,7 +1,12 @@
 ---
 title: "ADR-003: Graph Gallery"
-description: "ADR-003: Graph Gallery"
 ---
+
+:::note[Синхронизировано автоматически]
+Эта страница подтягивается раз в сутки из [`docs/adr/ADR-003 Graph Gallery.md`](https://github.com/PunctumActus/cks-studio/blob/main/docs/adr/ADR-003 Graph Gallery.md) репозитория `cks-studio`. Вносите правки в исходном репозитории — изменения прямо здесь будут перезаписаны при следующей синхронизации.
+:::
+
+# ADR-003: Graph Gallery
 
 **Status:** Implemented — see `src/features/graph-gallery/`, shipped
 before v0.5.1 and stable since; health-score badge added alongside.

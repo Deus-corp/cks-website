@@ -1,7 +1,12 @@
 ---
 title: "ADR-013"
-description: "ADR-013"
 ---
+
+:::note[Синхронизировано автоматически]
+Эта страница подтягивается раз в сутки из [`docs/adr/ADR-013 CRDT Adapter for Distributed Knowledge Objects.md`](https://github.com/PunctumActus/cks-runtime/blob/main/docs/adr/ADR-013 CRDT Adapter for Distributed Knowledge Objects.md) репозитория `cks-runtime`. Вносите правки в исходном репозитории — изменения прямо здесь будут перезаписаны при следующей синхронизации.
+:::
+
+# ADR-013
 
 # CRDT Adapter for Distributed Knowledge Objects: G-Set + Merkle Tree (Stage 1)
 

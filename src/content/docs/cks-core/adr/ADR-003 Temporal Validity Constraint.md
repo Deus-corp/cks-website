@@ -1,7 +1,12 @@
 ---
 title: "ADR-003"
-description: "ADR-003"
 ---
+
+:::note[Синхронизировано автоматически]
+Эта страница подтягивается раз в сутки из [`docs/adr/ADR-003 Temporal Validity Constraint.md`](https://github.com/PunctumActus/cks-core/blob/main/docs/adr/ADR-003 Temporal Validity Constraint.md) репозитория `cks-core`. Вносите правки в исходном репозитории — изменения прямо здесь будут перезаписаны при следующей синхронизации.
+:::
+
+# ADR-003
 
 # Temporal Validity Constraint: Time-Bounded Fact Semantics
 

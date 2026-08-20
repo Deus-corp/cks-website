@@ -1,7 +1,12 @@
 ---
 title: "ADR-010: Process Control Tool (`request_process_stop`)"
-description: "ADR-010: Process Control Tool (`request_process_stop`)"
 ---
+
+:::note[Синхронизировано автоматически]
+Эта страница подтягивается раз в сутки из [`docs/adr/ADR-010 Process Control Tool.md`](https://github.com/PunctumActus/cks-mcp/blob/main/docs/adr/ADR-010 Process Control Tool.md) репозитория `cks-mcp`. Вносите правки в исходном репозитории — изменения прямо здесь будут перезаписаны при следующей синхронизации.
+:::
+
+# ADR-010: Process Control Tool (`request_process_stop`)
 
 **Status:** Implemented (`request_process_stop`)
 **Related:** cks-runtime ADR-016 (Standalone Agent Process Control —

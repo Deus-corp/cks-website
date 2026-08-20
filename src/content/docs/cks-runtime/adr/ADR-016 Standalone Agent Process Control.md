@@ -1,7 +1,10 @@
 ---
-title: "ADR-016"
-description: "ADR-016"
+title: "ADR-016: Standalone Agent Process Control — `desired_state` Signal on `cks_agent_liveness`"
 ---
+
+:::note[Синхронизировано автоматически]
+Эта страница подтягивается раз в сутки из [`docs/adr/ADR-016 Standalone Agent Process Control.md`](https://github.com/PunctumActus/cks-runtime/blob/main/docs/adr/ADR-016 Standalone Agent Process Control.md) репозитория `cks-runtime`. Вносите правки в исходном репозитории — изменения прямо здесь будут перезаписаны при следующей синхронизации.
+:::
 
 # ADR-016: Standalone Agent Process Control — `desired_state` Signal on `cks_agent_liveness`
 

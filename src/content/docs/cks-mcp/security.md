@@ -1,7 +1,12 @@
 ---
 title: "Security Model"
-description: "Security Model"
 ---
+
+:::note[Синхронизировано автоматически]
+Эта страница подтягивается раз в сутки из [`docs/security.md`](https://github.com/PunctumActus/cks-mcp/blob/main/docs/security.md) репозитория `cks-mcp`. Вносите правки в исходном репозитории — изменения прямо здесь будут перезаписаны при следующей синхронизации.
+:::
+
+# Security Model
 
 `cks-mcp` sits at the boundary between an LLM and the rest of the CKS
 ecosystem. Its trust model follows from one premise: **the LLM and its
@@ -113,12 +118,44 @@ trustworthy, so nothing becomes a version unless it's already known-good.
 
 When `CKS_MCP_HTTP_PORT` is set, `server.py` starts an `aiohttp` server
 alongside the default stdio transport, with CORS enabled for local
-development (e.g. `cks-studio` running in a browser). This transport is
-meant for local development and trusted-network integration — it carries
-no additional authentication of its own beyond whatever the network it's
-bound to already provides, so it should not be exposed on an untrusted
-network. All the SSRF and provenance guarantees above apply identically
+development (e.g. `cks-studio` running in a browser). By default this
+transport carries no authentication of its own beyond whatever the
+network it's bound to already provides, so it should not be exposed on
+an untrusted network without enabling the token auth described below.
+All the SSRF and provenance guarantees above apply identically
 regardless of which transport a request arrived through.
+
+Alongside `POST /mcp` (JSON-RPC), the HTTP transport also exposes
+`GET /events` (and `GET /events/{session_id}`), a Server-Sent Events
+(SSE) stream of runtime lifecycle events — `SessionCreated`,
+`VersionCreated`, `TransactionCommitted`, `GossipConflictDetected`,
+`CRDTForkDetected`, and others — so a thin client like `cks-studio` can
+react to changes made by other users or agents without polling. See
+`src/cks_mcp/transport/sse.py` (the EventBus-to-subscriber broadcaster) and
+`src/cks_mcp/transport/http_events.py` (the aiohttp route). Same trust boundary as
+`/mcp`.
+
+### Token authentication
+
+Setting `CKS_MCP_HTTP_TOKEN` turns on bearer-token auth for both
+`/mcp` and `/events*`, enforced by an `aiohttp` middleware
+(`_auth_middleware` in `server.py`, backed by `src/cks_mcp/transport/http_auth.py`)
+that runs before any route handler and rejects unauthenticated
+requests with `401` before the JSON-RPC dispatcher or SSE stream ever
+starts. The token can be supplied two ways:
+
+- `Authorization: Bearer <token>` — for `fetch`/JSON-RPC clients hitting
+  `/mcp`.
+- `?token=<token>` query parameter — for browser `EventSource` clients
+  consuming `/events`, since `EventSource` cannot set custom request
+  headers.
+
+Token comparison uses `hmac.compare_digest` to avoid leaking the
+token's value through response-timing differences. If
+`CKS_MCP_HTTP_TOKEN` is unset (the default), auth is disabled and
+behavior is unchanged from before this option existed. This setting
+only affects the HTTP transport; the stdio transport has no concept of
+requests to authenticate.
 
 ## Trust Boundary Summary
 

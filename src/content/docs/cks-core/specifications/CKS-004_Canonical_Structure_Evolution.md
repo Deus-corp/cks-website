@@ -1,7 +1,12 @@
 ---
 title: "Part I — Operational Foundation"
-description: "Part I — Operational Foundation"
 ---
+
+:::note[Синхронизировано автоматически]
+Эта страница подтягивается раз в сутки из [`docs/specifications/CKS-004_Canonical_Structure_Evolution.md`](https://github.com/PunctumActus/cks-core/blob/main/docs/specifications/CKS-004_Canonical_Structure_Evolution.md) репозитория `cks-core`. Вносите правки в исходном репозитории — изменения прямо здесь будут перезаписаны при следующей синхронизации.
+:::
+
+# Part I — Operational Foundation
 
 # Introduction
 

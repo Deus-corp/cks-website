@@ -98,7 +98,9 @@ jobs:
         id: commit
         working-directory: cks-website
         run: |
-          git add src/content/docs/ecosystem src/data/ecosystem-meta.json
+          git add src/content/docs/cks-core src/content/docs/cks-runtime \
+                  src/content/docs/cks-mcp src/content/docs/cks-studio \
+                  src/data/ecosystem-meta.json
           if git diff --cached --quiet; then
             echo "No documentation changes to commit."
             echo "changed=false" >> "$GITHUB_OUTPUT"

@@ -1,7 +1,12 @@
 ---
 title: "Introduction"
-description: "Introduction"
 ---
+
+:::note[Синхронизировано автоматически]
+Эта страница подтягивается раз в сутки из [`docs/specifications/CKS-008_Reference_Conformance_Specification.md`](https://github.com/PunctumActus/cks-core/blob/main/docs/specifications/CKS-008_Reference_Conformance_Specification.md) репозитория `cks-core`. Вносите правки в исходном репозитории — изменения прямо здесь будут перезаписаны при следующей синхронизации.
+:::
+
+# Introduction
 
 ## Purpose
 

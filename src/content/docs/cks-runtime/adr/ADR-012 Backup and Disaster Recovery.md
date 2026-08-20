@@ -1,7 +1,12 @@
 ---
 title: "ADR-012: Backup and Disaster Recovery"
-description: "ADR-012: Backup and Disaster Recovery"
 ---
+
+:::note[Синхронизировано автоматически]
+Эта страница подтягивается раз в сутки из [`docs/adr/ADR-012 Backup and Disaster Recovery.md`](https://github.com/PunctumActus/cks-runtime/blob/main/docs/adr/ADR-012 Backup and Disaster Recovery.md) репозитория `cks-runtime`. Вносите правки в исходном репозитории — изменения прямо здесь будут перезаписаны при следующей синхронизации.
+:::
+
+# ADR-012: Backup and Disaster Recovery
 
 **Status:** Proposed
 **Related:** ADR-004 (Storage Abstraction), ADR-005 (Version History), ADR-008 (Gossip Replication)

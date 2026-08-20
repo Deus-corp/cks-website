@@ -1,7 +1,12 @@
 ---
 title: "Pipeline Agent (multi‑agent orchestration)"
-description: "Pipeline Agent (multi‑agent orchestration)"
 ---
+
+:::note[Синхронизировано автоматически]
+Эта страница подтягивается раз в сутки из [`docs/tools/pipeline-agent.md`](https://github.com/PunctumActus/cks-mcp/blob/main/docs/tools/pipeline-agent.md) репозитория `cks-mcp`. Вносите правки в исходном репозитории — изменения прямо здесь будут перезаписаны при следующей синхронизации.
+:::
+
+# Pipeline Agent (multi‑agent orchestration)
 
 `cks-pipeline-agent` runs a configurable pipeline of `AgentStep`
 implementations coordinated by `CKSAgentOrchestrator` (ADR-007).

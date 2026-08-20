@@ -1,7 +1,12 @@
 ---
 title: "Knowledge Lifecycle"
-description: "Knowledge Lifecycle"
 ---
+
+:::note[Синхронизировано автоматически]
+Эта страница подтягивается раз в сутки из [`docs/tools/lifecycle.md`](https://github.com/PunctumActus/cks-mcp/blob/main/docs/tools/lifecycle.md) репозитория `cks-mcp`. Вносите правки в исходном репозитории — изменения прямо здесь будут перезаписаны при следующей синхронизации.
+:::
+
+# Knowledge Lifecycle
 
 The four core operations every other tool builds on top of. All four accept
 either a fresh `json_data` string or an existing `session_id` — see

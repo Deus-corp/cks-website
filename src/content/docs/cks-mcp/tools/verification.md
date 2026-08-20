@@ -1,7 +1,12 @@
 ---
-title: "Verification  Integrity"
-description: "Verification  Integrity"
+title: "Verification & Integrity"
 ---
+
+:::note[Синхронизировано автоматически]
+Эта страница подтягивается раз в сутки из [`docs/tools/verification.md`](https://github.com/PunctumActus/cks-mcp/blob/main/docs/tools/verification.md) репозитория `cks-mcp`. Вносите правки в исходном репозитории — изменения прямо здесь будут перезаписаны при следующей синхронизации.
+:::
+
+# Verification & Integrity
 
 The two tools behind `cks-mcp`'s anti-hallucination guarantees. See
 [Security Model](../security.md) for the full trust model these implement.

@@ -1,7 +1,10 @@
 ---
-title: "ADR-008"
-description: "ADR-008"
+title: "ADR-008: Standalone Agent Process Visibility (`list_processes` / `process_status`)"
 ---
+
+:::note[Синхронизировано автоматически]
+Эта страница подтягивается раз в сутки из [`docs/adr/ADR-008 Standalone Agent Process Visibility.md`](https://github.com/PunctumActus/cks-mcp/blob/main/docs/adr/ADR-008 Standalone Agent Process Visibility.md) репозитория `cks-mcp`. Вносите правки в исходном репозитории — изменения прямо здесь будут перезаписаны при следующей синхронизации.
+:::
 
 # ADR-008: Standalone Agent Process Visibility (`list_processes` / `process_status`)
 

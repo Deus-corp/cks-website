@@ -1,7 +1,12 @@
 ---
 title: "Introduction"
-description: "Introduction"
 ---
+
+:::note[Синхронизировано автоматически]
+Эта страница подтягивается раз в сутки из [`docs/specifications/CKS-B001-PY_Python_Reference.md`](https://github.com/PunctumActus/cks-core/blob/main/docs/specifications/CKS-B001-PY_Python_Reference.md) репозитория `cks-core`. Вносите правки в исходном репозитории — изменения прямо здесь будут перезаписаны при следующей синхронизации.
+:::
+
+# Introduction
 
 ## Purpose
 

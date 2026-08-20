@@ -1,7 +1,12 @@
 ---
 title: "ADR-004: Agent Observability & Control Panel"
-description: "ADR-004: Agent Observability & Control Panel"
 ---
+
+:::note[Синхронизировано автоматически]
+Эта страница подтягивается раз в сутки из [`docs/adr/ADR-004 Agent Observability and Control.md`](https://github.com/PunctumActus/cks-studio/blob/main/docs/adr/ADR-004 Agent Observability and Control.md) репозитория `cks-studio`. Вносите правки в исходном репозитории — изменения прямо здесь будут перезаписаны при следующей синхронизации.
+:::
+
+# ADR-004: Agent Observability & Control Panel
 
 **Status:** Implemented — see `src/features/agent-panel/`, shipped
 before v0.5.1.

@@ -1,7 +1,12 @@
 ---
 title: "ADR-009"
-description: "ADR-009"
 ---
+
+:::note[Синхронизировано автоматически]
+Эта страница подтягивается раз в сутки из [`docs/adr/ADR-009 Proactive Inference Staleness Detection.md`](https://github.com/PunctumActus/cks-runtime/blob/main/docs/adr/ADR-009 Proactive Inference Staleness Detection.md) репозитория `cks-runtime`. Вносите правки в исходном репозитории — изменения прямо здесь будут перезаписаны при следующей синхронизации.
+:::
+
+# ADR-009
 
 # Proactive Inference Staleness Detection: A Background Sweeper for Reasoning Conflicts
 

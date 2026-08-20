@@ -1,7 +1,12 @@
 ---
 title: "SPEC-006"
-description: "SPEC-006"
 ---
+
+:::note[Синхронизировано автоматически]
+Эта страница подтягивается раз в сутки из [`docs/standards/runtime/SPEC-006_Storage.md`](https://github.com/PunctumActus/cks-runtime/blob/main/docs/standards/runtime/SPEC-006_Storage.md) репозитория `cks-runtime`. Вносите правки в исходном репозитории — изменения прямо здесь будут перезаписаны при следующей синхронизации.
+:::
+
+# SPEC-006
 
 # Storage
 

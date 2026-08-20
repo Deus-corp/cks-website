@@ -4,6 +4,23 @@ All notable changes to CKS Website will be documented in this file.
 
 ---
 
+## [0.4.0] - 2026-08-20
+
+### Changed
+- **Single source for ecosystem documentation** – removed duplicated manual copies and the intermediate `ecosystem/` tree. Synced docs now live directly under `src/content/docs/cks-core`, `cks-runtime`, `cks-mcp`, and `cks-studio`.
+- **Protected landing pages** – `cks-runtime` and `cks-studio` landing pages remain manual and are now MDX files using live `<PackageVersion />` values.
+- **Docs sync config** – sync now includes only `docs/**`, strips the `docs/` prefix, and writes directly into the sidebar-visible paths.
+
+### Fixed
+- **Quickstart and FAQ** – converted from `.md` to `.mdx` so `<ToolCount />` renders correctly. Previously the tool count remained literal text.
+- **Docs-sync workflow** – removed stale commit path referencing the old `src/content/docs/ecosystem` directory.
+- **Stale internal links** – updated links to renamed `.mdx` files across documentation.
+
+### Notes
+- Live versions and tool count are now rendered on protected pages using generated metadata; synced Markdown files remain plain Markdown without injected JSX.
+
+---
+
 ## [0.3.0] - 2026-08-20
 
 ### Added

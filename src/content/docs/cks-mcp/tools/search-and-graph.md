@@ -1,7 +1,12 @@
 ---
-title: "Graph Exploration  Visualization"
-description: "Graph Exploration  Visualization"
+title: "Graph Exploration & Visualization"
 ---
+
+:::note[Синхронизировано автоматически]
+Эта страница подтягивается раз в сутки из [`docs/tools/search-and-graph.md`](https://github.com/PunctumActus/cks-mcp/blob/main/docs/tools/search-and-graph.md) репозитория `cks-mcp`. Вносите правки в исходном репозитории — изменения прямо здесь будут перезаписаны при следующей синхронизации.
+:::
+
+# Graph Exploration & Visualization
 
 Retrieving and rendering a neighbourhood of a Knowledge Structure, rather
 than the whole thing — important once a session's graph grows past what

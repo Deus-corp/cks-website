@@ -1,7 +1,12 @@
 ---
 title: "ADR-007"
-description: "ADR-007"
 ---
+
+:::note[Синхронизировано автоматически]
+Эта страница подтягивается раз в сутки из [`docs/adr/ADR-007 Concurrent Multi-Agent Writes.md`](https://github.com/PunctumActus/cks-runtime/blob/main/docs/adr/ADR-007 Concurrent Multi-Agent Writes.md) репозитория `cks-runtime`. Вносите правки в исходном репозитории — изменения прямо здесь будут перезаписаны при следующей синхронизации.
+:::
+
+# ADR-007
 
 # Concurrent Multi-Agent Writes: Operation Log and Version Vectors
 

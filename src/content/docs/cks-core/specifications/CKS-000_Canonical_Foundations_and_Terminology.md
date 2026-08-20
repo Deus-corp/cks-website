@@ -1,8 +1,12 @@
 ---
 title: "Part I — Foundational Manifesto"
-description: "Part I — Foundational Manifesto"
 ---
 
+:::note[Синхронизировано автоматически]
+Эта страница подтягивается раз в сутки из [`docs/specifications/CKS-000_Canonical_Foundations_and_Terminology.md`](https://github.com/PunctumActus/cks-core/blob/main/docs/specifications/CKS-000_Canonical_Foundations_and_Terminology.md) репозитория `cks-core`. Вносите правки в исходном репозитории — изменения прямо здесь будут перезаписаны при следующей синхронизации.
+:::
+
+# Part I — Foundational Manifesto
 ## Canonical Motto
 
 > Knowledge exists independently of representation.

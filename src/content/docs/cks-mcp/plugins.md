@@ -1,7 +1,12 @@
 ---
 title: "Plugin Framework"
-description: "Plugin Framework"
 ---
+
+:::note[Синхронизировано автоматически]
+Эта страница подтягивается раз в сутки из [`docs/plugins.md`](https://github.com/PunctumActus/cks-mcp/blob/main/docs/plugins.md) репозитория `cks-mcp`. Вносите правки в исходном репозитории — изменения прямо здесь будут перезаписаны при следующей синхронизации.
+:::
+
+# Plugin Framework
 
 `cks-mcp` ships a lightweight **Plugin Framework** that lets you add optional
 functionality without touching `cks-core` or `cks-runtime`.

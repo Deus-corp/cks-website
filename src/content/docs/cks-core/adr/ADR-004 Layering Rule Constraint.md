@@ -1,7 +1,12 @@
 ---
 title: "ADR-004"
-description: "ADR-004"
 ---
+
+:::note[Синхронизировано автоматически]
+Эта страница подтягивается раз в сутки из [`docs/adr/ADR-004 Layering Rule Constraint.md`](https://github.com/PunctumActus/cks-core/blob/main/docs/adr/ADR-004 Layering Rule Constraint.md) репозитория `cks-core`. Вносите правки в исходном репозитории — изменения прямо здесь будут перезаписаны при следующей синхронизации.
+:::
+
+# ADR-004
 
 # Layering Rule Constraint: Enforcing Architectural Dependency Direction
 

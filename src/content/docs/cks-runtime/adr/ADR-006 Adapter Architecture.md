@@ -1,7 +1,12 @@
 ---
 title: "ADR-006"
-description: "ADR-006"
 ---
+
+:::note[Синхронизировано автоматически]
+Эта страница подтягивается раз в сутки из [`docs/adr/ADR-006 Adapter Architecture.md`](https://github.com/PunctumActus/cks-runtime/blob/main/docs/adr/ADR-006 Adapter Architecture.md) репозитория `cks-runtime`. Вносите правки в исходном репозитории — изменения прямо здесь будут перезаписаны при следующей синхронизации.
+:::
+
+# ADR-006
 
 # Adapter Architecture
 

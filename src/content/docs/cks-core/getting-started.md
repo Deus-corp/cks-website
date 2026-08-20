@@ -1,7 +1,12 @@
 ---
 title: "Getting Started"
-description: "Getting Started"
 ---
+
+:::note[Синхронизировано автоматически]
+Эта страница подтягивается раз в сутки из [`docs/getting-started.md`](https://github.com/PunctumActus/cks-core/blob/main/docs/getting-started.md) репозитория `cks-core`. Вносите правки в исходном репозитории — изменения прямо здесь будут перезаписаны при следующей синхронизации.
+:::
+
+# Getting Started
 
 Welcome to the **Canonical Knowledge Structure (CKS)** project.
 

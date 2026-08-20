@@ -1,7 +1,12 @@
 ---
 title: "Architecture"
-description: "Architecture"
 ---
+
+:::note[Синхронизировано автоматически]
+Эта страница подтягивается раз в сутки из [`docs/architecture.md`](https://github.com/PunctumActus/cks-core/blob/main/docs/architecture.md) репозитория `cks-core`. Вносите правки в исходном репозитории — изменения прямо здесь будут перезаписаны при следующей синхронизации.
+:::
+
+# Architecture
 
 This document describes the architecture of the Canonical Knowledge Structure (CKS) Python reference implementation.
 

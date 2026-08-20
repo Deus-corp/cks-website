@@ -1,7 +1,12 @@
 ---
 title: "ANALYSIS-001"
-description: "ANALYSIS-001"
 ---
+
+:::note[Синхронизировано автоматически]
+Эта страница подтягивается раз в сутки из [`docs/analysis/ANALYSIS-001_Runtime_Dependencies_on_CKS_Core.md`](https://github.com/PunctumActus/cks-runtime/blob/main/docs/analysis/ANALYSIS-001_Runtime_Dependencies_on_CKS_Core.md) репозитория `cks-runtime`. Вносите правки в исходном репозитории — изменения прямо здесь будут перезаписаны при следующей синхронизации.
+:::
+
+# ANALYSIS-001
 
 ## Runtime Dependencies on CKS Core
 

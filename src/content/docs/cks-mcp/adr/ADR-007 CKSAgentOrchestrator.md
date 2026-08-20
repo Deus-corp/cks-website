@@ -1,7 +1,12 @@
 ---
 title: "ADR-007"
-description: "ADR-007"
 ---
+
+:::note[Синхронизировано автоматически]
+Эта страница подтягивается раз в сутки из [`docs/adr/ADR-007 CKSAgentOrchestrator.md`](https://github.com/PunctumActus/cks-mcp/blob/main/docs/adr/ADR-007 CKSAgentOrchestrator.md) репозитория `cks-mcp`. Вносите правки в исходном репозитории — изменения прямо здесь будут перезаписаны при следующей синхронизации.
+:::
+
+# ADR-007
 
 # CKSAgentOrchestrator: Coordinating Researcher → Critic → Synthesizer → Arbiter
 

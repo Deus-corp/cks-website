@@ -1,7 +1,12 @@
 ---
 title: "ADR-001: AI Assistant Chat Panel"
-description: "ADR-001: AI Assistant Chat Panel"
 ---
+
+:::note[Синхронизировано автоматически]
+Эта страница подтягивается раз в сутки из [`docs/adr/ADR-001 AI Assistant Chat Panel.md`](https://github.com/PunctumActus/cks-studio/blob/main/docs/adr/ADR-001 AI Assistant Chat Panel.md) репозитория `cks-studio`. Вносите правки в исходном репозитории — изменения прямо здесь будут перезаписаны при следующей синхронизации.
+:::
+
+# ADR-001: AI Assistant Chat Panel
 
 **Status:** Implemented — see `src/features/ai-chat/`, shipped v0.5.4–v0.5.5
 (onboarding/error states, model selector).

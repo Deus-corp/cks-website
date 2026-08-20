@@ -5,12 +5,12 @@
     "cks-runtime": "1.58.0",
     "cks-mcp": "1.77.0",
     "cks-studio": "0.21.5",
-    "cks-website": "0.2.0"
+    "cks-website": "0.4.0"
   },
-  "generatedAt": "2026-08-20T18:17:02.515Z",
+  "generatedAt": "2026-08-20T19:07:38.798Z",
   "sourceRefs": {
     "cks-website": {
-      "commit": "4217795",
+      "commit": "251314e",
       "branch": "main"
     },
     "cks-runtime": {

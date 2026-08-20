@@ -1,7 +1,12 @@
 ---
 title: "ADR-002: 3D Graph View"
-description: "ADR-002: 3D Graph View"
 ---
+
+:::note[Синхронизировано автоматически]
+Эта страница подтягивается раз в сутки из [`docs/adr/ADR-002 3D Graph View.md`](https://github.com/PunctumActus/cks-studio/blob/main/docs/adr/ADR-002 3D Graph View.md) репозитория `cks-studio`. Вносите правки в исходном репозитории — изменения прямо здесь будут перезаписаны при следующей синхронизации.
+:::
+
+# ADR-002: 3D Graph View
 
 **Status:** Implemented — see `src/components/graph/GraphCanvas3D.tsx`,
 shipped v0.6.0–v0.6.4.

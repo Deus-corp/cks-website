@@ -1,7 +1,12 @@
 ---
 title: "ADR-001"
-description: "ADR-001"
 ---
+
+:::note[Синхронизировано автоматически]
+Эта страница подтягивается раз в сутки из [`docs/adr/ADR-001 Runtime Layering.md`](https://github.com/PunctumActus/cks-runtime/blob/main/docs/adr/ADR-001 Runtime Layering.md) репозитория `cks-runtime`. Вносите правки в исходном репозитории — изменения прямо здесь будут перезаписаны при следующей синхронизации.
+:::
+
+# ADR-001
 
 # Runtime Layering
 

@@ -1,7 +1,12 @@
 ---
 title: "Examples"
-description: "Examples"
 ---
+
+:::note[Синхронизировано автоматически]
+Эта страница подтягивается раз в сутки из [`docs/examples.md`](https://github.com/PunctumActus/cks-core/blob/main/docs/examples.md) репозитория `cks-core`. Вносите правки в исходном репозитории — изменения прямо здесь будут перезаписаны при следующей синхронизации.
+:::
+
+# Examples
 
 The CKS reference implementation includes a **Reference Corpus** of
 canonical examples demonstrating valid and invalid Knowledge Structures.

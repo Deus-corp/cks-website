@@ -1,7 +1,12 @@
 ---
 title: "ADR-001"
-description: "ADR-001"
 ---
+
+:::note[Синхронизировано автоматически]
+Эта страница подтягивается раз в сутки из [`docs/adr/ADR-001 Thin Translator.md`](https://github.com/PunctumActus/cks-mcp/blob/main/docs/adr/ADR-001 Thin Translator.md) репозитория `cks-mcp`. Вносите правки в исходном репозитории — изменения прямо здесь будут перезаписаны при следующей синхронизации.
+:::
+
+# ADR-001
 
 # Thin Translator
 

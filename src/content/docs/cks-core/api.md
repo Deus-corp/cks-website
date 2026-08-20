@@ -1,7 +1,12 @@
 ---
 title: "API Reference"
-description: "API Reference"
 ---
+
+:::note[Синхронизировано автоматически]
+Эта страница подтягивается раз в сутки из [`docs/api.md`](https://github.com/PunctumActus/cks-core/blob/main/docs/api.md) репозитория `cks-core`. Вносите правки в исходном репозитории — изменения прямо здесь будут перезаписаны при следующей синхронизации.
+:::
+
+# API Reference
 
 This document describes the public API exposed by the Canonical Knowledge Structure (CKS) Python reference implementation.
 

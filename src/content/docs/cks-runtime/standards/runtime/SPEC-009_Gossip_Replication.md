@@ -1,7 +1,12 @@
 ---
 title: "SPEC-009"
-description: "SPEC-009"
 ---
+
+:::note[Синхронизировано автоматически]
+Эта страница подтягивается раз в сутки из [`docs/standards/runtime/SPEC-009_Gossip_Replication.md`](https://github.com/PunctumActus/cks-runtime/blob/main/docs/standards/runtime/SPEC-009_Gossip_Replication.md) репозитория `cks-runtime`. Вносите правки в исходном репозитории — изменения прямо здесь будут перезаписаны при следующей синхронизации.
+:::
+
+# SPEC-009
 
 # Gossip Replication
 

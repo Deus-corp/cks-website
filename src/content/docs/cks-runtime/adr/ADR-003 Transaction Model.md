@@ -1,7 +1,12 @@
 ---
 title: "ADR-003"
-description: "ADR-003"
 ---
+
+:::note[Синхронизировано автоматически]
+Эта страница подтягивается раз в сутки из [`docs/adr/ADR-003 Transaction Model.md`](https://github.com/PunctumActus/cks-runtime/blob/main/docs/adr/ADR-003 Transaction Model.md) репозитория `cks-runtime`. Вносите правки в исходном репозитории — изменения прямо здесь будут перезаписаны при следующей синхронизации.
+:::
+
+# ADR-003
 
 # Transaction Model
 
