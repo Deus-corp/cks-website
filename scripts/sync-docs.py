@@ -141,6 +141,44 @@ def ensure_frontmatter(content: bytes, rel_dest_path: Path) -> bytes:
     return (frontmatter + text).encode("utf-8")
 
 
+def inject_sync_banner(content: bytes, source_repo: str, rel_from_source: Path) -> bytes:
+    """
+    Insert a small Starlight admonition right after the frontmatter block,
+    noting that this page is synced automatically and pointing back at the
+    upstream source file. Uses Starlight's built-in `:::note[...]` aside
+    directive, so it works in plain Markdown -- no MDX/component import
+    needed, and it survives every re-sync since it's generated fresh each
+    time rather than hand-maintained.
+    """
+    text = content.decode("utf-8")
+    if not (text.startswith("---\n") or text.startswith("---\r\n")):
+        # No frontmatter (non-.md file, e.g. already-.mdx source) -- skip.
+        return content
+
+    end = text.find("\n---", 4)
+    if end == -1:
+        return content
+    end += len("\n---")
+    # Skip the newline(s) right after the closing "---".
+    rest_start = end
+    while rest_start < len(text) and text[rest_start] in "\r\n":
+        rest_start += 1
+
+    source_url = (
+        f"https://github.com/PunctumActus/{source_repo}/blob/main/"
+        f"{rel_from_source.as_posix()}"
+    )
+    banner = (
+        f"\n\n:::note[Синхронизировано автоматически]\n"
+        f"Эта страница подтягивается раз в сутки из "
+        f"[`{rel_from_source.as_posix()}`]({source_url}) репозитория "
+        f"`{source_repo}`. Вносите правки в исходном репозитории — "
+        f"изменения прямо здесь будут перезаписаны при следующей синхронизации.\n"
+        f":::\n\n"
+    )
+    return (text[:end] + banner + text[rest_start:]).encode("utf-8")
+
+
 def sha256(data: bytes) -> str:
     return hashlib.sha256(data).hexdigest()
 
@@ -161,6 +199,7 @@ def sync_source(
     source_root = repo_base / source_repo
     include_patterns = spec.get("include", [])
     exclude_patterns = spec.get("exclude", [])
+    strip_prefix = spec.get("strip_prefix", "")
     dest_rel = spec.get("dest")
 
     if not dest_rel:
@@ -198,7 +237,11 @@ def sync_source(
             skipped += 1
             continue
 
-        dest_path = dest_root / rel_from_source
+        rel_for_dest = rel_from_source
+        if strip_prefix and rel_posix.startswith(strip_prefix):
+            rel_for_dest = Path(rel_posix[len(strip_prefix):])
+
+        dest_path = dest_root / rel_for_dest
         dest_rel_from_website = dest_path.resolve().relative_to(website_root.resolve())
         dest_rel_posix = dest_rel_from_website.as_posix()
 
@@ -210,6 +253,7 @@ def sync_source(
         raw = src_path.read_bytes()
         normalized = normalize_content(raw)
         final_content = ensure_frontmatter(normalized, dest_rel_from_website)
+        final_content = inject_sync_banner(final_content, source_repo, rel_from_source)
 
         synced_dest_files.add(dest_path.resolve())
 
