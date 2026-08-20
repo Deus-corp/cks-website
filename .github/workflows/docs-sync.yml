@@ -78,10 +78,13 @@ jobs:
         run: npm ci
 
       - name: Build site
-        # Fail the job (and skip the commit/push steps below) if the sync
-        # produced content that breaks the Starlight build -- e.g. a
-        # missing/invalid frontmatter field sync-docs.py's own
-        # frontmatter injection didn't anticipate.
+        # `npm run build` runs scripts/generate-meta.mjs before `astro
+        # build` (see package.json). With all four sibling repos checked
+        # out above, this regenerates src/data/ecosystem-meta.json from
+        # live tool counts/versions, so it -- along with the synced docs
+        # -- gets committed below if anything changed. This also fails
+        # the job (skipping the commit/push steps) if the sync produced
+        # content that breaks the Starlight build.
         working-directory: cks-website
         run: npm run build
 
@@ -95,7 +98,7 @@ jobs:
         id: commit
         working-directory: cks-website
         run: |
-          git add src/content/docs/ecosystem
+          git add src/content/docs/ecosystem src/data/ecosystem-meta.json
           if git diff --cached --quiet; then
             echo "No documentation changes to commit."
             echo "changed=false" >> "$GITHUB_OUTPUT"

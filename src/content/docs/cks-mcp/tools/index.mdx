@@ -2,11 +2,13 @@
 title: "Tools Reference"
 description: "Tools Reference"
 ---
+import ToolCount from '../../../../components/ToolCount.astro';
 
-`cks-mcp` exposes **64 tools** over the Model Context Protocol. Every tool
+
+`cks-mcp` exposes **<ToolCount /> tools** over the Model Context Protocol. Every tool
 call is a canonical operation: it runs inside a `RuntimeSession`, and any
 call that mutates state does so through a `Transaction`, producing an
-immutable `Version` (see [Architecture](../architecture/ARCHITECTURE.md)).
+immutable `Version` (see [Architecture](../architecture/ARCHITECTURE.mdx)).
 
 This reference is split by function, mirroring how the tools are actually
 used together rather than their declaration order in the registry:

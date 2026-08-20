@@ -1,0 +1,13 @@
+---
+import { getPackageVersion, type RepoName } from "../data/ecosystem-meta";
+
+interface Props {
+  repo: RepoName;
+  /** Prefix the output with "v", e.g. "v1.77.0" instead of "1.77.0". */
+  prefix?: boolean;
+}
+
+const { repo, prefix = false } = Astro.props;
+const version = getPackageVersion(repo);
+---
+{prefix ? `v${version}` : version}

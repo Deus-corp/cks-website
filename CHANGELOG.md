@@ -4,6 +4,23 @@ All notable changes to CKS Website will be documented in this file.
 
 ---
 
+## [0.3.0] - 2026-08-20
+
+### Added
+- **Build-time ecosystem metadata generation** – new `scripts/generate-meta.mjs` reads live tool count and package versions from sibling repo checkouts and writes `src/data/ecosystem-meta.json`.
+- **Astro data helpers and components** – `ecosystem-meta.ts` exports `getToolCount()` / `getPackageVersion()`, while `ToolCount.astro` and `PackageVersion.astro` provide drop-in MDX components.
+- **docs-sync workflow** now regenerates `ecosystem-meta.json` during CI before committing docs.
+
+### Changed
+- Replaced hardcoded “64 tools” references with `<ToolCount />` in cks-mcp documentation and cks-studio architecture page.
+- Converted several Markdown pages to MDX to support the new components.
+- Fixed internal links after file renames.
+
+### Notes
+- Build never fails if sibling repos are absent; committed metadata is used as fallback.
+
+---
+
 ## [0.2.0] - 2026-08-20
 
 ### Added

@@ -4,7 +4,7 @@ description: "Request Lifecycle"
 ---
 
 How a request actually flows through the components in
-[Architecture](ARCHITECTURE.md), using `validate_knowledge` — the most
+[Architecture](ARCHITECTURE.mdx), using `validate_knowledge` — the most
 involved tool — as the walkthrough. Simpler tools follow the same shape
 with fewer steps.
 
@@ -70,6 +70,6 @@ with fewer steps.
   independently aggregates per-tool call counts and latencies for
   `get_metrics`, from the same call.
 
-See [Architecture](ARCHITECTURE.md) for what each component in this flow
-is responsible for, and [Tools Reference](../tools/index.md) for the
+See [Architecture](ARCHITECTURE.mdx) for what each component in this flow
+is responsible for, and [Tools Reference](../tools/index.mdx) for the
 request/response shape of every individual tool.

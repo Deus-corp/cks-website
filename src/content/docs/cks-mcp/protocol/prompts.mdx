@@ -2,6 +2,8 @@
 title: "MCP Prompts"
 description: "MCP Prompts"
 ---
+import ToolCount from '../../../../components/ToolCount.astro';
+
 
 `cks-mcp` also exposes four **MCP Prompts** — ready-made workflow templates
 a client can list (`prompts/list`) and fill in (`prompts/get`) to get a
@@ -10,7 +12,7 @@ chain together or in what order.
 
 A prompt doesn't call any tools itself: `prompts/get` returns a single
 user-role text message, built from the prompt's arguments, that the
-connected model then acts on normally — using whichever of the 64 tools
+connected model then acts on normally — using whichever of the <ToolCount /> tools
 that instruction implies.
 
 ## Available prompts
@@ -49,8 +51,8 @@ not the tool sequence; that's still up to the model.
 
 ## Why these four
 
-Each prompt corresponds to one of the workflows [Getting Started](../getting-started.md)
-and [Tools Reference](../tools/index.md) walk through by hand:
+Each prompt corresponds to one of the workflows [Getting Started](../getting-started.mdx)
+and [Tools Reference](../tools/index.mdx) walk through by hand:
 knowledge construction, provenance verification, graph exploration, and
 branching — a template for the four most common "which tools do I even
 call for this" starting points. If you find yourself typing the same

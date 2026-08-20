@@ -6,7 +6,7 @@ description: "Gossip  Conflict Resolution"
 Tools for surfacing conflicts a background process found with no caller
 waiting on it: a multi-agent deployment where several `cks-mcp` processes
 gossip-replicate sessions to each other (`CKS_GOSSIP_ENABLED=true` — see
-[Architecture](../architecture/ARCHITECTURE.md)), or a single deployment's
+[Architecture](../architecture/ARCHITECTURE.mdx)), or a single deployment's
 `InferenceStalenessSweeper` (runs by default — see
 `RuntimeConfig.inference_sweep_interval`) re-checking sessions nobody has
 touched in a while. Either way, something needs to resolve what comes out

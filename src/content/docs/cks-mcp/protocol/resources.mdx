@@ -2,8 +2,10 @@
 title: "MCP Resources"
 description: "MCP Resources"
 ---
+import ToolCount from '../../../../components/ToolCount.astro';
 
-Beyond its 64 tools, `cks-mcp` exposes every active session and its version
+
+Beyond its <ToolCount /> tools, `cks-mcp` exposes every active session and its version
 history as **MCP Resources** — read-only, URI-addressable views a client
 can list and read directly, without a tool call. Useful for a client UI
 that wants to browse what exists without asking an LLM to call
@@ -51,6 +53,6 @@ An MCP client's `resources/list` call returns descriptors like:
   session created via `validate_knowledge` in the same server process is
   immediately visible as a Resource, with no separate registration step.
 
-See [Tools Reference](../tools/index.md) for the tool-based equivalents of
-each of these reads, and [Prompts](prompts.md) for the other MCP-native
+See [Tools Reference](../tools/index.mdx) for the tool-based equivalents of
+each of these reads, and [Prompts](prompts.mdx) for the other MCP-native
 feature `cks-mcp` exposes alongside its tools.

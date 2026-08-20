@@ -48,12 +48,12 @@ in the backend; the studio only reads and sends commands through MCP.
 └──────────────────┘                              └──────────────┘
 ```
 
-See [Architecture](architecture.md) for the full breakdown of routing,
+See [Architecture](architecture.mdx) for the full breakdown of routing,
 state management, the MCP client layer, and how the standalone demo is
 built.
 
 ## Learn More
 
-- [Architecture](architecture.md)
+- [Architecture](architecture.mdx)
 - [Architecture Decision Records](adr/ADR-001%20AI%20Assistant%20Chat%20Panel.md) — AI chat panel, 3D graph view, graph gallery, agent control, standalone demo
 - [GitHub repository](https://github.com/PunctumActus/cks-studio)

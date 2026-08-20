@@ -1,0 +1,29 @@
+{
+  "toolCount": 72,
+  "versions": {
+    "cks-core": "1.23.1",
+    "cks-runtime": "1.58.0",
+    "cks-mcp": "1.77.0",
+    "cks-studio": "0.21.5",
+    "cks-website": "0.2.0"
+  },
+  "generatedAt": "2026-08-20T18:17:02.515Z",
+  "sourceRefs": {
+    "cks-website": {
+      "commit": "4217795",
+      "branch": "main"
+    },
+    "cks-runtime": {
+      "commit": "16ca7b0",
+      "branch": "main"
+    },
+    "cks-mcp": {
+      "commit": "fa5c99c",
+      "branch": "main"
+    },
+    "cks-studio": {
+      "commit": "58a383a",
+      "branch": "main"
+    }
+  }
+}

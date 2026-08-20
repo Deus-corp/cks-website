@@ -2,13 +2,15 @@
 title: "Getting Started"
 description: "Getting Started"
 ---
+import ToolCount from '../../../components/ToolCount.astro';
+
 
 ## What is cks-mcp?
 
 `cks-mcp` is an MCP server: it lets an LLM client (Claude Desktop, or any
 other MCP-speaking client) validate, evolve, branch, merge, and search a
-**Canonical Knowledge Structure** through 64 tools, instead of holding
-that knowledge loosely in its own context. See [the overview](index.md)
+**Canonical Knowledge Structure** through <ToolCount /> tools, instead of holding
+that knowledge loosely in its own context. See [the overview](index.mdx)
 for why that matters.
 
 ## Installation
@@ -75,7 +77,7 @@ without your shell's environment.
    ```
 
 3. Save and fully restart Claude Desktop (quit, then reopen). A connector
-   icon for `cks-mcp` (64 tools) should appear.
+   icon for `cks-mcp` (<ToolCount /> tools) should appear.
 
 Any other MCP client that speaks JSON-RPC over stdio works the same way —
 point it at the `cks-mcp` executable.
@@ -131,7 +133,7 @@ From here, `query_subgraph` or `visualize_graph` let you look at the
 structure itself; `search_semantic` lets you find things in it by meaning
 once it grows past what you can hold in your head. The full set of 24
 tools, grouped by what they're for, is in the
-[Tools Reference](tools/index.md).
+[Tools Reference](tools/index.mdx).
 
 **In practice**, you don't write raw `tools/call` JSON yourself — in Claude
 Desktop, just start a message with **"Use cks-mcp to…"** and the model
@@ -213,8 +215,8 @@ python -m pytest -v
 
 ## Next Steps
 
-- [Tools Reference](tools/index.md) — every tool, grouped by function.
-- [Architecture](architecture/ARCHITECTURE.md) — how the server is put
+- [Tools Reference](tools/index.mdx) — every tool, grouped by function.
+- [Architecture](architecture/ARCHITECTURE.mdx) — how the server is put
   together and why, if you're extending or embedding it.
 - [ADR-005: Gossip Integration](adr/ADR-005%20Gossip%20Integration.md)
   — design rationale for the multi-instance sync feature above.
