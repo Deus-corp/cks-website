@@ -3,6 +3,8 @@ title: "FAQ / Troubleshooting"
 description: "Common questions and fixes for installing and running cks-mcp, cks-studio, and the rest of the CKS ecosystem."
 ---
 
+import ToolCount from '../../components/ToolCount.astro';
+
 Short, practical answers to the questions that come up most when installing
 and running CKS. If something isn't covered here, check the
 [Quick Start guide](/cks-website/quickstart/) or open an issue on
@@ -128,7 +130,7 @@ cks-mcp serve
 needs permissive CORS for your studio's origin (default
 `http://localhost:5173` in dev). If requests are being blocked, check the
 CORS/allowed-origins setting documented in the
-[cks-mcp security model](/cks-website/cks-mcp/security/) and make sure it includes
+[cks-mcp security model](/cks-website/ecosystem/cks-mcp/docs/security/) and make sure it includes
 your studio's actual origin (including port).
 
 </details>
@@ -176,7 +178,7 @@ trying things out — no setup required. Use PostgreSQL if you need
 concurrent multi-writer access, a shared/networked deployment, or larger
 graphs. Point `cks-runtime` at a Postgres instance via its storage
 connection string/environment variable; see the
-[storage specification](/cks-website/cks-runtime/standards/runtime/spec-006_storage/)
+[storage specification](/cks-website/ecosystem/cks-runtime/docs/standards/runtime/spec-006_storage/)
 for the exact configuration keys.
 
 </details>
@@ -197,7 +199,7 @@ cks-mcp serve
 A fresh, empty database is created automatically on next start. To use a
 different path instead of resetting, set the storage path environment
 variable/config value before starting `cks-mcp` — see the
-[storage specification](/cks-website/cks-runtime/standards/runtime/spec-006_storage/).
+[storage specification](/cks-website/ecosystem/cks-runtime/docs/standards/runtime/spec-006_storage/).
 
 </details>
 
@@ -228,7 +230,7 @@ They're three layers of the same stack:
   sessions, transactions, branching/merging, and version history — the
   stateful parts.
 - **cks-mcp** — the MCP server that exposes cks-runtime (and therefore
-  cks-core) to LLMs like Claude, via 64 tools plus MCP Resources and
+  cks-core) to LLMs like Claude, via <ToolCount /> tools plus MCP Resources and
   Prompts.
 
 `cks-studio` is a fourth, separate piece — a browser UI that talks to

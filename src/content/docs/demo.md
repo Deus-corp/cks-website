@@ -6,11 +6,11 @@ description: Explore the CKS ecosystem graph directly in your browser.
 Explore the CKS ecosystem graph directly in your browser — no server, no
 installation.
 
-The static demo below runs [cks-studio](cks-studio/index.md) entirely
+The static demo below runs [cks-studio](ecosystem/cks-studio/README.md) entirely
 client-side, loaded with a bundled snapshot of the ecosystem graph
 (`scripts/cks-ecosystem.json` from the cks-studio repo). It's the same
 graph explorer, gallery, and pipeline monitor UI as the full studio, just
-without a live [cks-mcp](cks-mcp/index.md) server behind it.
+without a live [cks-mcp](ecosystem/cks-mcp/docs/index.md) server behind it.
 
 <a href="/cks-website/demo/demo.html" target="_blank" rel="noopener" class="cks-cta">
 	Open Demo &rarr;

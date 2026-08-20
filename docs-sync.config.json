@@ -5,8 +5,8 @@
 
   "protected": [
     "src/content/docs/index.mdx",
-    "src/content/docs/faq.md",
-    "src/content/docs/quickstart.md",
+    "src/content/docs/faq.mdx",
+    "src/content/docs/quickstart.mdx",
     "src/content/docs/demo.md",
     "src/content/docs/404.md",
     "src/content/docs/case-studies/**"

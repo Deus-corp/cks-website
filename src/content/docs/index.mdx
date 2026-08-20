@@ -21,6 +21,7 @@ hero:
 ---
 
 import { Card, CardGrid } from '@astrojs/starlight/components';
+import ToolCount from '../../components/ToolCount.astro';
 
 <div class="cks-pill-row">
 	<a class="cks-pill" href="https://pypi.org/project/cks-core/" target="_blank" rel="noopener">
@@ -68,23 +69,23 @@ it together.
 	<Card title="cks-core" icon="puzzle">
 		The immutable semantic engine — canonical knowledge objects,
 		validation against formal constraints, structural evolution.
-		[Docs →](/cks-website/cks-core/) · [Source ↗](https://github.com/PunctumActus/cks-core)
+		[Docs →](/cks-website/ecosystem/cks-core/docs/) · [Source ↗](https://github.com/PunctumActus/cks-core)
 	</Card>
 	<Card title="cks-runtime" icon="setting">
 		The operational environment — sessions, transactions, branching,
 		three-way merges, and full version history on top of cks-core.
-		[Docs →](/cks-website/cks-runtime/) · [Source ↗](https://github.com/PunctumActus/cks-runtime)
+		[Docs →](/cks-website/ecosystem/cks-runtime/readme/) · [Source ↗](https://github.com/PunctumActus/cks-runtime)
 	</Card>
 	<Card title="cks-mcp" icon="rocket">
 		The MCP server — exposes CKS to Claude Desktop and other MCP
-		clients via 64 tools, plus MCP Resources and Prompts.
-		[Docs →](/cks-website/cks-mcp/) · [Source ↗](https://github.com/PunctumActus/cks-mcp)
+		clients via <ToolCount /> tools, plus MCP Resources and Prompts.
+		[Docs →](/cks-website/ecosystem/cks-mcp/docs/) · [Source ↗](https://github.com/PunctumActus/cks-mcp)
 	</Card>
 	<Card title="cks-studio" icon="open-book">
 		The visual workspace — a graph canvas, session gallery, agent
 		pipeline monitor, and an in-browser AI chat panel that calls the
 		same tools an LLM would.
-		[Docs →](/cks-website/cks-studio/) · [Source ↗](https://github.com/PunctumActus/cks-studio)
+		[Docs →](/cks-website/ecosystem/cks-studio/readme/) · [Source ↗](https://github.com/PunctumActus/cks-studio)
 	</Card>
 	<Card title="cks-website" icon="document">
 		This documentation site — guides, API references, ADRs, and the
@@ -119,7 +120,7 @@ it together.
 		fully local with fastembed and no API keys.
 	</Card>
 	<Card title="LLM-native API" icon="seti:config">
-		A native MCP server with 64 tools, fully compatible with Claude
+		A native MCP server with <ToolCount /> tools, fully compatible with Claude
 		Desktop and other MCP clients.
 	</Card>
 </CardGrid>

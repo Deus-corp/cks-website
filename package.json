@@ -5,7 +5,8 @@
   "scripts": {
     "dev": "astro dev",
     "start": "astro dev",
-    "build": "astro build",
+    "build": "node scripts/generate-meta.mjs && astro build",
+    "generate-meta": "node scripts/generate-meta.mjs",
     "preview": "astro preview",
     "astro": "astro",
     "deploy": "astro build && gh-pages -d dist"

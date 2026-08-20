@@ -3,6 +3,8 @@ title: "Quick Start"
 description: "Quick Start"
 ---
 
+import ToolCount from '../../components/ToolCount.astro';
+
 Get CKS up and running with your LLM in under 5 minutes.
 
 Two ways in: drive it through **Claude Desktop** (chat, tool calls, no UI to install),
@@ -48,7 +50,7 @@ Add `cks-mcp` to your MCP servers.
 
 3. Save and restart Claude Desktop (Cmd+Q, then reopen).
 
-After restart, a connector icon will appear — **cks-mcp** with 64 tools is
+After restart, a connector icon will appear — **cks-mcp** with <ToolCount /> tools is
 ready to use.
 
 ---
@@ -88,13 +90,13 @@ If you're in `cks-studio`, watch the graph canvas update live as each tool call 
 
 ## What's Next
 
-- Browse the [Tools Reference](cks-mcp/tools/index.md) — all 64 tools,
+- Browse the [Tools Reference](ecosystem/cks-mcp/docs/tools/index.md) — all <ToolCount /> tools,
   grouped by what they're for, with request/response examples.
-- Explore the [cks-core](cks-core/index.md) semantic engine.
-- Learn about [cks-runtime](cks-runtime/index.md) sessions and version history.
-- Read the [Architecture](cks-mcp/architecture/ARCHITECTURE.md) and
-  [Security Model](cks-mcp/security.md) of the MCP server.
-- Set up [cks-studio](cks-studio/index.md) for a visual,
+- Explore the [cks-core](ecosystem/cks-core/docs/index.md) semantic engine.
+- Learn about [cks-runtime](ecosystem/cks-runtime/README.md) sessions and version history.
+- Read the [Architecture](ecosystem/cks-mcp/docs/architecture/ARCHITECTURE.md) and
+  [Security Model](ecosystem/cks-mcp/docs/security.md) of the MCP server.
+- Set up [cks-studio](ecosystem/cks-studio/README.md) for a visual,
   browser-based workspace on top of the same backend.
 
 ---
