@@ -23,11 +23,11 @@ CKS Website completes the CKS toolchain:
 
 | Project | Description | Repository |
 |---------|-------------|------------|
-| **cks-core** | Canonical semantic engine – the single source of canonical truth. | [PunctumActus/cks-core](https://github.com/PunctumActus/cks-core) |
-| **cks-runtime** | Operational environment – sessions, transactions, persistence. | [PunctumActus/cks-runtime](https://github.com/PunctumActus/cks-runtime) |
-| **cks-mcp** | MCP server – exposes CKS to LLMs and autonomous agents. | [PunctumActus/cks-mcp](https://github.com/PunctumActus/cks-mcp) |
-| **cks-studio** | Visual workspace – explore, monitor, and manage graphs. | [PunctumActus/cks-studio](https://github.com/PunctumActus/cks-studio) |
-| **cks-website** | Documentation & demo site. | [PunctumActus/cks-website](https://github.com/PunctumActus/cks-website) |
+| **cks-core** | Canonical semantic engine – the single source of canonical truth. | [cks-core](https://github.com/PunctumActus/cks-core) |
+| **cks-runtime** | Operational environment – sessions, transactions, persistence. | [cks-runtime](https://github.com/PunctumActus/cks-runtime) |
+| **cks-mcp** | MCP server – exposes CKS to LLMs and autonomous agents. | [cks-mcp](https://github.com/PunctumActus/cks-mcp) |
+| **cks-studio** | Visual workspace – explore, monitor, and manage graphs. | [cks-studio](https://github.com/PunctumActus/cks-studio) |
+| **cks-website** | Documentation & demo site. | [cks-website](https://github.com/PunctumActus/cks-website) |
 
 ---
 

@@ -1,0 +1,83 @@
+{
+  "_comment": "Config for scripts/sync-docs.py. dest paths are relative to the cks-website repo root. Adjust include/exclude/dest per source without touching the script itself.",
+
+  "remove_orphaned": true,
+
+  "protected": [
+    "src/content/docs/index.mdx",
+    "src/content/docs/faq.md",
+    "src/content/docs/quickstart.md",
+    "src/content/docs/demo.md",
+    "src/content/docs/404.md",
+    "src/content/docs/case-studies/**"
+  ],
+
+  "sources": {
+    "cks-core": {
+      "repo": "cks-core",
+      "include": [
+        "README.md",
+        "CHANGELOG.md",
+        "ROADMAP.md",
+        "SECURITY.md",
+        "CONTRIBUTING.md",
+        "docs/**"
+      ],
+      "exclude": [
+        "docs/internal/**"
+      ],
+      "dest": "src/content/docs/ecosystem/cks-core"
+    },
+    "cks-runtime": {
+      "repo": "cks-runtime",
+      "include": [
+        "README.md",
+        "CHANGELOG.md",
+        "ROADMAP.md",
+        "SECURITY.md",
+        "CONTRIBUTING.md",
+        "docs/**"
+      ],
+      "exclude": [
+        "docs/internal/**"
+      ],
+      "dest": "src/content/docs/ecosystem/cks-runtime"
+    },
+    "cks-mcp": {
+      "repo": "cks-mcp",
+      "include": [
+        "README.md",
+        "CHANGELOG.md",
+        "ROADMAP.md",
+        "SECURITY.md",
+        "CONTRIBUTING.md",
+        "docs/**"
+      ],
+      "exclude": [
+        "docs/internal/**"
+      ],
+      "dest": "src/content/docs/ecosystem/cks-mcp"
+    },
+    "cks-studio": {
+      "repo": "cks-studio",
+      "include": [
+        "README.md",
+        "CHANGELOG.md",
+        "ROADMAP.md",
+        "SECURITY.md",
+        "CONTRIBUTING.md",
+        "docs/**"
+      ],
+      "exclude": [
+        "docs/internal/**",
+        "public/**",
+        "src/**",
+        ".github/**",
+        "package.json",
+        "package-lock.json",
+        "pyproject.toml"
+      ],
+      "dest": "src/content/docs/ecosystem/cks-studio"
+    }
+  }
+}

@@ -1,0 +1,114 @@
+name: Sync Ecosystem Docs
+
+on:
+  workflow_dispatch: {}
+  schedule:
+    # Nightly at 04:00 UTC, an hour after cks-mcp's ecosystem integration
+    # smoke test (0 3 * * *), so a sync always runs against code that's
+    # already known-good for that night. Always pulls `main` of each
+    # source repo, and only commits when synced content actually changed
+    # (see scripts/sync-docs.py), so a schedule run with nothing new
+    # upstream is a no-op. To disable: remove/comment out this `schedule:`
+    # block, or disable the workflow from the repo's Actions tab.
+    # `workflow_dispatch` above is independent of this and always stays
+    # available for manual runs.
+    - cron: "0 4 * * *"
+
+permissions:
+  contents: write
+
+jobs:
+  sync-docs:
+    name: Sync ecosystem docs
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout cks-website (this repo)
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      - name: Checkout cks-core (main)
+        uses: actions/checkout@v4
+        with:
+          repository: punctumactus/cks-core
+          ref: main
+          path: cks-core
+
+      - name: Checkout cks-runtime (main)
+        uses: actions/checkout@v4
+        with:
+          repository: punctumactus/cks-runtime
+          ref: main
+          path: cks-runtime
+
+      - name: Checkout cks-mcp (main)
+        uses: actions/checkout@v4
+        with:
+          repository: punctumactus/cks-mcp
+          ref: main
+          path: cks-mcp
+
+      - name: Checkout cks-studio (main)
+        uses: actions/checkout@v4
+        with:
+          repository: punctumactus/cks-studio
+          ref: main
+          path: cks-studio
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+
+      - name: Run doc sync
+        # scripts/sync-docs.py defaults --repo-base to "..", i.e. the
+        # directory containing this checkout, which is exactly where the
+        # four `path:` checkouts above land under $GITHUB_WORKSPACE's
+        # parent. Stdlib-only, no extra install step needed.
+        working-directory: cks-website
+        run: python scripts/sync-docs.py
+
+      - name: Set up Node
+        uses: actions/setup-node@v4
+        with:
+          node-version: 20
+
+      - name: Install site dependencies
+        working-directory: cks-website
+        run: npm ci
+
+      - name: Build site
+        # Fail the job (and skip the commit/push steps below) if the sync
+        # produced content that breaks the Starlight build -- e.g. a
+        # missing/invalid frontmatter field sync-docs.py's own
+        # frontmatter injection didn't anticipate.
+        working-directory: cks-website
+        run: npm run build
+
+      - name: Configure git identity
+        working-directory: cks-website
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "github-actions[bot]@users.noreply.github.com"
+
+      - name: Commit synced docs
+        id: commit
+        working-directory: cks-website
+        run: |
+          git add src/content/docs/ecosystem
+          if git diff --cached --quiet; then
+            echo "No documentation changes to commit."
+            echo "changed=false" >> "$GITHUB_OUTPUT"
+          else
+            git commit -m "docs: sync ecosystem documentation"
+            echo "changed=true" >> "$GITHUB_OUTPUT"
+          fi
+
+      - name: Push
+        if: steps.commit.outputs.changed == 'true'
+        working-directory: cks-website
+        # Plain fast-forward push on the branch actions/checkout already
+        # has checked out (main) -- no force push, no history rewrite.
+        run: git push origin HEAD:${{ github.ref_name }}
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}

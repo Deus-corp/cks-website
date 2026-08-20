@@ -4,6 +4,22 @@ All notable changes to CKS Website will be documented in this file.
 
 ---
 
+## [0.2.0] - 2026-08-20
+
+### Added
+- **Automated documentation sync** – new `Sync Ecosystem Docs` GitHub Actions workflow and `scripts/sync-docs.py` that synchronize documentation from `cks-core`, `cks-runtime`, `cks-mcp`, and `cks-studio` into `src/content/docs/ecosystem/`.
+- Manual sync triggers via `workflow_dispatch`, plus an optional nightly schedule.
+- `docs-sync.config.json` for source/destination mappings, protected paths, exclude rules, and orphan handling.
+
+### Changed
+- Initial synchronized ecosystem documentation is now available under `src/content/docs/ecosystem/`.
+- Website-specific curated pages remain unchanged.
+
+### Notes
+- The sync is idempotent and only creates a commit when upstream content changes.
+
+---
+
 ## [0.1.6] - 2026-08-14
 
 ### Fixed
